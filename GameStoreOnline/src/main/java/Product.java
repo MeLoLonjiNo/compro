@@ -9,5 +9,5 @@
  * @author 66800
  */
 public class Product {
-    
+    private String productCode;
 }
