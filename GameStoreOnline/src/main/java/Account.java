@@ -11,7 +11,7 @@ public class Account extends Person{
         super(name, address, dateOfBirth, email, phone);
         this.userID = userID;
         this.password = password;
-        this.accountStatus = AccountStatus.customer;
+        this.accountStatus = AccountStatus.cm;
     }
 
     public Account(Person person, String name, String address, Date dateOfBirth, String email, String phone) {
