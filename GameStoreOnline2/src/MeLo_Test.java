@@ -9,7 +9,7 @@ public class MeLo_Test {
         store.addProduct(pd01);
         store.addProduct(pd02);
         store.addProduct(pd03);
-        
+        store.addProduct(pd01);
         store.viewShop();
     }
 }
