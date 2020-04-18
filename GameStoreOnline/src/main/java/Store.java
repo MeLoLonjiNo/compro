@@ -1,13 +1,23 @@
 
 public class Store implements CustomerService{
     private String storeName;
-    private Product product[];
+    private Product store[];
     private AdminAccount admin[];
     private CustomerAccount customer[];
+    private int count;
 
+    public void addProduct(Product pd){
+        for (int i = 0; i < store.length; i++) {
+            if(store[i]!=null){ this.store[i]=pd; }
+        }
+        
+    }
+    
     @Override
     public String viewShop() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < store.length ; i++) {
+            System.out.println("No."+(i+1 )+store[i].toString());
+        }return "_______________________________________";
     }
 
     @Override
@@ -39,4 +49,7 @@ public class Store implements CustomerService{
     public boolean register() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    
 }
