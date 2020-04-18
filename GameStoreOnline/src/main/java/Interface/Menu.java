@@ -3,7 +3,7 @@ package Interface;
 
 import java.util.Scanner;
 
-public class AdminMenu {
+public class Menu {
     public static int menu() {
         System.out.println("<<Main Admin Menu>>");
         System.out.println("1. Add Product");
