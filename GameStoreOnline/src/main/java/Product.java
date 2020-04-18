@@ -56,10 +56,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return  "Product Code : " + productCode +
-                "Product Name : " + productName +
-                "Description : " + description +
-                "Price : " + price +
+        return  "Product Code : " + productCode + 
+                "Product Name : " + productName + 
+                "Description : " + description + 
+                "Price : " + price + 
                 "Product Status : " + productStatus;
     }
     
