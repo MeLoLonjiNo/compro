@@ -3,24 +3,24 @@ public class AdminAccount{
     
     private Account account;
     
-    void addProduct(){
-    
+    String addProduct(){
+        return null;
     }
     
-    void removeProduct(){
-    
+    String removeProduct(){
+        return null;
     }
     
-    void banCustomer (){
-    
+    String banCustomer (){
+        return null;
     }
     
-    void addMoney(){
-    
+    String addMoney(){
+        return null;
     }
     
-    void addAdmin(String userID){
-       
+    String addAdmin(String userID){
+       return null;
     }
     
 }
