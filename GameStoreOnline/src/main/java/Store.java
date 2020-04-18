@@ -1,16 +1,21 @@
 
 public class Store implements CustomerService{
     private String storeName;
-    private Product store[];
-    private AdminAccount admin[];
-    private CustomerAccount customer[];
+    private Product[] store;
+    private AdminAccount[] admin;
+    private CustomerAccount[] customer;
     private int count;
 
     public void addProduct(Product pd){
-        for (int i = 0; i < store.length; i++) {
-            if(store[i]!=null){ this.store[i]=pd; }
+        for (int i = 0; i<store.length; i++) {
+            if(store[i]!=null){
+                this.count=i;
+            }
         }
         
+//        for (int i = 0; i < store.length; i++) {
+//            if(store[i]!=null){ this.store[i]=pd; }
+//        }
     }
     
     @Override
