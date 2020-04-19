@@ -10,26 +10,34 @@ public class Store implements CustomerService,AdminService{
         this.store = new Product[maxCapacity];
         
     }
-    
+    //---------------------------------------------------------------------------------------------------------------------------------------------//
     @Override
     public void viewShop() {
+        //Array.short(store,new Sortbyroll());
         for (int i = 0; i < store.length ; i++) {
             System.out.println("No."+(i+1)+""+store[i]);
         }
     }
 
     @Override
-    public String addToCart() {
+    public void addToCart(String productCode) {
+        for (int i = 0; i < store.length; i++) {
+            if(productCode==store[i].getProductCode()){
+                Product pd = store[i];
+                CustomerAccount.addToCart(pd);
+               
+                    
+            }
+        }
+    }
+
+    @Override
+    public void removeFromCart() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String removeFromCart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String buy() {
+    public void buy() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,7 +47,7 @@ public class Store implements CustomerService,AdminService{
     }
 
     @Override
-    public String checkCart() {
+    public void checkCart() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -47,12 +55,9 @@ public class Store implements CustomerService,AdminService{
     public boolean register() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public String toString() {
-        return "Store{" + "store=" + store + '}';
-    }
-
+    
+    //---------------------------------------------------------------------------------------------------------------------------------------------//
+    
     @Override
     public void addProduct(Product pd) {
         for (int i = 0; i<store.length; i++) {
@@ -90,7 +95,10 @@ public class Store implements CustomerService,AdminService{
     public String addAdmin() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+    //---------------------------------------------------------------------------------------------------------------------------------------------//
+    @Override
+    public String toString() {
+        return "Store{" + "store=" + store + '}';
+    }
     
 }

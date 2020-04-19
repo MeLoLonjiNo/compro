@@ -1,10 +1,10 @@
 
 public interface CustomerService {
     public void viewShop();
-    public String addToCart();
-    public String removeFromCart();
-    public String buy();
+    public void addToCart(String productCode);
+    public void removeFromCart();
+    public void buy();
     public int checkMoney();
-    public String checkCart();
+    public void checkCart();
     public boolean register();
 }

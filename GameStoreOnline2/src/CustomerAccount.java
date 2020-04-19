@@ -1,18 +1,28 @@
 
 public class CustomerAccount {
+
+    
     private Account account;
-    private Product productInCart[];
+    static private Product[] productInCart;
     private int money;
     //private History history[];
     private Product storage[];
     
+    public CustomerAccount() {
+        this.productInCart = new Product[20];
+        
+    }
 //    void viewShop(){
 //        
 //    }
 //    
-//    void addToCart(){
-//    
-//    }
+    static void addToCart(Product product) {
+        for (int i = 0; i < productInCart.length ; i++) {
+            if(productInCart[i]!=null){
+                productInCart[i]=product;
+            }
+        }
+    }
 //    
 //    void removeFromCart(){
 //    
