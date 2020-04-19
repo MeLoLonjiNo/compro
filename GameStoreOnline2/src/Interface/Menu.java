@@ -57,4 +57,41 @@ public class Menu {
             }
         } while (choice != 7);
     }
+
+//          เผื่อได้ใช้ เป็นหน้าระบบ
+//    public static int gameStore() {
+//    System.out.println("<<Game Store Online>>");
+//        System.out.println("1. Register");
+//        System.out.println("2. Sign-In");
+//        System.out.println("3. Exit");
+//        System.out.print("Enter Your Number[1-3]: ");
+//        int selected = sc.nextInt();
+//        sc.nextLine();
+//        return selected;
+//    }
+//    
+//    public static void main(String[] args) {
+//        int number = 0;
+//        do {
+//            number = gameStore();
+//            switch (number) {
+//                case 1:
+//                    System.out.println("1");
+//                    //newClub();
+//                    break;
+//                case 2:
+//                    System.out.println("2");
+//                    //subscribe();
+//                    break;
+//                case 3:
+//                    System.out.println("Exit");
+//                    //newClub();
+//                    break;
+//                
+//                default:
+//                    System.out.println("Invalid choice, please select 1-2 ONLY");
+//            }
+//        } while (number != 3);
+//     }
 }
+
