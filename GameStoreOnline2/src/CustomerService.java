@@ -1,6 +1,6 @@
 
 public interface CustomerService {
-    public String viewShop();
+    public void viewShop();
     public String addToCart();
     public String removeFromCart();
     public String buy();

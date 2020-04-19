@@ -1,6 +1,6 @@
 
     public interface AdminService {
-        public String addProduct();
+        public void addProduct(Product pd);
         public String removeProduct();
         public String banCustomer();
         public String unBanCustomer();

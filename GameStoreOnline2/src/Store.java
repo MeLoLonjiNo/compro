@@ -1,5 +1,5 @@
 
-public class Store implements CustomerService{
+public class Store implements CustomerService,AdminService{
     private String storeName;
     private Product[] store;
     private AdminAccount[] admin;
@@ -11,23 +11,11 @@ public class Store implements CustomerService{
         
     }
     
-    public void addProduct(Product pd){
-        for (int i = 0; i<store.length; i++) {
-            if(store[i]!=null){
-                this.count=i;
-            }
-        }
-        this.store[count+1]=pd;
-//        for (int i = 0; i < store.length; i++) {
-//            if(store[i]!=null){ this.store[i]=pd; }
-//        }
-    }
-    
     @Override
-    public String viewShop() {
+    public void viewShop() {
         for (int i = 0; i < store.length ; i++) {
             System.out.println("No."+(i+1)+""+store[i]);
-        }return "_______________________________________";
+        }
     }
 
     @Override
@@ -63,6 +51,44 @@ public class Store implements CustomerService{
     @Override
     public String toString() {
         return "Store{" + "store=" + store + '}';
+    }
+
+    @Override
+    public void addProduct(Product pd) {
+        for (int i = 0; i<store.length; i++) {
+            if(store[i]!=null){
+                this.count=i;
+            }
+        }
+        this.store[count+1]=pd;
+//        for (int i = 0; i < store.length; i++) {
+//            if(store[i]!=null){ this.store[i]=pd; }
+//        }
+    }
+
+    @Override
+    public String removeProduct() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String banCustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String unBanCustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String addMoney() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String addAdmin() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
