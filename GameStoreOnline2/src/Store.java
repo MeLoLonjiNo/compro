@@ -7,9 +7,10 @@ public class Store implements CustomerService,AdminService{
 
     public Store(int maxCapacity) {
         this.store = new Product[maxCapacity];
-        
     }
+    
     //---------------------------------------------------------------------------------------------------------------------------------------------//
+    
     @Override
     public void viewShop() {
         //Array.short(store,new Sortbyroll());
@@ -22,12 +23,12 @@ public class Store implements CustomerService,AdminService{
     }
 
     @Override
-    public void addToCart(String productCode) {
+    public void addToCart(String pdc) { 
         for (int i = 0; i < store.length; i++) {
-            if(productCode.equalsIgnoreCase(store[i].getProductCode())){
+            if(pdc.equals(store[i].getProductCode())){
                 Product pd = store[i];
-                CustomerAccount.addToCart(pd);     
-            }
+                CustomerAccount.addToCart(pd);
+            }break;
         }
     }
 

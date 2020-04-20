@@ -1,5 +1,5 @@
 
-public class CustomerAccount {
+public class CustomerAccount{
     
     private Account account;
     static private Product[] productInCart;
@@ -21,7 +21,7 @@ public class CustomerAccount {
 //    
     static void addToCart(Product pd) {
         for (int j = 0; j < productInCart.length ; j++) {
-            if(productInCart[j]!=null){
+            if(productInCart[j]==null){
                 productInCart[j]=pd;
                 break;
             }
@@ -41,6 +41,7 @@ public class CustomerAccount {
 //    }
 //    
     static void checkCart(){
+        System.out.println("--- Your Product In Cart ---");
         for (int i = 0; i < productInCart.length ; i++) {
             if(productInCart[i]!=null){
                 System.out.println("No."+(i+1)+" "+productInCart[i]);
