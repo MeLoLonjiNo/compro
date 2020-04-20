@@ -26,9 +26,7 @@ public class Store implements CustomerService,AdminService{
         for (int i = 0; i < store.length; i++) {
             if(productCode==store[i].getProductCode()){
                 Product pd = store[i];
-                CustomerAccount.addToCart(pd);
-               
-                    
+                CustomerAccount.addToCart(pd);     
             }
         }
     }
@@ -50,7 +48,7 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void checkCart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CustomerAccount.checkCart();
     }
 
     @Override

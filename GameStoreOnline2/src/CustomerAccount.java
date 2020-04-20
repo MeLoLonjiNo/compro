@@ -1,6 +1,5 @@
 
 public class CustomerAccount {
-
     
     private Account account;
     static private Product[] productInCart;
@@ -37,9 +36,13 @@ public class CustomerAccount {
 //    
 //    }
 //    
-//    String checkCart(){
-//    
-//    }
+    static void checkCart(){
+        for (int i = 0; i < productInCart.length ; i++) {
+            if(productInCart[i]!=null){
+                System.out.println("No."+(i+1)+" "+productInCart[i]);
+            }
+        }
+    }
 //    
 //    boolean register(){
 //    
