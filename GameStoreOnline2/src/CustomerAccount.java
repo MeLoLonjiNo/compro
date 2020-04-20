@@ -11,14 +11,18 @@ public class CustomerAccount {
         this.productInCart = new Product[20];
         
     }
+    
+    static void eX(int i){
+        CustomerAccount.productInCart = new Product[20];
+    }
 //    void viewShop(){
 //        
 //    }
 //    
-    static void addToCart(Product product) {
-        for (int i = 0; i < productInCart.length ; i++) {
-            if(productInCart[i]!=null){
-                productInCart[i]=product;
+    static void addToCart(Product pd) {
+        for (int j = 0; j < productInCart.length ; j++) {
+            if(productInCart[j]!=null){
+                productInCart[j]=pd;
                 break;
             }
         }

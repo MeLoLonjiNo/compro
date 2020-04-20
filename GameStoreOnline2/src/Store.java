@@ -24,7 +24,7 @@ public class Store implements CustomerService,AdminService{
     @Override
     public void addToCart(String productCode) {
         for (int i = 0; i < store.length; i++) {
-            if(productCode==store[i].getProductCode()){
+            if(productCode.equalsIgnoreCase(store[i].getProductCode())){
                 Product pd = store[i];
                 CustomerAccount.addToCart(pd);     
             }
