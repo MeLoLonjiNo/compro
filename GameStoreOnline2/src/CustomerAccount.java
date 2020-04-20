@@ -20,6 +20,7 @@ public class CustomerAccount {
         for (int i = 0; i < productInCart.length ; i++) {
             if(productInCart[i]!=null){
                 productInCart[i]=product;
+                break;
             }
         }
     }
