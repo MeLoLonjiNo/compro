@@ -75,8 +75,15 @@ public class Store implements CustomerService,AdminService{
     }
 
     @Override
-    public String removeProduct() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeProduct(Product pd){
+        for (int i = 0; i<store.length; i++) {
+            if(store[i]==null){
+                this.count=i;
+                break;
+            }
+        }
+        this.store[count]=pd;;
+    }
     }
 
     @Override
