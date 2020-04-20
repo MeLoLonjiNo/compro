@@ -4,7 +4,6 @@ public class Store implements CustomerService,AdminService{
     private Product[] store;
     private AdminAccount[] admin;
     private CustomerAccount[] customer;
-    private int count;
 
     public Store(int maxCapacity) {
         this.store = new Product[maxCapacity];
@@ -16,7 +15,8 @@ public class Store implements CustomerService,AdminService{
         //Array.short(store,new Sortbyroll());
         for (int i = 0; i < store.length ; i++) {
             if(store[i]!=null){
-            System.out.println("No."+(i+1)+" "+store[i]);
+            System.out.println(store[i]);
+            //System.out.println("No."+(i+1)+" "+store[i]);
             }
         }
     }
@@ -60,9 +60,10 @@ public class Store implements CustomerService,AdminService{
     
     @Override
     public void addProduct(Product pd) {
+        int count = 0;
         for (int i = 0; i<store.length; i++) {
             if(store[i]==null){
-                this.count=i;
+                count = i;
                 break;
             }
         }
@@ -74,14 +75,14 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void removeProduct(Product pd){
+        int count = 0;
         for (int i = 0; i<store.length; i++) {
-            if(store[i]==null){
-                this.count=i;
+            if(store[i]==pd){
+                count = i;
                 break;
             }
         }
-        this.store[count]=pd;;
-    }
+        this.store[count]=null;
     }
 
     @Override

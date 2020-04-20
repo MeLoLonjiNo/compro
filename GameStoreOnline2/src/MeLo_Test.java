@@ -10,6 +10,8 @@ public class MeLo_Test {
         store.addProduct(pd02);
         store.addProduct(pd03);
         store.addProduct(pd01);
+        store.removeProduct(pd03);
         store.viewShop();
+        
     }
 }
