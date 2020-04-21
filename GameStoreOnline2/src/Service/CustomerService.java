@@ -1,3 +1,5 @@
+package Service;
+
 
 public interface CustomerService {
     public void viewShop();

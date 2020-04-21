@@ -1,4 +1,9 @@
 
+import Service.Store;
+import Product.Product;
+import Account.CustomerAccount;
+
+
 public class MeLo_Test {
     public static void main(String[] args) {
         Store store = new Store(10);
@@ -14,8 +19,6 @@ public class MeLo_Test {
         store.addProduct(pd04);
 //        store.removeProduct(pd03);
         store.viewShop();
-        
-        
         store.addToCart("pd01");
         //c1.addToCart(pd01);
 //        store.addToCart("pd04");

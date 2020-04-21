@@ -1,3 +1,8 @@
+package Service;
+
+
+import Product.Product;
+
 
     public interface AdminService {
         public void addProduct(Product pd);

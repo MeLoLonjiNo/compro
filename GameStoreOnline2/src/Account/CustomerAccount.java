@@ -1,3 +1,7 @@
+package Account;
+
+import Product.Product;
+
 
 public class CustomerAccount{
     
@@ -11,6 +15,8 @@ public class CustomerAccount{
         this.productInCart = new Product[20];
         
     }
+    
+    
     
     static void eX(int i){
         CustomerAccount.productInCart = new Product[20];

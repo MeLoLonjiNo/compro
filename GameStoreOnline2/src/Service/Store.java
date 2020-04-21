@@ -1,13 +1,46 @@
+package Service;
+
+
+import Service.AdminService;
+import Service.CustomerService;
+import Product.Product;
+import Account.CustomerAccount;
+import Account.AdminAccount;
+
 
 public class Store implements CustomerService,AdminService{
     private String storeName;
     private Product[] store;
     private AdminAccount[] admin;
     private CustomerAccount[] customer;
+    private int countCustomer;
+    private int countProduct;
 
     public Store(int maxCapacity) {
         this.store = new Product[maxCapacity];
     }
+    
+    public int getCustomerIndex(CustomerAccount customer) {
+        for (int i = 0; i < countCustomer; i++) {
+            if (this.customer[i].equals(customer)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public int getProductIndex(Product productStore){
+        for (int i = 0; i < countProduct; i++) {
+            if(store[i].equals(productStore)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
+    
+    
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
@@ -27,7 +60,7 @@ public class Store implements CustomerService,AdminService{
         for (int i = 0; i < store.length; i++) {
             if(pdc.equals(store[i].getProductCode())){
                 Product pd = store[i];
-                CustomerAccount.addToCart(pd);
+                
             }break;
         }
     }
@@ -49,7 +82,7 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void checkCart() {
-        CustomerAccount.checkCart();
+        
     }
 
     @Override
