@@ -1,62 +1,41 @@
 package Account;
 
+import Person.Person;
 import Product.Product;
 
 
-public class CustomerAccount{
+public class CustomerAccount extends  Account{
     
-    private Account account;
-    static private Product[] productInCart;
+    private Product[] productInCart;
     private int money;
     //private History history[];
     private Product storage[];
     
-    public CustomerAccount() {
-        this.productInCart = new Product[20];
-        
+    public CustomerAccount(Account account) {
+        super(account);
+        productInCart = new Product[100];
+        storage = new Product[100];
     }
     
-    
-    
-    static void eX(int i){
-        CustomerAccount.productInCart = new Product[20];
+    public CustomerAccount(String id , String password , Person person){
+        super(id, password, person);
+        productInCart = new Product[20];
+        storage = new Product[20];
     }
-//    void viewShop(){
-//        
-//    }
-//    
-    static void addToCart(Product pd) {
-        for (int j = 0; j < productInCart.length ; j++) {
-            if(productInCart[j]==null){
-                productInCart[j]=pd;
+    
+    boolean addProductToChart(Product addingProduct){
+        if(addingProduct==null){ return false; }
+        for (int i = 0; i < productInCart.length; i++) {
+            if(productInCart[i]==null){
+                productInCart[i] = addingProduct;
                 break;
             }
         }
+        return true;
     }
-//    
-//    void removeFromCart(){
-//    
-//    }
-//    
-//    void buy(){
-//    
-//    }
-//    
-//    int checkMoney(){
-//    
-//    }
-//    
-    static void checkCart(){
-        System.out.println("--- Your Product In Cart ---");
-        for (int i = 0; i < productInCart.length ; i++) {
-            if(productInCart[i]!=null){
-                System.out.println("No."+(i+1)+" "+productInCart[i]);
-            }
-        }
+    
+    int getProductInCartIndex(){
+        
     }
-//    
-//    boolean register(){
-//    
-//    }
-//    
+    
 }
