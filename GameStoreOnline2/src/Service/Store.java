@@ -39,7 +39,15 @@ public class Store implements CustomerService,AdminService{
         return -1;
     }
     
-    
+    public Product codeToObject(String pdc){
+        if(pdc == null) {return null;}
+        for (int i = 0; i < store.length; i++) {
+            if (pdc.equals(store[i].getProductCode())){
+                return store[i];
+            }break;
+        }
+        return null;
+    }
     
     
     
@@ -47,23 +55,20 @@ public class Store implements CustomerService,AdminService{
     
     @Override
     public void viewShop() {
-        //Array.short(store,new Sortbyroll());
+        System.out.println("***** Welcome to ReZoNance Game Store Shop *****");
         for (int i = 0; i < store.length ; i++) {
             if(store[i]!=null){
             System.out.println(store[i]);
-                System.out.println("");
-            //System.out.println("No."+(i+1)+" "+store[i]);
             }
         }
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
 
     @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
-        for (int i = 0; i < store.length; i++) {
-            if (pdc.equalsIgnoreCase(store[i].getProductCode())) {
-                
-            }
-        }
+        int customerIndex = getCustomerIndex(customer);
+        int productIndex = getProductIndex(codeToObject(pdc));
+        this.customer[customerIndex].addProductToChart(store[productIndex]);
     }
 
     @Override
