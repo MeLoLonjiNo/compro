@@ -1,9 +1,30 @@
 
 package Interface;
 
+
+import Account.AdminAccount;
+import Account.CustomerAccount;
+import Product.Product;
+import Person.Person;
+import Service.Store;
 import java.util.Scanner;
 
-public class Menu {
+public class GameStoreService {
+    private CustomerAccount ctac;
+    private AdminAccount adac;
+    private Product games[];
+    private Store store;
+    public static Scanner sc = new Scanner(System.in);
+    
+//    public static int store() {
+//        System.out.println("1.Buy Game");
+//        System.out.println("2.View Game in Cart");
+//        System.out.println("3.Remove Game in Cart");
+//        System.out.println("");
+//        int selected = sc.nextInt();
+//        sc.nextLine();
+//        return selected;
+//    }
     public static int menu() {
         System.out.println("<<Main Admin Menu>>");
         System.out.println("1. Add Product");
@@ -18,7 +39,7 @@ public class Menu {
         sc.nextLine();
         return selected;
     }
-    public static Scanner sc = new Scanner(System.in);
+    
     public static void main(String[] args) {
         int choice = 0;
         do {
