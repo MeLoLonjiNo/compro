@@ -96,6 +96,8 @@ public class CustomerAccount extends  Account{
         return storage;
     }
     
-    
+    void setAccountSatus (AccountStatus status){
+        super.setAccountStatus(status);
+    }
     
 }

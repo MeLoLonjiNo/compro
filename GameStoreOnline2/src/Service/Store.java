@@ -1,6 +1,7 @@
 package Service;
 
 
+import Account.AccountStatus;
 import Service.AdminService;
 import Service.CustomerService;
 import Product.Product;
@@ -50,18 +51,18 @@ public class Store implements CustomerService,AdminService{
         for (int i = 0; i < store.length ; i++) {
             if(store[i]!=null){
             System.out.println(store[i]);
+                System.out.println("");
             //System.out.println("No."+(i+1)+" "+store[i]);
             }
         }
     }
 
     @Override
-    public void addToCart(String pdc) { 
+    public void addToCart(CustomerAccount customer,String pdc) { 
         for (int i = 0; i < store.length; i++) {
-            if(pdc.equals(store[i].getProductCode())){
-                Product pd = store[i];
+            if (pdc.equalsIgnoreCase(store[i].getProductCode())) {
                 
-            }break;
+            }
         }
     }
 
@@ -120,13 +121,13 @@ public class Store implements CustomerService,AdminService{
     }
 
     @Override
-    public void banCustomer(CustomerAccount id) {
-           ;
+    public void banCustomer(CustomerAccount customerAccount) {
+        customerAccount.setAccountStatus(AccountStatus.ban);
     }
 
     @Override
-    public String unBanCustomer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void unBanCustomer(CustomerAccount customerAccount) {
+        customerAccount.setAccountStatus(AccountStatus.active);
     }
 
     @Override
