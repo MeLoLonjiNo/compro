@@ -23,12 +23,11 @@ public class MeLo_Test {
         store.addProduct(pd04);
         //store.removeProduct(pd03);
         store.viewShop();
-        //store.addToCart(MeLo, "PD01");
+        store.addToCart(MeLo, "PD01");
+        //store.addToCart(MeLo,pd04);
         //MeLo.addProductToChart(pd01);
         //MeLo.addProductToChart(pd02);
         MeLo.checkProductInCart();
-//        c1.addToCart(pd01);
-//        store.addToCart("pd04");
 //        store.checkCart();
 
     }

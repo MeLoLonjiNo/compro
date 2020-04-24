@@ -49,7 +49,11 @@ public class Store implements CustomerService,AdminService{
         return null;
     }
     
-    
+    public void addToCart(CustomerAccount customer,Product addingProduct) { 
+       // int customerIndex = getCustomerIndex(customer);
+        //int productIndex = getProductIndex(codeToObject(pdc));
+        customer.addProductToChart(addingProduct);
+    }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
@@ -66,9 +70,9 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
-        int customerIndex = getCustomerIndex(customer);
+        //int customerIndex = getCustomerIndex(customer);
         int productIndex = getProductIndex(codeToObject(pdc));
-        this.customer[customerIndex].addProductToChart(store[productIndex]);
+        customer.addProductToChart(codeToObject(pdc));
     }
 
     @Override
