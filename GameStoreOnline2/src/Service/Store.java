@@ -141,13 +141,8 @@ public class Store implements CustomerService,AdminService{
     }
 
     @Override
-    public String addMoney() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String addAdmin() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addMoney(CustomerAccount customerAccount,int money) {
+        
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     @Override
