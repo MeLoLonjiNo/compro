@@ -71,13 +71,13 @@ public class Store implements CustomerService,AdminService{
     @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
         //int customerIndex = getCustomerIndex(customer);
-        int productIndex = getProductIndex(codeToObject(pdc));
-        customer.addProductToChart(codeToObject(pdc));
+        //int productIndex = getProductIndex(codeToObject(pdc));
+        customer.addProductToCart(codeToObject(pdc));
     }
 
     @Override
-    public void removeFromCart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeFromCart(CustomerAccount customer,String pdc) {
+        customer.deleteProductInCart(countProduct);
     }
 
     @Override

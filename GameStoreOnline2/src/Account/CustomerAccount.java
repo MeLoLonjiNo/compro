@@ -22,7 +22,7 @@ public class CustomerAccount extends  Account{
         storage = new Product[100];
     }
     
-    public void addProductToChart(Product addingProduct){
+    public void addProductToCart(Product addingProduct){
         
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i]==null){
@@ -32,7 +32,7 @@ public class CustomerAccount extends  Account{
         }
     }
     
-     public boolean deleteProductToChart(Product deletingProduct){
+     public boolean deleteProductInCart(Product deletingProduct){
         if(deletingProduct==null){ return false; }
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i].equals(deletingProduct)){
@@ -72,7 +72,7 @@ public class CustomerAccount extends  Account{
         return true;
     }
     
-     public boolean deleteProductToStorage(Product deletingProduct){
+     public boolean deleteProductInStorage(Product deletingProduct){
         if(deletingProduct==null){ return false; }
         for (int i = 0; i < storage.length; i++) {
             if(storage[i].equals(deletingProduct)){
