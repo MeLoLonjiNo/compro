@@ -23,9 +23,17 @@ public class MeLo_Test {
         store.addProduct(pd04);
         //store.removeProduct(pd03);
         store.viewShop();
-        store.addToCart(MeLo, "PD01");
+        store.addToCart(MeLo, pd01);
         store.addToCart(MeLo,pd04);
+        store.addToCart(MeLo, pd02);
+        store.addToCart(MeLo, pd03);
         store.checkCart(MeLo);
+        store.checkMoney(MeLo);
+        store.buy(MeLo, pd04);
+        store.buy(MeLo, pd01);
+        //store.buy(MeLo, pd02);
+        store.checkCart(MeLo);
+        store.checkStorage(MeLo);
         store.checkMoney(MeLo);
         //MeLo.addProductToChart(pd01);
         //MeLo.addProductToChart(pd02);

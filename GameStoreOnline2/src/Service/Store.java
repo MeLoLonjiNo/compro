@@ -82,13 +82,14 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
-        
+        customer.buy(buyingProduct);
     }
 
     @Override
     public void checkMoney(CustomerAccount customer) {
         System.out.println("***** Your Maintaining Money *****");
         System.out.println("Money : " + customer.getMoney());
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
 
     @Override
@@ -96,6 +97,11 @@ public class Store implements CustomerService,AdminService{
         customer.checkProductInCart();
     }
 
+    @Override
+    public void checkStorage(CustomerAccount customer) {
+        customer.checkProductInStorage();
+    }
+    
     @Override
     public boolean register() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -147,10 +153,12 @@ public class Store implements CustomerService,AdminService{
 //    
     @Override
     public void listCustomer(){
+        System.out.println("***** List of Customer *****");
         for (int i = 0;i < customer.length ; i++ )
             if(customer[i] != null){
                 System.out.println(customer[i]);
             }
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     @Override
