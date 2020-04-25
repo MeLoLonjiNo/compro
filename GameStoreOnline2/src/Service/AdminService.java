@@ -10,6 +10,5 @@ import Product.Product;
         public void removeProduct(Product pd);
         public void banCustomer(CustomerAccount customerAccount);
         public void unBanCustomer(CustomerAccount customerAccount);
-        public String addMoney();
-        public String addAdmin();
+        public void addMoney(CustomerAccount customerAccount,int money);
 }
