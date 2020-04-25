@@ -52,7 +52,7 @@ public class Store implements CustomerService,AdminService{
     public void addToCart(CustomerAccount customer,Product addingProduct) { 
        // int customerIndex = getCustomerIndex(customer);
         //int productIndex = getProductIndex(codeToObject(pdc));
-        customer.addProductToChart(addingProduct);
+        customer.addProductToCart(addingProduct);
     }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -77,7 +77,7 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void removeFromCart(CustomerAccount customer,String pdc) {
-        customer.deleteProductInCart(countProduct);
+        customer.deleteProductInCart(codeToObject(pdc));
     }
 
     @Override
