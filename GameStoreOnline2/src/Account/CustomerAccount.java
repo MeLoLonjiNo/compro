@@ -20,6 +20,7 @@ public class CustomerAccount extends  Account{
         super(id, password, person);
         productInCart = new Product[100];
         storage = new Product[100];
+        money = 2000;
     }
     
     public void addProductToCart(Product addingProduct){
@@ -90,12 +91,22 @@ public class CustomerAccount extends  Account{
         
      }
 
+    public void buy(CustomerAccount customer,Product buyingProduct){
+        addProductToStorage(buyingProduct);
+        deleteProductInStorage(buyingProduct);
+        
+    }
+    
     public Product[] getProductInCart() {
         return productInCart;
     }
 
     public int getMoney() {
         return money;
+    }
+    
+    public void getStringMoney() {
+        System.out.println("Meney : "+money); 
     }
 
     public Product[] getStorage() {

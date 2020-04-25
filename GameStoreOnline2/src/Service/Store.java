@@ -81,18 +81,19 @@ public class Store implements CustomerService,AdminService{
     }
 
     @Override
-    public void buy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int checkMoney() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void checkCart() {
+    public void buy(CustomerAccount customer,Product buyingProduct) {
         
+    }
+
+    @Override
+    public void checkMoney(CustomerAccount customer) {
+        System.out.println("***** Your Maintaining Money *****");
+        System.out.println("Money : " + customer.getMoney());
+    }
+
+    @Override
+    public void checkCart(CustomerAccount customer) {
+        customer.checkProductInCart();
     }
 
     @Override
