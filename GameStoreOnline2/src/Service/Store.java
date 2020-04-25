@@ -42,7 +42,7 @@ public class Store implements CustomerService,AdminService{
     public Product codeToObject(String pdc){
         if(pdc == null) {return null;}
         for (int i = 0; i < store.length; i++) {
-            if (pdc.equals(store[i].getProductCode())){
+            if (pdc.equalsIgnoreCase(store[i].getProductCode())){
                 return store[i];
             }break;
         }
@@ -83,6 +83,7 @@ public class Store implements CustomerService,AdminService{
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
         customer.buy(buyingProduct);
+        
     }
 
     @Override
