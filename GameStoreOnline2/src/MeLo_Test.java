@@ -29,9 +29,9 @@ public class MeLo_Test {
         store.addToCart(MeLo, pd03);
         store.checkCart(MeLo);
         store.checkMoney(MeLo);
-        store.buy(MeLo, pd04);
         store.buy(MeLo, pd01);
-        //store.buy(MeLo, pd02);
+        store.buy(MeLo, pd04);
+        store.buy(MeLo, pd02);
         store.checkCart(MeLo);
         store.checkStorage(MeLo);
         store.checkMoney(MeLo);

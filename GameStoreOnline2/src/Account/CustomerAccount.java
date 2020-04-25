@@ -38,11 +38,25 @@ public class CustomerAccount extends  Account{
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i].equals(deletingProduct)&&productInCart[i]!=null){
                 productInCart[i] = null ;
+                orderListPDC();
                 break;
             }
         }
         return true;
     }
+     
+     void orderListPDC(){
+         for (int i = 0; i < productInCart.length; i++) {
+             if(productInCart[i]==null&&productInCart[i+1]!=null){
+                 productInCart[i]=productInCart[i+1];
+                 productInCart[i+1]=null;
+                 
+             }
+             if(productInCart[i]==null&&productInCart[i+1]==null){
+                     break;
+                 }
+         }
+     }
     
     public int getProductInCartIndex(Product searchProductInCart){
         for (int i = 0; i < productInCart.length; i++) {
