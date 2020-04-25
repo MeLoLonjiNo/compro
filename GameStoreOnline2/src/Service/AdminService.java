@@ -11,4 +11,5 @@ import Product.Product;
         public void banCustomer(CustomerAccount customerAccount);
         public void unBanCustomer(CustomerAccount customerAccount);
         public void addMoney(CustomerAccount customerAccount,int money);
+        public void listCustomer();
 }

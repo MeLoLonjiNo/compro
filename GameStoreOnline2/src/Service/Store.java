@@ -143,6 +143,14 @@ public class Store implements CustomerService,AdminService{
     public void addMoney(CustomerAccount customerAccount,int money) {
         
     }
+    
+    @Override
+    public void listCustomer(){
+        for (int i = 0;i < customer.length ; i++ )
+            if(customer[i] != null){
+                System.out.println(customer[i]);
+            }
+    }
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     @Override
     public String toString() {
