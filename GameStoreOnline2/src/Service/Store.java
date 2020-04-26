@@ -12,14 +12,20 @@ import Account.AdminAccount;
 public class Store implements CustomerService,AdminService{
     private String storeName;
     private Product[] store;
-    private AdminAccount[] admin;
+    private AdminAccount admin;
     private CustomerAccount[] customer;
     private int countCustomer;
     private int countProduct;
+    
 
-    public Store(int maxCapacity) {
-        this.store = new Product[maxCapacity];
+    public Store(String storeName, AdminAccount admin) {
+        this.storeName = storeName;
+        this.store=new Product[10];
+        this.admin = admin;
+        this.customer = new CustomerAccount[10];
     }
+
+    
     
     public int getCustomerIndex(CustomerAccount customer) {
         for (int i = 0; i < countCustomer; i++) {
@@ -59,7 +65,7 @@ public class Store implements CustomerService,AdminService{
     
     @Override
     public void viewShop() {
-        System.out.println("***** Welcome to ReZoNance Game Store Shop *****");
+        System.out.println("***** Welcome to "+this.storeName.toString()+" Game Store Shop *****");
         for (int i = 0; i < store.length ; i++) {
             if(store[i]!=null){
             System.out.println(store[i]);
@@ -103,10 +109,10 @@ public class Store implements CustomerService,AdminService{
         customer.checkProductInStorage();
     }
     
-    @Override
-    public boolean register() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public boolean register() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
@@ -157,7 +163,7 @@ public class Store implements CustomerService,AdminService{
         System.out.println("***** List of Customer *****");
         for (int i = 0;i < customer.length ; i++ )
             if(customer[i] != null){
-                System.out.println(customer[i]);
+                System.out.println(customer[i].toString());
             }
         System.out.println("---------------------------------------------------------------------------------------------------");
     }

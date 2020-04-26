@@ -12,5 +12,5 @@ public interface CustomerService {
     public abstract void checkMoney(CustomerAccount customer);
     public abstract void checkCart(CustomerAccount customer);
     public abstract void checkStorage(CustomerAccount customer);
-    public abstract boolean register();
+    //public abstract boolean register();
 }

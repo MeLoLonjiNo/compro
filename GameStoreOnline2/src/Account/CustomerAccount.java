@@ -126,12 +126,16 @@ public class CustomerAccount extends  Account{
      }
 
     public void buy(Product buyingProduct){
-        
+        if(money<buyingProduct.getPrice()){
+            System.out.println("Your Money Is Not Enough !");
+            System.out.println("---------------------------------------------------------------------------------------------------");
+        }else{
         addProductToStorage(buyingProduct);
         deleteProductInCart(buyingProduct);
-        money=money-buyingProduct.getPrice();
-        System.out.println("Buying Success Thank You Boi !");
+        this.money=money-buyingProduct.getPrice();
+        System.out.println("Buying "+buyingProduct.getProductName()+" Success Thank You ");
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }
     }
     
     public Product[] getProductInCart() {
@@ -154,7 +158,9 @@ public class CustomerAccount extends  Account{
     void setAccountSatus (AccountStatus status){
         super.setAccountStatus(status);
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "CustomerAccount{" + "productInCart=" + productInCart + ", money=" + money + ", storage=" + storage + '}';
+    }
 }

@@ -1,4 +1,5 @@
 
+import Account.AdminAccount;
 import Service.Store;
 import Product.Product;
 import Account.CustomerAccount;
@@ -9,9 +10,15 @@ import java.time.LocalDateTime;
 
 public class MeLo_Test {
     public static void main(String[] args) {
-        Store store = new Store(10);
+        Person p0= new Person("Azeus", "The Land of God", LocalDate.of(1, 1, 1), "Azeus@mail.pokedex", "0123456789");
+        AdminAccount a1 = new AdminAccount("Azeus","10130" , p0);
+        Store store = new Store("PokeShop", a1);
         Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
         CustomerAccount MeLo=new CustomerAccount("MeLoLonJiNo","12345",p1);
+         Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
+        CustomerAccount Bal4ncez=new CustomerAccount("Bal4ncez","12345",p2);
+         Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
+        CustomerAccount Garnet_=new CustomerAccount("Garnet_","12345",p3);
         Product pd01 = new Product("PD01","Final Fantasy VII Remake","Game Form Square Enix",1000);
         Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
         Product pd03 = new Product("PD03","Dota2","GG game",0);
@@ -30,8 +37,9 @@ public class MeLo_Test {
         store.checkCart(MeLo);
         store.checkMoney(MeLo);
         store.buy(MeLo, pd01);
-        store.buy(MeLo, pd04);
         store.buy(MeLo, pd02);
+        store.buy(MeLo, pd04);
+        //store.buy(MeLo, pd03);
         store.checkCart(MeLo);
         store.checkStorage(MeLo);
         store.checkMoney(MeLo);
@@ -39,6 +47,7 @@ public class MeLo_Test {
         //MeLo.addProductToChart(pd02);
         //MeLo.checkProductInCart();
 //        store.checkCart();
-
+        //store.listCustomer();
+        
     }
 }

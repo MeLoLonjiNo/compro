@@ -1,34 +1,28 @@
 package Account;
 
+import Person.Person;
 import Product.Product;
 
 
-public class AdminAccount{
+public class AdminAccount extends Account{
     
     private Account account;
     
-    void addProduct(){
-        
+    public AdminAccount(Account account) {
+        super(account);
     }
     
-    void removeProduct(Product pd){
-        
+     public AdminAccount(String id , String password , Person person){
+        super(id, password, person);
+     }
+     
+    public Account getAccount() {
+        return account;
     }
-    
-    void banCustomer (CustomerAccount id){
-       
-    }
-    
-    void addMoney(){
-        ;
-    }
-    
-    void addAdmin(String userID){
-       ;
-    }
-    
-    void unBanCustomer(CustomerAccount id){
-    
+
+    @Override
+    public String toString() {
+        return "AdminAccount{" + "account=" + account + '}';
     }
     
 }
