@@ -23,6 +23,7 @@ public class CustomerAccount extends  Account{
         money = 2000;
     }
     
+    
     public void addProductToCart(Product addingProduct){
         
         for (int i = 0; i < productInCart.length; i++) {
@@ -157,6 +158,10 @@ public class CustomerAccount extends  Account{
     
     void setAccountSatus (AccountStatus status){
         super.setAccountStatus(status);
+    }
+    
+    public void addMoney(int addingMoney){
+        this.money=money+addingMoney;
     }
 
     @Override

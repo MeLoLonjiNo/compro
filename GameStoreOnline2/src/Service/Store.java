@@ -25,8 +25,6 @@ public class Store implements CustomerService,AdminService{
         this.customer = new CustomerAccount[10];
     }
 
-    
-    
     public int getCustomerIndex(CustomerAccount customer) {
         for (int i = 0; i < countCustomer; i++) {
             if (this.customer[i].equals(customer)) {
@@ -56,11 +54,9 @@ public class Store implements CustomerService,AdminService{
     }
     
     public void addToCart(CustomerAccount customer,Product addingProduct) { 
-       // int customerIndex = getCustomerIndex(customer);
-        //int productIndex = getProductIndex(codeToObject(pdc));
         customer.addProductToCart(addingProduct);
     }
-    
+   
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
     @Override
@@ -76,9 +72,8 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
-        //int customerIndex = getCustomerIndex(customer);
-        //int productIndex = getProductIndex(codeToObject(pdc));
-        customer.addProductToCart(codeToObject(pdc));
+        Product addingpdc = codeToObject(pdc);
+        customer.addProductToCart(addingpdc);
     }
 
     @Override
@@ -126,9 +121,7 @@ public class Store implements CustomerService,AdminService{
             }
         }
         this.store[count]=pd;
-//        for (int i = 0; i < store.length; i++) {
-//            if(store[i]!=null){ this.store[i]=pd; }
-//        }
+        this.countProduct++;
     }
 
     @Override
@@ -141,6 +134,7 @@ public class Store implements CustomerService,AdminService{
             }
         }
         this.store[count]=null;
+        this.countProduct--;
     }
 
     @Override
@@ -155,7 +149,7 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void addMoney(CustomerAccount customerAccount,int money) {
-        
+        customerAccount.addMoney(money);
     }
 //    
     @Override

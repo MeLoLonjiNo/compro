@@ -12,7 +12,7 @@ public class Product {
     private int price;
     private ProductStatus productStatus;
     private static final String BLUE = "\u001B[034m";
-
+    private static final String BLACK = "\u001B[030m";
     
     public Product (String productCode , String productName , String description , int price) {
         this.productCode = productCode;
@@ -66,7 +66,7 @@ public class Product {
     @Override
     public String toString() {
         return  "Product Code : " + productCode + 
-                "\nProduct Name : " + (productName + BLUE) +
+                "\nProduct Name : " +BLUE+productName  +BLACK+
                 "\nDescription : " + description + 
                 "\nPrice : " + price + 
                 "\nProduct Status : " + productStatus;

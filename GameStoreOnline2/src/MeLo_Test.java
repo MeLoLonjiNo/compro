@@ -28,7 +28,8 @@ public class MeLo_Test {
         store.addProduct(pd02);
         store.addProduct(pd03);
         store.addProduct(pd04);
-        //store.removeProduct(pd03);
+        store.removeProduct(pd03);
+        store.removeProduct(pd04);
         store.viewShop();
         store.addToCart(MeLo, "pd01");
         store.addToCart(MeLo,pd04);
@@ -42,6 +43,8 @@ public class MeLo_Test {
         //store.buy(MeLo, pd03);
         store.checkCart(MeLo);
         store.checkStorage(MeLo);
+        store.checkMoney(MeLo);
+        store.addMoney(MeLo, 1000);
         store.checkMoney(MeLo);
         //MeLo.addProductToChart(pd01);
         //MeLo.addProductToChart(pd02);
