@@ -1,14 +1,18 @@
 package Product;
 
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Objects;
 
 public class Product {
-    private final String productCode;
-    private final String productName;
-    private final String description;
-    private final int price;
-    private final ProductStatus productStatus;
+    private String productCode;
+    private String productName;
+    private String description;
+    private int price;
+    private ProductStatus productStatus;
+    private static final String BLUE = "\u001B[034m";
+
     
     public Product (String productCode , String productName , String description , int price) {
         this.productCode = productCode;
@@ -37,7 +41,10 @@ public class Product {
     public ProductStatus getProductStatus() {
         return productStatus;
     }
-
+    public void paint(Graphics g){
+    g.setColor (Color.blue);
+    g.drawString(productName, 120, 120);
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -59,10 +66,10 @@ public class Product {
     @Override
     public String toString() {
         return  "Product Code : " + productCode + 
-                "\n Product Name : " + productName + 
-                "\n Description : " + description + 
-                "\n Price : " + price + 
-                "\n Product Status : " + productStatus;
+                "\nProduct Name : " + (productName + BLUE) +
+                "\nDescription : " + description + 
+                "\nPrice : " + price + 
+                "\nProduct Status : " + productStatus;
     }
     
     
