@@ -128,13 +128,13 @@ public class CustomerAccount extends  Account{
     public void buy(Product buyingProduct){
         if(money<buyingProduct.getPrice()){
             System.out.println("Your Money Is Not Enough !");
-            System.out.println("---------------------------------------------------------------------------------------------------");
+            //System.out.println("---------------------------------------------------------------------------------------------------");
         }else{
         addProductToStorage(buyingProduct);
         deleteProductInCart(buyingProduct);
         this.money=money-buyingProduct.getPrice();
-        System.out.println("Buying "+buyingProduct.getProductName()+" Success Thank You ");
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
+        //System.out.println("---------------------------------------------------------------------------------------------------");
         }
     }
     

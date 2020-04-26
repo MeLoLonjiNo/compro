@@ -89,7 +89,7 @@ public class Store implements CustomerService,AdminService{
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
         customer.buy(buyingProduct);
-        
+        checkMoney(customer);
     }
 
     @Override

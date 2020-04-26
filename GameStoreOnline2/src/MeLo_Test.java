@@ -23,7 +23,7 @@ public class MeLo_Test {
         Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
         Product pd03 = new Product("PD03","Dota2","GG game",0);
         Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
-//        
+
         store.addProduct(pd01);
         store.addProduct(pd02);
         store.addProduct(pd03);
