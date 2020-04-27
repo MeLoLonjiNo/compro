@@ -44,12 +44,9 @@ public class MeLo_Test {
         store.checkCart(MeLo);
         store.checkStorage(MeLo);
         store.checkMoney(MeLo);
-<<<<<<< Updated upstream
         store.addMoney(MeLo, 1000);
         store.checkMoney(MeLo);
-=======
         store.listCustomer();
->>>>>>> Stashed changes
         //MeLo.addProductToChart(pd01);
         //MeLo.addProductToChart(pd02);
         //MeLo.checkProductInCart();
