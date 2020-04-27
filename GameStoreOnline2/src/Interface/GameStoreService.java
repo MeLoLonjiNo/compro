@@ -83,7 +83,7 @@ public class GameStoreService {
 //    public static int gameStore() {
 //    System.out.println("<<Game Store Online>>");
 //        System.out.println("1. Register");
-//        System.out.println("2. Sign-In");
+//        System.out.println("2. Log-In");
 //        System.out.println("3. Exit");
 //        System.out.print("Enter Your Number[1-3]: ");
 //        int selected = sc.nextInt();
@@ -98,7 +98,7 @@ public class GameStoreService {
 //            switch (number) {
 //                case 1:
 //                    System.out.println("1");
-//                    //newClub();
+//                    //register();
 //                    break;
 //                case 2:
 //                    System.out.println("2");
@@ -110,9 +110,21 @@ public class GameStoreService {
 //                    break;
 //                
 //                default:
-//                    System.out.println("Invalid choice, please select 1-2 ONLY");
+//                    System.out.println("Invalid choice, please select 1-3 ONLY");
 //            }
 //        } while (number != 3);
 //     }
+//     public static int register() {
+//    System.out.println("<<Register>>");
+//        String id;
+//        String password;
+//        System.out.println("Enter your ID : ");
+//        id = sc.nextLine();
+//        System.out.println("Enter your Password : ");
+//        password = sc.nextLine();
+//        System.out.println("ID : " + id + "\nPassword" + password);
+//        
+//        return 1;
+//    }
 }
 
