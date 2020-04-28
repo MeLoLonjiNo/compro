@@ -8,7 +8,6 @@ import Product.Product;
 import Account.CustomerAccount;
 import Account.AdminAccount;
 
-
 public class Store implements CustomerService,AdminService{
     private String storeName;
     private Product[] store;
@@ -17,12 +16,12 @@ public class Store implements CustomerService,AdminService{
     private int countCustomer;
     private int countProduct;
     
-
     public Store(String storeName, AdminAccount admin) {
         this.storeName = storeName;
         this.store=new Product[10];
         this.admin = admin;
         this.customer = new CustomerAccount[10];
+        this.countProduct=0;
     }
 
     public int getCustomerIndex(CustomerAccount customer) {
@@ -34,13 +33,27 @@ public class Store implements CustomerService,AdminService{
         return -1;
     }
     
-    public int getProductIndex(Product productStore){
+    public int getProductStoreIndex(Product productStore){
+        if(productStore != null){
         for (int i = 0; i < countProduct; i++) {
-            if(store[i].equals(productStore)){
+            if( store[i].equals(productStore)){
                 return i;
+                }
             }
         }
         return -1;
+    }
+    
+    public boolean haveProductInStore(Product checkProduct){
+            int i = getProductStoreIndex(checkProduct);
+            if(i==-1){return false;}
+            else{return true;} 
+    }
+    
+    public boolean haveProductInCart(CustomerAccount customer,Product checkProduct){
+            int i = customer.getProductInCartIndex(checkProduct);
+            if(i==-1){return false;}
+            else{return true;} 
     }
     
     public Product codeToObject(String pdc){
@@ -52,11 +65,27 @@ public class Store implements CustomerService,AdminService{
         }
         return null;
     }
-    
+ 
     public void addToCart(CustomerAccount customer,Product addingProduct) { 
-        customer.addProductToCart(addingProduct);
+        if(haveProductInStore(addingProduct)){
+            customer.addProductToCart(addingProduct);
+        }else {System.out.println("Sorry... Not Have "+addingProduct.getProductName()+" Product In Store.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
     }
    
+    void orderProductInStroe(){
+         for (int i = 0; i < store.length; i++) {
+             if(store[i]==null&&store[i+1]!=null){
+                 store[i]=store[i+1];
+                 store[i+1]=null;
+                 
+             }
+             if(store[i]==null&&store[i+1]==null){
+                     break;
+                 }
+         }
+     }
+    
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
     @Override
@@ -73,7 +102,10 @@ public class Store implements CustomerService,AdminService{
     @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
         Product addingpdc = codeToObject(pdc);
-        customer.addProductToCart(addingpdc);
+        if(haveProductInStore(addingpdc)){
+            customer.addProductToCart(addingpdc);
+        }else {System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
     }
 
     @Override
@@ -83,8 +115,11 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
-        customer.buy(buyingProduct);
-        checkMoney(customer);
+        if(haveProductInCart(customer,buyingProduct)){
+            customer.buy(buyingProduct);
+            checkMoney(customer);
+        }else {System.out.println("Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
     }
 
     @Override
@@ -113,29 +148,24 @@ public class Store implements CustomerService,AdminService{
     
     @Override
     public void addProduct(Product pd) {
-        int count = 0;
         for (int i = 0; i<store.length; i++) {
             if(store[i]==null){
-                count = i;
+                store[i]=pd;
                 break;
             }
         }
-        this.store[count]=pd;
         this.countProduct++;
     }
 
     @Override
     public void removeProduct(Product pd){
-        int count = 0;
-        for (int i = 0; i<store.length; i++) {
+        int i = getProductStoreIndex(pd);
             if(store[i]==pd){
-                count = i;
-                break;
+                store[i]=null;
+                orderProductInStroe();
             }
+            this.countProduct--;
         }
-        this.store[count]=null;
-        this.countProduct--;
-    }
 
     @Override
     public void banCustomer(CustomerAccount customerAccount) {
