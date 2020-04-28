@@ -24,6 +24,10 @@ public class Store implements CustomerService,AdminService{
         this.countProduct=0;
     }
 
+    public String getStoreName() {
+        return storeName;
+    }
+
     public int getCustomerIndex(CustomerAccount customer) {
         for (int i = 0; i < countCustomer; i++) {
             if (this.customer[i].equals(customer)) {
