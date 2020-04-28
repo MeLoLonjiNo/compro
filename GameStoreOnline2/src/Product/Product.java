@@ -15,11 +15,23 @@ public class Product {
     private static final String BLACK = "\u001B[030m";
     
     public Product (String productCode , String productName , String description , int price) {
+//       try {
+//        Objects.requireNonNull(productCode, "Don't give a null");
+//        Objects.requireNonNull(productName, "Don't give a null");
+//        Objects.requireNonNull(description, "Don't give a null");
+//        Objects.requireNonNull(price, "Don't give a null");
+        if(productCode!=null && productName!=null && description!=null){
         this.productCode = productCode;
         this.productName = productName;
         this.description = description;
         this.price = price;
-        this.productStatus = ProductStatus.onSale;
+        this.productStatus = ProductStatus.onSale; }
+//        else if(productCode==null || productName==null || description==null){
+//            System.out.println("Not Null");
+//        }
+//        } catch(Exception p) {
+//            System.out.println("Don't give a null");
+//        }
     }
 
     public String getProductCode() {
@@ -45,6 +57,7 @@ public class Product {
     g.setColor (Color.blue);
     g.drawString(productName, 120, 120);
     }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -71,8 +84,4 @@ public class Product {
                 "\nPrice : " + price + 
                 "\nProduct Status : " + productStatus;
     }
-    
-    
-    
-    
 }

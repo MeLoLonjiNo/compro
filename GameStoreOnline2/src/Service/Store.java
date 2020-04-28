@@ -112,25 +112,43 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
+        try{
         Product addingpdc = codeToObject(pdc);
-        if(haveProductInStore(addingpdc)){
-            customer.addProductToCart(addingpdc);
-        }else {System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+        if (addingpdc!=null){
+            if(haveProductInStore(addingpdc)){
+                customer.addProductToCart(addingpdc);
+            }else {System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
+        }
+        else {System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
+        }catch(NullPointerException n){
+            System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+            System.out.println("---------------------------------------------------------------------------------------------------");
+        }
     }
 
     @Override
     public void removeFromCart(CustomerAccount customer,String pdc) {
-        customer.deleteProductInCart(codeToObject(pdc));
+        try{
+            customer.deleteProductInCart(codeToObject(pdc));
+        }catch(NullPointerException n){
+            System.out.println("Not Have This Product In Your Cart.");
+            System.out.println("---------------------------------------------------------------------------------------------------");
+        }
     }
 
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
+        if(buyingProduct==null){System.out.println("Buying Product Must Be Not Null.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
         if(haveProductInCart(customer,buyingProduct)){
             customer.buy(buyingProduct);
             checkMoney(customer);
         }else {System.out.println("Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
+        }
     }
 
     @Override
