@@ -23,12 +23,27 @@ public class CustomerAccount extends  Account{
         money = 2000;
     }
     
+    public boolean haveProductInCart(Product checkProduct){
+            int i = getProductInCartIndex(checkProduct);
+            if(i==-1){return false;}
+            else{return true;} 
+    }
+    
+    public boolean haveProductInStorage(Product checkProduct){
+            int i = getProductInStorageIndex(checkProduct);
+            if(i==-1){return false;}
+            else{return true;} 
+    }
     
     public void addProductToCart(Product addingProduct){
+        if(haveProductInCart(addingProduct)){System.out.println("Sorry... "+addingProduct.getProductName()+" Has Been In Your Cart Yet.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i]==null){
                 productInCart[i] = addingProduct;
                 break;
+                }
             }
         }
     }
@@ -40,7 +55,8 @@ public class CustomerAccount extends  Account{
                 productInCart[i] = null ;
                 orderProductInCart();
             }
-        }else{System.out.println("Not Have This Product In Your Cart.");}
+        }else{System.out.println("Not Have This Product In Your Cart.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
     }
      
      void orderProductInCart(){
@@ -68,24 +84,28 @@ public class CustomerAccount extends  Account{
      }
     
     public int getProductInCartIndex(Product searchProductInCart){
+        if(searchProductInCart != null){
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i]!=null && searchProductInCart.equals(productInCart[i]) ){
                 return i;
+                }
             }
         }
         return -1;
     }
     
     public int getProductInStorageIndex(Product searchProductInStorage){
+        if(searchProductInStorage != null){
         for (int i = 0; i < storage.length; i++) {
             if(storage[i]!=null && searchProductInStorage.equals(storage[i]) ){
                 return i;
+                }
             }
         }
         return -1;
     }
     
-    public void checkProductInCart(){
+    public void getProductInCart(){
         System.out.println("***** Your Product In Cart *****");
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i]!=null){
@@ -106,15 +126,15 @@ public class CustomerAccount extends  Account{
         return true;
     }
     
-     public void deleteProductInStorage(Product deletingProduct){
-         int i = getProductInStorageIndex(deletingProduct);
-            if(storage[i].equals(deletingProduct)){
-                storage[i] = null ;
-                orderProductInStorage();
-            }
-    }
+//     public void deleteProductInStorage(Product deletingProduct){
+//         int i = getProductInStorageIndex(deletingProduct);
+//            if(storage[i].equals(deletingProduct)){
+//                storage[i] = null ;
+//                orderProductInStorage();
+//            }
+//    }
      
-     public void checkProductInStorage(){
+     public void getProductInStorage(){
         System.out.println("***** Your Product In Storage *****");
         for (int i = 0; i < storage.length; i++) {
             if(storage[i]!=null){
@@ -132,15 +152,20 @@ public class CustomerAccount extends  Account{
      }
 
     public void buy(Product buyingProduct){
+        if(haveProductInStorage(buyingProduct)){System.out.println("Sorry... "+buyingProduct.getProductName()+" Has In Your Store Yet.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
+        //if(buyingProduct != null){
         if(money<buyingProduct.getPrice()){
             System.out.println("Your Money Is Not Enough !");
-            //System.out.println("---------------------------------------------------------------------------------------------------");
         }else{
         addProductToStorage(buyingProduct);
         deleteProductInCart(buyingProduct);
         this.money=money-buyingProduct.getPrice();
         System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
-        //System.out.println("---------------------------------------------------------------------------------------------------");
+            }
+        //}else{System.out.println("Buying Product Must Noy Be Null");
+        //System.out.println("---------------------------------------------------------------------------------------------------");}
         }
     }
     
@@ -154,10 +179,6 @@ public class CustomerAccount extends  Account{
         }
         return -1;
     }
-    
-    public Product[] getProductInCart() {
-        return productInCart;
-    }
 
     public int getMoney() {
         return money;
@@ -167,12 +188,8 @@ public class CustomerAccount extends  Account{
         System.out.println("Meney : "+money);
         
     }
-
-    public Product[] getStorage() {
-        return storage;
-    }
     
-    void setAccountSatus (AccountStatus status){
+    public void setAccountSatus (AccountStatus status){
         super.setAccountStatus(status);
     }
     

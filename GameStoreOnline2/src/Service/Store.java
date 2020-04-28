@@ -29,9 +29,11 @@ public class Store implements CustomerService,AdminService{
     }
 
     public int getCustomerIndex(CustomerAccount customer) {
+        if(customer != null){
         for (int i = 0; i < countCustomer; i++) {
             if (this.customer[i].equals(customer)) {
                 return i;
+             }
             }
         }
         return -1;
@@ -62,12 +64,14 @@ public class Store implements CustomerService,AdminService{
     
     public Product codeToObject(String pdc){
         if(pdc == null) {return null;}
+        else{
         for (int i = 0; i < store.length; i++) {
             if (pdc.equalsIgnoreCase(store[i].getProductCode())){
                 return store[i];
-            }break;
+            }
         }
         return null;
+        }
     }
  
     public void addToCart(CustomerAccount customer,Product addingProduct) { 
@@ -76,13 +80,16 @@ public class Store implements CustomerService,AdminService{
         }else {System.out.println("Sorry... Not Have "+addingProduct.getProductName()+" Product In Store.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
     }
+    
+    public void removeFromCart(CustomerAccount customer,Product deletingProduct) {
+        customer.deleteProductInCart(deletingProduct);
+    }
    
-    void orderProductInStroe(){
+    public void orderProductInStroe(){
          for (int i = 0; i < store.length; i++) {
              if(store[i]==null&&store[i+1]!=null){
                  store[i]=store[i+1];
                  store[i+1]=null;
-                 
              }
              if(store[i]==null&&store[i+1]==null){
                      break;
@@ -135,40 +142,42 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void checkCart(CustomerAccount customer) {
-        customer.checkProductInCart();
+        customer.getProductInCart();
     }
 
     @Override
     public void checkStorage(CustomerAccount customer) {
-        customer.checkProductInStorage();
+        customer.getProductInStorage();
     }
-    
-//    @Override
-//    public boolean register() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-    
-    //---------------------------------------------------------------------------------------------------------------------------------------------//
+     
+    //---------------------------------------------------------------------------------------------------------------------------------------------// 
     
     @Override
     public void addProduct(Product pd) {
+        if(haveProductInStore(pd)){System.out.println("Sorry... Now Have This Product Already");
+         System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
         for (int i = 0; i<store.length; i++) {
             if(store[i]==null){
                 store[i]=pd;
                 break;
             }
         }
-        this.countProduct++;
+        this.countProduct++;}
     }
 
     @Override
     public void removeProduct(Product pd){
+        if(haveProductInStore(pd)){
         int i = getProductStoreIndex(pd);
             if(store[i]==pd){
                 store[i]=null;
                 orderProductInStroe();
             }
-            this.countProduct--;
+            this.countProduct--;}else{
+            {System.out.println("Sorry... Not Have This Product In Store Yet.");
+         System.out.println("---------------------------------------------------------------------------------------------------");}
+        }
         }
 
     @Override
