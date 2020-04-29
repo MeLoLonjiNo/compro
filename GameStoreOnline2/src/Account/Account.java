@@ -27,6 +27,10 @@ public class Account {
     public String getUserID() {
         return userID;
     }
+    
+    public String getPassword() {
+        return password;
+    }
 
     public boolean resetPassword(){
         this.password = null;
@@ -64,5 +68,7 @@ public class Account {
     public String toString() {
         return "Your Account" + "userID : " + userID + "\n User : " + person + '}';
     }
+
+    
 
 }

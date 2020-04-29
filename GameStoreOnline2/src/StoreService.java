@@ -20,6 +20,19 @@ public class StoreService {
         this.AdminAccount = admin;
     }
     
+    public int LogIn(String id,String password){
+        if(id!=null && password!=null && id!="" && password!=""){
+            for (int i = 0; i < CustomerAccount.length; i++) {
+                if(id.equalsIgnoreCase(AdminAccount.getUserID())&&password.equalsIgnoreCase(AdminAccount.getPassword()))
+                    {return 2;}
+                else if(id.equalsIgnoreCase(CustomerAccount[i].getUserID()) && password.equalsIgnoreCase(CustomerAccount[i].getPassword()))
+                    {return 1;}
+                else{return -1;}
+                }   
+        }
+            return -1;
+    }
+    
     public static void main(String[] args) {
         Product pd01 = new Product("PD01","Final Fantasy VII Remake","Game Form Square Enix",1000);
         Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
@@ -66,7 +79,47 @@ public class StoreService {
         menuLogInID = sc.next();
         System.out.println("Please Enter Your Password : ");
         menuLogInPassword=sc.next();
-        
+        if(LogIn(menuLogInID, menuLogInPassword)==1){
+            //System.out.println("Welcom Back");
+            //customerMenu();
+        }
+        else if(LogIn(menuLogInID, menuLogInPassword)==2){
+            //adminMenu();
+        }
+        else if(LogIn(menuLogInID, menuLogInPassword)==-1){
+            System.out.println("Lod-In Fail");
+        }
+    }
+    
+    public void register(){
+        String registerID;
+        String registerPassword;
+        String name; 
+        String address; 
+        String dateOfBirth; 
+        String monthOfBirth; 
+        String yearOfBirth; 
+        String email; 
+        String phone;
+        System.out.println("***** Register Menu *****");
+        System.out.println("Please Enter Your Name : ");
+        name = sc.next();
+        System.out.println("Please Enter Your Address : ");
+        address=sc.next();
+        System.out.println("Please Enter Your Birth Date : ");
+        dateOfBirth = sc.next();
+        System.out.println("Please Enter Your Birth Month : ");
+        monthOfBirth = sc.next();
+        System.out.println("Please Enter Your Birth Year : ");
+        yearOfBirth = sc.next();
+        System.out.println("Please Enter Your Email : ");
+        email=sc.next();
+        System.out.println("Please Enter Your Phone Numberl : ");
+        phone=sc.next();
+        System.out.println("Please Enter Your UserID : ");
+        registerID = sc.next();
+        System.out.println("Please Enter Your Password : ");
+        registerPassword=sc.next();
     }
     
 }
