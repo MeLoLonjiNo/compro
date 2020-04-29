@@ -1,7 +1,11 @@
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,6 +49,34 @@ public class DBInitialization {
             try {stm.executeUpdate("CREATE TABLE store(sname varchar(20) IS NOT NULL , admid varchar(20) IS NOT NULL , cusid varchar(20) IS NOT NULL , countcus INT IS NOT NULL , countp INT IS NOT NULL , PRIMARY KEY (admid , cusid) , FOREIGN KEY (admid , cusid))");} catch (SQLException ex) {}
         }catch (Exception ex) {
             System.out.println(ex.getMessage()+" แก้ไขตามคำแนะนำด้านบน แล้ว Run ใหม่จนกว่าจะผ่าน");
+        }
+    }
+    
+    private static void initializeDb(boolean show){
+        String sqlAccount ="INSERT INTO account VALUES(?,?,?)";
+        String sqlPerson ="INSERT INTO person VALUES(?,?,?,?,?,?)";
+        String sqlCustomer ="INSERT INTO customer VALUES(?,?,?,?)";
+        String sqlAdmin ="INSERT INTO admin VALUES(?,?)";
+        String sqlProduct ="INSERT INTO product VALUES(?,?,?,?,?)";
+        String sqlProductInCart ="INSERT INTO productincart VALUES(?,?,?,?,?)";
+        String sqlStorage ="INSERT INTO storage VALUES(?,?,?,?,?)";
+        String sqlStore ="INSERT INTO store VALUES(?,?,?,?,?)";
+            try(Connection conn = DBConnection.getConnection();
+                PreparedStatement stmA = conn.prepareStatement(sqlAccount);
+                PreparedStatement stmP = conn.prepareStatement(sqlPerson);
+                PreparedStatement stmC = conn.prepareStatement(sqlCustomer);
+                PreparedStatement stmAd = conn.prepareStatement(sqlAdmin);
+                PreparedStatement stmPd = conn.prepareStatement(sqlProduct);
+                PreparedStatement stmPc = conn.prepareStatement(sqlProductInCart);
+                PreparedStatement stmSt = conn.prepareStatement(sqlStorage);
+                PreparedStatement stmS = conn.prepareStatement(sqlStore);
+            
+                    
+                    ) {
+            Scanner sc;
+        
+    }   catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }
