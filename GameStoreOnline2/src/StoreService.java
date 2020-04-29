@@ -69,7 +69,7 @@ public class StoreService {
         menuLogInPassword=sc.next();
         if(gameStore.logIn(menuLogInID, menuLogInPassword)==1){
             System.out.println("customerMenu");
-            //customerMenu();
+            customerMenu();
         }
         else if(gameStore.logIn(menuLogInID, menuLogInPassword)==2){
             System.out.println("adminMenu");
@@ -114,32 +114,103 @@ public class StoreService {
         gameStore.addCustomerAccuont(c);
     }
     
+    public void adminMenu() {
+        int adminmenu;
+        do {
+            System.out.println("***** Admin Menu *****");
+            System.out.println("1. View Shop");
+            System.out.println("2. Add Product");
+            System.out.println("3. Remove Product");
+            System.out.println("4. List Customers");
+            System.out.println("5. Ban Customer");
+            System.out.println("6. Unban Customer");
+            System.out.println("7. Add Money");
+            System.out.println("0. Back");
+            System.out.print("Enter your menu : ");
+            adminmenu = sc.nextInt();
+            switch (adminmenu) {
+                case 0:
+                    break;
+                case 1:
+                    gameStore.viewShop();
+                    break;
+                case 2:
+                    //addProduct();
+                    break;
+                case 3:
+                    //removeProduct();
+                    break;
+                case 4:
+                    gameStore.listCustomer();
+                    break;
+                case 5:
+                    //banCustomer();
+                    break;
+                case 6:
+                    //unBanCustomer();
+                    break;
+                case 7:
+                    //addMoney();
+                    break;
+            }
+        } while (adminmenu != 0);
+    }
+    
+    public void addProduct() {
+        String productCode;
+        String productName;
+        String description;
+        int price;
+         System.out.println("***** Add Product *****");
+         System.out.println("Add Product ID : ");
+         productCode = sc.next();
+         System.out.println("Add Product Name : ");
+         productName = sc.next();
+         System.out.println("Add Description : ");
+         description = sc.next();
+         System.out.println("Add Price : ");
+         price = sc.nextInt();
+         gameStore.addProduct(productCode, productName, description, price);
+         System.out.println("Add Product " + productName + "Complete");
+    }
+    
     public void customerMenu(){
         int menuId;
         do {
             System.out.println("***** Customer Menu *****");
             System.out.println("1. View Shop");
             System.out.println("2. Add Product To Cart");
-            System.out.println("2. Remove Product Form Cart");
-            System.out.println("3. Check Product Cart");
-            System.out.println("4. Buy Product");
-            System.out.println("5. Check Product In Storage");
-            System.out.println("6. Check Money");
-            System.out.println("0. Exit ");
+            System.out.println("3. Remove Product From Cart");
+            System.out.println("4. Check Product Cart");
+            System.out.println("5. Buy Product");
+            System.out.println("6. Check Product In Storage");
+            System.out.println("7. Check Money");
+            System.out.println("0. Back ");
             System.out.print("Enter your menu : ");
             menuId = sc.nextInt();
             switch (menuId) {
                 case 0:
                     break;
                 case 1:
-                    logIn();
+                    gameStore.viewShop();
                     break;
-
                 case 2:
-                    register();
+                    //addProductToCart();
                     break;
                 case 3:
-                    gameStore.listCustomer();
+                    //removeProductFrom();
+                    break;
+                case 4:
+                    //checkProductCart();
+                    break;
+                case 5:
+                    //buyProduct();
+                    break;
+                case 6:
+                    //checkProductInStorage();
+                    break;
+                case 7:
+                    //checkMoney();
                     break;
             }
         } while (menuId != 0);

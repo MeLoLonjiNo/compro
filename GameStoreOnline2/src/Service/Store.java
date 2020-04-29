@@ -244,7 +244,21 @@ public class Store implements CustomerService,AdminService{
             this.countProduct--;}else{
             {System.out.println("Sorry... Not Have This Product In Store Yet.");
          System.out.println("---------------------------------------------------------------------------------------------------");}
+            }
         }
+    
+    public void removeProduct(String productCode){
+        Product pd = codeToObject(productCode);
+        if(haveProductInStore(pd)){
+        int i = getProductStoreIndex(pd);
+            if(store[i]==pd){
+                store[i]=null;
+                orderProductInStroe();
+            }
+            this.countProduct--;}else{
+            {System.out.println("Sorry... Not Have This Product In Store Yet.");
+         System.out.println("---------------------------------------------------------------------------------------------------");}
+            }
         }
 
     @Override
