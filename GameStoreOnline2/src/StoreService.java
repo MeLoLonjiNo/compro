@@ -54,7 +54,6 @@ public class StoreService {
                 case 3:
                     gameStore.listCustomer();
                     break;
-
             }
         } while (menuId != 0);
         System.out.println("Thank You !");
@@ -113,7 +112,37 @@ public class StoreService {
         Person p = new Person(name, address, LocalDate.of(yearOfBirth, monthOfBirth, dateOfBirth), email, phone);
         CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
         gameStore.addCustomerAccuont(c);
-       
+    }
+    
+    public void customerMenu(){
+        int menuId;
+        do {
+            System.out.println("***** Customer Menu *****");
+            System.out.println("1. View Shop");
+            System.out.println("2. Add Product To Cart");
+            System.out.println("2. Remove Product Form Cart");
+            System.out.println("3. Check Product Cart");
+            System.out.println("4. Buy Product");
+            System.out.println("5. Check Product In Storage");
+            System.out.println("6. Check Money");
+            System.out.println("0. Exit ");
+            System.out.print("Enter your menu : ");
+            menuId = sc.nextInt();
+            switch (menuId) {
+                case 0:
+                    break;
+                case 1:
+                    logIn();
+                    break;
+
+                case 2:
+                    register();
+                    break;
+                case 3:
+                    gameStore.listCustomer();
+                    break;
+            }
+        } while (menuId != 0);
     }
     
 }

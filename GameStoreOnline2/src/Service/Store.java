@@ -93,6 +93,7 @@ public class Store implements CustomerService,AdminService{
         }
     }
  
+    @Override
     public void addToCart(CustomerAccount customer,Product addingProduct) { 
         if(haveProductInStore(addingProduct)){
             customer.addProductToCart(addingProduct);
@@ -100,6 +101,7 @@ public class Store implements CustomerService,AdminService{
         System.out.println("---------------------------------------------------------------------------------------------------");}
     }
     
+    @Override
     public void removeFromCart(CustomerAccount customer,Product deletingProduct) {
         customer.deleteProductInCart(deletingProduct);
     }
@@ -201,6 +203,21 @@ public class Store implements CustomerService,AdminService{
     }
      
     //---------------------------------------------------------------------------------------------------------------------------------------------// 
+    
+    @Override
+     public void addProduct(String productCode , String productName , String description , int price) {
+        Product pd = new Product(productCode, productName, description, price);
+        if(haveProductInStore(pd)){System.out.println("Sorry... Now Have This Product Already");
+         System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
+        for (int i = 0; i<store.length; i++) {
+            if(store[i]==null){
+                store[i]=pd;
+                break;
+            }
+        }
+        this.countProduct++;}
+    }
     
     @Override
     public void addProduct(Product pd) {
