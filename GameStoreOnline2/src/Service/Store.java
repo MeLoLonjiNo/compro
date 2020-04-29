@@ -116,7 +116,18 @@ public class Store implements CustomerService,AdminService{
          }
      }
     
-    
+    public int logIn(String id,String password){
+        if(id!=null && password!=null && id!="" && password!=""){
+            for (int i = 0; i < countCustomer; i++) {
+                if(id.equals(admin.getUserID())&&password.equals(admin.getPassword()))
+                    {return 2;}
+                else if(id.equals(customer[i].getUserID()) && password.equals(customer[i].getPassword()))
+                    {return 1;}
+                else{return -1;}
+                }   
+        }
+            return -1;
+    }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     

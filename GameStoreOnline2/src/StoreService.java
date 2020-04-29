@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class StoreService {
     private AdminAccount adminAccount;
-    private CustomerAccount[] customerAccount;
+//    private CustomerAccount[] customerAccount;
     private Product[] Store;
     private Store gameStore;
     private static final Scanner sc = new Scanner(System.in);
@@ -19,65 +19,19 @@ public class StoreService {
         this.gameStore = new Store("PokeShop", admin);
         this.adminAccount = admin;
     }
-    
-//     public int getCustomerIndex(CustomerAccount customer) {
-//        if(customer != null){
-//        for (int i = 0; i < customerAccount.length; i++) {
-//            if (this.customerAccount[i].equals(customer)) {
-//                return i;
-//             }
-//            }
-//        }
-//        return -1;
-//    }
-//    
-//    public boolean haveCustomer(CustomerAccount cus){
-//            int i = getCustomerIndex(cus);
-//            if(i==-1){return false;}
-//            else{return true;} 
-//    }
-//    
-//    public void addCustomerAccuont(CustomerAccount customer){
-//        if(haveCustomer(customer)){System.out.println("Sorry... Now Have This Account Already");
-//         System.out.println("---------------------------------------------------------------------------------------------------");}
-//        else{
-//        for (int i = 0; i<this.customerAccount.length; i++) {
-//            if(this.customerAccount[i]==null){
-//                this.customerAccount[i]=customer;
-//                break;
-//            }
-//        }
-//        //this.countCustomer++;
-//        }
-//    }
-    
-    public int LogIn(String id,String password){
-        if(id!=null && password!=null && id!="" && password!=""){
-            for (int i = 0; i < customerAccount.length; i++) {
-                if(id.equals(adminAccount.getUserID())&&password.equals(adminAccount.getPassword()))
-                    {return 2;}
-                else if(id.equals(customerAccount[i].getUserID()) && password.equals(customerAccount[i].getPassword()))
-                    {return 1;}
-                else{return -1;}
-                }   
-        }
-            return -1;
-    }
-    
+
     public static void main(String[] args) {
         Product pd01 = new Product("PD01","Final Fantasy VII Remake","Game Form Square Enix",1000);
         Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
         Product pd03 = new Product("PD03","Dota2","GG game",0);
         Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
         Product testStore[] = {pd01, pd02, pd03};
-        Person person01 = new Person("Azeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
+        Person person01 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
         AdminAccount admin01 = new AdminAccount("Admin01","12345",person01);
         StoreService StoreService1 = new StoreService("Poke Shop", admin01);
         StoreService1.firstMenu();
     }
-    
-    
-    
+   
     public void firstMenu(){
         int menuId;
         do {
@@ -114,16 +68,16 @@ public class StoreService {
         menuLogInID = sc.next();
         System.out.println("Please Enter Your Password : ");
         menuLogInPassword=sc.next();
-        if(LogIn(menuLogInID, menuLogInPassword)==1){
+        if(gameStore.logIn(menuLogInID, menuLogInPassword)==1){
             System.out.println("customerMenu");
             //customerMenu();
         }
-        else if(LogIn(menuLogInID, menuLogInPassword)==2){
+        else if(gameStore.logIn(menuLogInID, menuLogInPassword)==2){
             System.out.println("adminMenu");
             //adminMenu();
         }
-        else if(LogIn(menuLogInID, menuLogInPassword)==-1){
-            System.out.println("Lod-In Fail");
+        else if(gameStore.logIn(menuLogInID, menuLogInPassword)==-1){
+            System.out.println("Log-In Failed");
         }
     }
     
