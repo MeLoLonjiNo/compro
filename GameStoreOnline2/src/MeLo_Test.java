@@ -25,7 +25,7 @@ public class MeLo_Test {
         Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
         //Product pd05 = new Product("PD05",null,null,100);
 
-        store.addProduct(pd01);
+        //store.addProduct(pd01);
         //store.addProduct(pd02);
         //store.addProduct(pd03);
         //store.addProduct(pd04);
@@ -33,7 +33,7 @@ public class MeLo_Test {
         //store.addProduct(null);
         //store.removeProduct(pd03);
         //store.removeProduct(pd03);
-        store.viewShop();
+        //store.viewShop();
         //store.addToCart(MeLo, "pd01");
         //store.addToCart(MeLo, pd02);
         //store.addToCart(MeLo, "024");
@@ -63,7 +63,11 @@ public class MeLo_Test {
         //MeLo.addProductToChart(pd02);
         //MeLo.checkProductInCart();
 //        store.checkCart();
-        //store.listCustomer();
+        store.addCustomerAccuont(MeLo);
+        store.addCustomerAccuont(Bal4ncez);
+        store.addCustomerAccuont(Garnet_);
+        store.addCustomerAccuont(MeLo);
+        store.listCustomer();
         
     }
 }

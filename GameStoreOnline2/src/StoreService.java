@@ -9,23 +9,54 @@ import java.util.Scanner;
 
 
 public class StoreService {
-    private AdminAccount AdminAccount;
-    private CustomerAccount[] CustomerAccount;
+    private AdminAccount adminAccount;
+    private CustomerAccount[] customerAccount;
     private Product[] Store;
     private Store gameStore;
     private static final Scanner sc = new Scanner(System.in);
     
     public StoreService(String storeName, AdminAccount admin){
         this.gameStore = new Store("PokeShop", admin);
-        this.AdminAccount = admin;
+        this.adminAccount = admin;
     }
+    
+//     public int getCustomerIndex(CustomerAccount customer) {
+//        if(customer != null){
+//        for (int i = 0; i < customerAccount.length; i++) {
+//            if (this.customerAccount[i].equals(customer)) {
+//                return i;
+//             }
+//            }
+//        }
+//        return -1;
+//    }
+//    
+//    public boolean haveCustomer(CustomerAccount cus){
+//            int i = getCustomerIndex(cus);
+//            if(i==-1){return false;}
+//            else{return true;} 
+//    }
+//    
+//    public void addCustomerAccuont(CustomerAccount customer){
+//        if(haveCustomer(customer)){System.out.println("Sorry... Now Have This Account Already");
+//         System.out.println("---------------------------------------------------------------------------------------------------");}
+//        else{
+//        for (int i = 0; i<this.customerAccount.length; i++) {
+//            if(this.customerAccount[i]==null){
+//                this.customerAccount[i]=customer;
+//                break;
+//            }
+//        }
+//        //this.countCustomer++;
+//        }
+//    }
     
     public int LogIn(String id,String password){
         if(id!=null && password!=null && id!="" && password!=""){
-            for (int i = 0; i < CustomerAccount.length; i++) {
-                if(id.equalsIgnoreCase(AdminAccount.getUserID())&&password.equalsIgnoreCase(AdminAccount.getPassword()))
+            for (int i = 0; i < customerAccount.length; i++) {
+                if(id.equals(adminAccount.getUserID())&&password.equals(adminAccount.getPassword()))
                     {return 2;}
-                else if(id.equalsIgnoreCase(CustomerAccount[i].getUserID()) && password.equalsIgnoreCase(CustomerAccount[i].getPassword()))
+                else if(id.equals(customerAccount[i].getUserID()) && password.equals(customerAccount[i].getPassword()))
                     {return 1;}
                 else{return -1;}
                 }   
@@ -45,6 +76,8 @@ public class StoreService {
         StoreService1.firstMenu();
     }
     
+    
+    
     public void firstMenu(){
         int menuId;
         do {
@@ -62,8 +95,10 @@ public class StoreService {
                     break;
 
                 case 2:
-                    System.out.println("Register");
-                    //register();
+                    register();
+                    break;
+                case 3:
+                    gameStore.listCustomer();
                     break;
 
             }
@@ -80,10 +115,11 @@ public class StoreService {
         System.out.println("Please Enter Your Password : ");
         menuLogInPassword=sc.next();
         if(LogIn(menuLogInID, menuLogInPassword)==1){
-            //System.out.println("Welcom Back");
+            System.out.println("customerMenu");
             //customerMenu();
         }
         else if(LogIn(menuLogInID, menuLogInPassword)==2){
+            System.out.println("adminMenu");
             //adminMenu();
         }
         else if(LogIn(menuLogInID, menuLogInPassword)==-1){
@@ -96,9 +132,9 @@ public class StoreService {
         String registerPassword;
         String name; 
         String address; 
-        String dateOfBirth; 
-        String monthOfBirth; 
-        String yearOfBirth; 
+        int dateOfBirth; 
+        int monthOfBirth; 
+        int yearOfBirth; 
         String email; 
         String phone;
         System.out.println("***** Register Menu *****");
@@ -106,20 +142,24 @@ public class StoreService {
         name = sc.next();
         System.out.println("Please Enter Your Address : ");
         address=sc.next();
-        System.out.println("Please Enter Your Birth Date : ");
-        dateOfBirth = sc.next();
-        System.out.println("Please Enter Your Birth Month : ");
-        monthOfBirth = sc.next();
+        System.out.println("Please Enter Your Birth Date (1-31) : ");
+        dateOfBirth = sc.nextInt();
+        System.out.println("Please Enter Your Birth Month (1-12) : ");
+        monthOfBirth = sc.nextInt();
         System.out.println("Please Enter Your Birth Year : ");
-        yearOfBirth = sc.next();
+        yearOfBirth = sc.nextInt();
         System.out.println("Please Enter Your Email : ");
         email=sc.next();
-        System.out.println("Please Enter Your Phone Numberl : ");
+        System.out.println("Please Enter Your Phone Number : ");
         phone=sc.next();
         System.out.println("Please Enter Your UserID : ");
         registerID = sc.next();
         System.out.println("Please Enter Your Password : ");
         registerPassword=sc.next();
+        Person p = new Person(name, address, LocalDate.of(yearOfBirth, monthOfBirth, dateOfBirth), email, phone);
+        CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
+        gameStore.addCustomerAccuont(c);
+       
     }
     
 }

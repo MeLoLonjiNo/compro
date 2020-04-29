@@ -39,6 +39,25 @@ public class Store implements CustomerService,AdminService{
         return -1;
     }
     
+    public boolean haveCustomer(CustomerAccount cus){
+            int i = getCustomerIndex(cus);
+            if(i==-1){return false;}
+            else{return true;} 
+    }
+    
+    public void addCustomerAccuont(CustomerAccount customer){
+        if(haveCustomer(customer)){System.out.println("Sorry... Now Have This Account Already");
+         System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
+        for (int i = 0; i<this.customer.length; i++) {
+            if(this.customer[i]==null){
+                this.customer[i]=customer;
+                break;
+            }
+        }
+        this.countCustomer++;}
+    }
+    
     public int getProductStoreIndex(Product productStore){
         if(productStore != null){
         for (int i = 0; i < countProduct; i++) {
@@ -96,6 +115,8 @@ public class Store implements CustomerService,AdminService{
                  }
          }
      }
+    
+    
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
@@ -218,7 +239,7 @@ public class Store implements CustomerService,AdminService{
         System.out.println("***** List of Customer *****");
         for (int i = 0;i < customer.length ; i++ )
             if(customer[i] != null){
-                System.out.println(customer[i].toString());
+                System.out.println("No."+(i+1)+" "+customer[i].toString());
             }
         System.out.println("---------------------------------------------------------------------------------------------------");
     }

@@ -201,6 +201,6 @@ public class CustomerAccount extends  Account{
 
     @Override
     public String toString() {
-        return "CustomerAccount{" + "productInCart=" + productInCart + ", money=" + money + ", storage=" + storage + '}';
+        return "Customer Account ID : "+super.getUserID();
     }
 }
