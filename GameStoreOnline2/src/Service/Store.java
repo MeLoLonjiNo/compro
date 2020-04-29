@@ -1,6 +1,7 @@
 package Service;
 
 
+import Account.AccountPriority;
 import Account.AccountStatus;
 import Service.AdminService;
 import Service.CustomerService;
@@ -27,6 +28,13 @@ public class Store implements CustomerService,AdminService{
     public String getStoreName() {
         return storeName;
     }
+    
+//    public CustomerAccount getCustomerAccountByID(String customerID){
+//        if(customerID!=null&&customerID!=""){
+//            
+//        }
+//        return null;
+//    }
 
     public int getCustomerIndex(CustomerAccount customer) {
         if(customer != null){
@@ -81,6 +89,18 @@ public class Store implements CustomerService,AdminService{
             else{return true;} 
     }
     
+    public CustomerAccount codeToAccount(String cusID){
+        if(cusID == null||cusID=="") {return null;}
+        else{
+        for (int i = 0; i < customer.length; i++) {
+            if (cusID.equals(customer[i].getUserID())){
+                return customer[i];
+            }
+        }
+        return null;
+        }
+    }
+    
     public Product codeToObject(String pdc){
         if(pdc == null) {return null;}
         else{
@@ -129,6 +149,18 @@ public class Store implements CustomerService,AdminService{
                 }   
         }
             return -1;
+    }
+    
+    public AccountPriority logInVer2 (String id,String password){
+        if(id!=null && password!=null && id!="" && password!=""){
+            for (int i = 0; i < 100; i++) {
+                if(id.equals(admin.getUserID())&&password.equals(admin.getPassword()))
+                    {return AccountPriority.Admin;}
+                else if(id.equals(customer[i].getUserID()) && password.equals(customer[i].getPassword()))
+                    {return AccountPriority.Customer;}
+                else{return AccountPriority.Fail;}
+                }   
+        }return AccountPriority.Fail;
     }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//

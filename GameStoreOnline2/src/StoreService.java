@@ -1,4 +1,5 @@
 
+import Account.AccountPriority;
 import Account.AdminAccount;
 import Account.CustomerAccount;
 import Person.Person;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class StoreService {
     private AdminAccount adminAccount;
-//    private CustomerAccount[] customerAccount;
+    private CustomerAccount customerAccount;
     private Product[] Store;
     private Store gameStore;
     private static final Scanner sc = new Scanner(System.in);
@@ -67,15 +68,17 @@ public class StoreService {
         menuLogInID = sc.next();
         System.out.println("Please Enter Your Password : ");
         menuLogInPassword=sc.next();
-        if(gameStore.logIn(menuLogInID, menuLogInPassword)==1){
+        
+        if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Customer){
+            this.customerAccount=gameStore.codeToAccount(menuLogInID);
             System.out.println("customerMenu");
             customerMenu();
         }
-        else if(gameStore.logIn(menuLogInID, menuLogInPassword)==2){
+        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Admin){
             System.out.println("adminMenu");
-            //adminMenu();
+            adminMenu();
         }
-        else if(gameStore.logIn(menuLogInID, menuLogInPassword)==-1){
+        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Fail){
             System.out.println("Log-In Failed");
         }
     }
@@ -135,10 +138,10 @@ public class StoreService {
                     gameStore.viewShop();
                     break;
                 case 2:
-                    //addProduct();
+                    addProduct();
                     break;
                 case 3:
-                    //removeProduct();
+                    removeProduct();
                     break;
                 case 4:
                     gameStore.listCustomer();
@@ -174,6 +177,15 @@ public class StoreService {
          System.out.println("Add Product " + productName + "Complete");
     }
     
+    public void removeProduct() {
+        String productCode;
+        System.out.println(" Remove Product ");
+        System.out.println("Please Enter Removing Product ID : ");
+        productCode = sc.next();
+        gameStore.removeProduct(productCode);
+        System.out.println("Remove Product Complete" );
+    }
+    
     public void customerMenu(){
         int menuId;
         do {
@@ -195,13 +207,13 @@ public class StoreService {
                     gameStore.viewShop();
                     break;
                 case 2:
-                    //addProductToCart();
+                    addProductToCart();
                     break;
                 case 3:
                     //removeProductFrom();
                     break;
                 case 4:
-                    //checkProductCart();
+                    gameStore.checkCart(customerAccount);
                     break;
                 case 5:
                     //buyProduct();
@@ -216,4 +228,12 @@ public class StoreService {
         } while (menuId != 0);
     }
     
+    public void addProductToCart(){
+        String productCode;
+        System.out.println(" Add Product To Cart ");
+        System.out.println("Please Enter Product ID : ");
+        productCode = sc.next();
+        gameStore.addToCart(this.customerAccount, productCode);
+        System.out.println("Add Product To Cart Complete" );
+    }
 }
