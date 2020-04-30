@@ -135,7 +135,7 @@ public class Store implements CustomerService,AdminService{
     
     public int logIn(String id,String password){
         if(id!=null && password!=null && id!="" && password!=""){
-            for (int i = 0; i < countCustomer; i++) {
+            for (int i = 0; i < customer.length; i++) {
                 if(id.equals(admin.getUserID())&&password.equals(admin.getPassword()))
                     {return 2;}
                 else if(id.equals(customer[i].getUserID()) && password.equals(customer[i].getPassword()))
@@ -147,6 +147,7 @@ public class Store implements CustomerService,AdminService{
     }
     
     public AccountPriority logInVer2 (String id,String password){
+        try {
         if(id!=null && password!=null && id!="" && password!=""){
             for (int i = 0; i < customer.length; i++) {
                 if(id.equals(admin.getUserID())&&password.equals(admin.getPassword()))
@@ -157,7 +158,10 @@ public class Store implements CustomerService,AdminService{
                     }
                 else{return AccountPriority.Fail;}
                 }   
-        }return AccountPriority.Fail;
+        }return AccountPriority.Fail; } 
+        catch (Exception e){
+            return AccountPriority.Fail;
+        }
     }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
