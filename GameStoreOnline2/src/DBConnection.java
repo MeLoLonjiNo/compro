@@ -9,8 +9,8 @@ public class DBConnection {
     private static final String URI="jdbc:derby://localhost:1527/GameStoreOnline";
     private static final String USERNAME="server";
     private static final String PASSWORD="123456";
-    
-    public static Connection getConnection(){
+        
+    public static  Connection getConnection(){
         Connection conn = null;
         try {
             Class.forName(DRIVER);

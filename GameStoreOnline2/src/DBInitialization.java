@@ -12,11 +12,13 @@ import java.util.Scanner;
 public class DBInitialization {
     
     public static void main(String[] args) {
-    
+        createTables();
+        initializeDb(true);
     }
     
     public static void renew() {
-        
+        createTables();
+        initializeDb(true);
     }
     
     private static void createTables(){
@@ -62,9 +64,7 @@ public class DBInitialization {
                 PreparedStatement stmPc = conn.prepareStatement(sqlProductInCart);
                 PreparedStatement stmSt = conn.prepareStatement(sqlStorage);
                 PreparedStatement stmS = conn.prepareStatement(sqlStore);
-            
-                    
-                    ) {
+                ) {
             Scanner sc;
             try {
                 if(show)System.out.println("\n--- Import Account ---");

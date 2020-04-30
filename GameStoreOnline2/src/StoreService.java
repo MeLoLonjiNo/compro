@@ -8,7 +8,6 @@ import Service.Store;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-
 public class StoreService {
     private AdminAccount adminAccount;
     private CustomerAccount customerAccount;
@@ -64,6 +63,7 @@ public class StoreService {
     }
     
     public void  logIn(){
+        try{
         String menuLogInID;
         String menuLogInPassword;
         System.out.println("***** Log-In Menu *****");
@@ -86,9 +86,11 @@ public class StoreService {
             System.out.println(RED+"Log-In Failed" + BLACK);
         }
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void register(){
+        try{
         String registerID;
         String registerPassword;
         String name; 
@@ -121,9 +123,11 @@ public class StoreService {
         CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
         gameStore.addCustomerAccuont(c);
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void adminMenu() {
+        try{
         int adminmenu;
         do {
             System.out.println("***** Admin Menu *****");
@@ -164,9 +168,11 @@ public class StoreService {
                     break;
             }
         } while (adminmenu != 0);
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void addProduct() {
+        try{
         String productCode;
         String productName;
         String description;
@@ -181,10 +187,11 @@ public class StoreService {
          System.out.println("Add Price : ");
          price = sc.nextInt();
          gameStore.addProduct(productCode, productName, description, price);
-        
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void removeProduct() {
+        try{
         String productCode;
         System.out.println("----- Remove Product -----");
         System.out.println("Please Enter Removing Product ID : ");
@@ -192,9 +199,11 @@ public class StoreService {
         gameStore.removeProduct(productCode);
         //System.out.println("Remove Product Complete" );
         //System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void banCustomer() {
+        try{
         String cusId;
         System.out.println("----- Ban Customer -----");
         System.out.println("Please Enter Customer ID : ");
@@ -202,9 +211,11 @@ public class StoreService {
         gameStore.banCustomer(gameStore.codeToAccount(cusId));
         System.out.println("Ban " + cusId + " Complete");
         //System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void unBanCustomer() {
+        try{
         String cusId;
         System.out.println("----- Unban Customer -----");
         System.out.println("Please Enter Customer ID : ");
@@ -212,9 +223,11 @@ public class StoreService {
         gameStore.unBanCustomer(gameStore.codeToAccount(cusId));
         System.out.println("Unban " + cusId + " Complete");
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void addMoney() {
+        try{
         int money;
         String cusId;
         System.out.println("----- Add Money -----");
@@ -225,9 +238,11 @@ public class StoreService {
         gameStore.addMoney(gameStore.codeToAccount(cusId), money);
         System.out.println("Add "+ money + " Wallet to" + cusId +" Complete" );
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void customerMenu(){
+        try{
         int menuId;
         do {
             System.out.println("***** Customer Menu *****");
@@ -244,6 +259,7 @@ public class StoreService {
             System.out.println("---------------------------------------------------------------------------------------------------");
             switch (menuId) {
                 case 0:
+                    this.customerAccount=null;
                     System.out.println("");
                     break;
                 case 1:
@@ -269,33 +285,40 @@ public class StoreService {
                     break;
             }
         } while (menuId != 0);
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void addProductToCart(){
+        try{
         String productCode;
         System.out.println("----- Add Product To Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
         gameStore.addToCart(this.customerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void removeProductFromCart(){
+        try{
         String productCode;
         System.out.println("----- Remove Product From Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
         gameStore.removeFromCart(this.customerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
     public void buyProduct(){
+        try{
         String productCode;
         System.out.println("----- Buy Product  -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
         gameStore.buy(this.customerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
     }
     
 }
