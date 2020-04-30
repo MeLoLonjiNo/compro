@@ -16,25 +16,32 @@ public class Store implements CustomerService,AdminService{
     private CustomerAccount[] customer;
     private int countCustomer;
     private int countProduct;
+    private static final String RED = "\u001B[031m";
     
     public Store(String storeName, AdminAccount admin) {
         this.storeName = storeName;
-        this.store=new Product[10];
+        this.store=new Product[20];
         this.admin = admin;
-        this.customer = new CustomerAccount[10];
+        this.customer = new CustomerAccount[20];
         this.countProduct=0;
     }
 
+    public void resize() {
+        if(countProduct==store.length){
+            Product s[] = new Product[this.store.length+20];
+            System.arraycopy(store, 0, s, 0, countProduct);
+            store = s;
+        }
+        if(countCustomer==customer.length){
+            CustomerAccount c[] = new CustomerAccount[customer.length+20];
+            System.arraycopy(customer, 0, c, 0, countCustomer);
+            customer = c;
+        }
+    }
+    
     public String getStoreName() {
         return storeName;
     }
-    
-//    public CustomerAccount getCustomerAccountByID(String customerID){
-//        if(customerID!=null&&customerID!=""){
-//            
-//        }
-//        return null;
-//    }
 
     public int getCustomerIndex(CustomerAccount customer) {
         if(customer != null){
@@ -54,12 +61,13 @@ public class Store implements CustomerService,AdminService{
     }
     
     public void addCustomerAccuont(CustomerAccount customer){
-        if(haveCustomer(customer)){System.out.println("Sorry... Now Have This Account Already");
+        if(haveCustomer(customer)){System.out.println(RED+"Sorry... Now Have This Account Already.");
          System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
-        for (int i = 0; i<this.customer.length; i++) {
-            if(this.customer[i]==null){
-                this.customer[i]=customer;
+            resize();
+            for (int i = 0; i<this.customer.length; i++) {
+                if(this.customer[i]==null){
+                    this.customer[i]=customer;
                 break;
             }
         }
@@ -113,19 +121,6 @@ public class Store implements CustomerService,AdminService{
         }
     }
  
-    @Override
-    public void addToCart(CustomerAccount customer,Product addingProduct) { 
-        if(haveProductInStore(addingProduct)){
-            customer.addProductToCart(addingProduct);
-        }else {System.out.println("Sorry... Not Have "+addingProduct.getProductName()+" Product In Store.");
-        System.out.println("---------------------------------------------------------------------------------------------------");}
-    }
-    
-    @Override
-    public void removeFromCart(CustomerAccount customer,Product deletingProduct) {
-        customer.deleteProductInCart(deletingProduct);
-    }
-   
     public void orderProductInStroe(){
          for (int i = 0; i < store.length; i++) {
              if(store[i]==null&&store[i+1]!=null){
@@ -153,11 +148,13 @@ public class Store implements CustomerService,AdminService{
     
     public AccountPriority logInVer2 (String id,String password){
         if(id!=null && password!=null && id!="" && password!=""){
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < customer.length; i++) {
                 if(id.equals(admin.getUserID())&&password.equals(admin.getPassword()))
-                    {return AccountPriority.Admin;}
+                {return AccountPriority.Admin;}
                 else if(id.equals(customer[i].getUserID()) && password.equals(customer[i].getPassword()))
-                    {return AccountPriority.Customer;}
+                    {   if(customer[i].getAccountStatus()==AccountStatus.ban){return AccountPriority.Ban;}
+                        else{return AccountPriority.Customer;}
+                    }
                 else{return AccountPriority.Fail;}
                 }   
         }return AccountPriority.Fail;
@@ -183,36 +180,68 @@ public class Store implements CustomerService,AdminService{
         if (addingpdc!=null){
             if(haveProductInStore(addingpdc)){
                 customer.addProductToCart(addingpdc);
-            }else {System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+                System.out.println("Add Product "+pdc+" To Your Cart Complete." );
+            }else {System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }
-        else {System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+        else {System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }catch(NullPointerException n){
-            System.out.println("Sorry... Not Have "+pdc+" Product In Store.");
+            System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store.");
             System.out.println("---------------------------------------------------------------------------------------------------");
         }
+    }
+    
+    @Override
+    public void addToCart(CustomerAccount customer,Product addingProduct) { 
+        if(haveProductInStore(addingProduct)){
+            customer.addProductToCart(addingProduct);
+            System.out.println("Add Product "+addingProduct.getProductName()+" To Your Cart Complete." );
+        }else {System.out.println(RED+"Sorry... Not Have "+addingProduct.getProductName()+" Product In Store.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
     }
 
     @Override
     public void removeFromCart(CustomerAccount customer,String pdc) {
         try{
             customer.deleteProductInCart(codeToObject(pdc));
+            System.out.println("Remove Product "+pdc+" From Your Cart Complete." );
         }catch(NullPointerException n){
-            System.out.println("Not Have This Product In Your Cart.");
+            System.out.println(RED+"Not Have This Product In Your Cart.");
             System.out.println("---------------------------------------------------------------------------------------------------");
         }
+    }
+    
+    @Override
+    public void removeFromCart(CustomerAccount customer,Product deletingProduct) {
+        customer.deleteProductInCart(deletingProduct);
+        System.out.println("Remove Product "+deletingProduct.getProductName()+" From Your Cart Complete" );
     }
 
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
+        if(buyingProduct==null){System.out.println(RED+"Buying Product Must Be Not Null.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
+        else{
+        if(haveProductInCart(customer,buyingProduct)){
+            customer.buy(buyingProduct);
+            System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
+            checkMoney(customer);
+        }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
+        System.out.println("---------------------------------------------------------------------------------------------------");}
+        }
+    }
+    
+     public void buy(CustomerAccount customer,String pdc) {
+        Product buyingProduct = codeToObject(pdc);
         if(buyingProduct==null){System.out.println("Buying Product Must Be Not Null.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
         if(haveProductInCart(customer,buyingProduct)){
             customer.buy(buyingProduct);
+            System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
             checkMoney(customer);
-        }else {System.out.println("Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
+        }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }
     }
@@ -239,12 +268,13 @@ public class Store implements CustomerService,AdminService{
     @Override
      public void addProduct(String productCode , String productName , String description , int price) {
         Product pd = new Product(productCode, productName, description, price);
-        if(haveProductInStore(pd)){System.out.println("Sorry... Now Have This Product Already");
+        if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have "+productName+" Product Already.");
          System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
-        for (int i = 0; i<store.length; i++) {
-            if(store[i]==null){
-                store[i]=pd;
+            resize();
+            for (int i = 0; i<store.length; i++) {
+                if(store[i]==null){
+                    store[i]=pd;
                 break;
             }
         }
@@ -253,12 +283,13 @@ public class Store implements CustomerService,AdminService{
     
     @Override
     public void addProduct(Product pd) {
-        if(haveProductInStore(pd)){System.out.println("Sorry... Now Have This Product Already");
+        if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have This Product Already");
          System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
-        for (int i = 0; i<store.length; i++) {
-            if(store[i]==null){
-                store[i]=pd;
+            resize();
+            for (int i = 0; i<store.length; i++) {
+                if(store[i]==null){
+                    store[i]=pd;
                 break;
             }
         }
@@ -274,7 +305,7 @@ public class Store implements CustomerService,AdminService{
                 orderProductInStroe();
             }
             this.countProduct--;}else{
-            {System.out.println("Sorry... Not Have This Product In Store Yet.");
+            {System.out.println(RED+"Sorry... Not Have This Product In Store Yet.");
          System.out.println("---------------------------------------------------------------------------------------------------");}
             }
         }
@@ -288,7 +319,7 @@ public class Store implements CustomerService,AdminService{
                 orderProductInStroe();
             }
             this.countProduct--;}else{
-            {System.out.println("Sorry... Not Have This Product In Store Yet.");
+            {System.out.println(RED+"Sorry... Not Have This Product In Store Yet.");
          System.out.println("---------------------------------------------------------------------------------------------------");}
             }
         }

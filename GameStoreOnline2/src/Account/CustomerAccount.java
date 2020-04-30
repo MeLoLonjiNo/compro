@@ -5,22 +5,42 @@ import Product.Product;
 public class CustomerAccount extends  Account{
     
     private Product[] productInCart;
+    private int countCart;
+    private Product[] storage;
+    private int countStorage;
     private int money;
     //private History history[];
-    private Product storage[];
+    private static final String RED = "\u001B[031m";
     
     public CustomerAccount(Account account) {
         super(account);
-        productInCart = new Product[100];
-        storage = new Product[100];
+        productInCart = new Product[20];
+        storage = new Product[20];
         money = 2000;
+        countCart=0;
+        countStorage=0;
     }
     
     public CustomerAccount(String id , String password , Person person){
         super(id, password, person);
-        productInCart = new Product[100];
-        storage = new Product[100];
+        productInCart = new Product[20];
+        storage = new Product[20];
         money = 2000;
+        countCart=0;
+        countStorage=0;
+    }
+    
+    public void resize() {
+        if(countCart==productInCart.length){
+            Product cart[] = new Product[this.productInCart.length+20];
+            System.arraycopy(productInCart, 0, cart, 0, countCart);
+            productInCart = cart;
+        }
+        if(countStorage==storage.length){
+            Product s[] = new Product[storage.length+20];
+            System.arraycopy(storage, 0, s, 0, countStorage);
+            storage = s;
+        }
     }
     
     public boolean haveProductInCart(Product checkProduct){
@@ -36,9 +56,10 @@ public class CustomerAccount extends  Account{
     }
     
     public void addProductToCart(Product addingProduct){
-        if(haveProductInCart(addingProduct)){System.out.println("Sorry... "+addingProduct.getProductName()+" Has Been In Your Cart Yet.");
+        if(haveProductInCart(addingProduct)){System.out.println(RED+"Sorry... "+addingProduct.getProductName()+" Has Been In Your Cart Yet.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
+            resize();
         for (int i = 0; i < productInCart.length; i++) {
             if(productInCart[i]==null){
                 productInCart[i] = addingProduct;
@@ -55,7 +76,7 @@ public class CustomerAccount extends  Account{
                 productInCart[i] = null ;
                 orderProductInCart();
             }
-        }else{System.out.println("Not Have This Product In Your Cart.");
+        }else{System.out.println(RED+"Not Have This Product In Your Cart.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
     }
      
@@ -117,6 +138,7 @@ public class CustomerAccount extends  Account{
     
     public boolean addProductToStorage(Product addingProduct){
        if(addingProduct==null){ return false; }
+       resize();
         for (int i = 0; i < storage.length; i++) {
             if(storage[i]==null){
                 storage[i] = addingProduct;
@@ -125,14 +147,6 @@ public class CustomerAccount extends  Account{
         }
         return true;
     }
-    
-//     public void deleteProductInStorage(Product deletingProduct){
-//         int i = getProductInStorageIndex(deletingProduct);
-//            if(storage[i].equals(deletingProduct)){
-//                storage[i] = null ;
-//                orderProductInStorage();
-//            }
-//    }
      
      public void getProductInStorage(){
         System.out.println("***** Your Product In Storage *****");
@@ -152,20 +166,16 @@ public class CustomerAccount extends  Account{
      }
 
     public void buy(Product buyingProduct){
-        if(haveProductInStorage(buyingProduct)){System.out.println("Sorry... "+buyingProduct.getProductName()+" Has In Your Store Yet.");
+        if(haveProductInStorage(buyingProduct)){System.out.println(RED+"Sorry... "+buyingProduct.getProductName()+" Has In Your Store Yet.");
         System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
-        //if(buyingProduct != null){
         if(money<buyingProduct.getPrice()){
-            System.out.println("Your Money Is Not Enough !");
+            System.out.println(RED+"Your Money Is Not Enough !");
         }else{
         addProductToStorage(buyingProduct);
         deleteProductInCart(buyingProduct);
         this.money=money-buyingProduct.getPrice();
-        System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
             }
-        //}else{System.out.println("Buying Product Must Noy Be Null");
-        //System.out.println("---------------------------------------------------------------------------------------------------");}
         }
     }
     
@@ -197,7 +207,9 @@ public class CustomerAccount extends  Account{
         this.money=money+addingMoney;
     }
     
-    
+    public  AccountStatus getAccuontStatus (){
+        return super.getAccountStatus();
+    }
 
     @Override
     public String toString() {
