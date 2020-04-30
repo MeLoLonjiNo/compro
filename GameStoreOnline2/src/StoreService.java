@@ -15,6 +15,8 @@ public class StoreService {
     private Product[] Store;
     private Store gameStore;
     private static final Scanner sc = new Scanner(System.in);
+    private static final String RED = "\u001B[031m";
+    private static final String BLACK = "\u001B[030m";
     
     public StoreService(String storeName, AdminAccount admin){
         this.gameStore = new Store("PokeShop", admin);
@@ -42,6 +44,7 @@ public class StoreService {
             System.out.println("0. Exit ");
             System.out.print("Enter your menu : ");
             menuId = sc.nextInt();
+            System.out.println("---------------------------------------------------------------------------------------------------");
             switch (menuId) {
                 case 0:
                     break;
@@ -71,16 +74,18 @@ public class StoreService {
         
         if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Customer){
             this.customerAccount=gameStore.codeToAccount(menuLogInID);
-            System.out.println("customerMenu");
             customerMenu();
         }
         else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Admin){
-            System.out.println("adminMenu");
             adminMenu();
         }
-        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Fail){
-            System.out.println("Log-In Failed");
+        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Ban){
+            System.out.println(RED+"This Account Has Been Ban."+BLACK);
         }
+        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Fail){
+            System.out.println(RED+"Log-In Failed" + BLACK);
+        }
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
     
     public void register(){
@@ -115,6 +120,7 @@ public class StoreService {
         Person p = new Person(name, address, LocalDate.of(yearOfBirth, monthOfBirth, dateOfBirth), email, phone);
         CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
         gameStore.addCustomerAccuont(c);
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
     
     public void adminMenu() {
@@ -131,6 +137,7 @@ public class StoreService {
             System.out.println("0. Back");
             System.out.print("Enter your menu : ");
             adminmenu = sc.nextInt();
+            System.out.println("---------------------------------------------------------------------------------------------------");
             switch (adminmenu) {
                 case 0:
                     break;
@@ -147,13 +154,13 @@ public class StoreService {
                     gameStore.listCustomer();
                     break;
                 case 5:
-                    //banCustomer();
+                    banCustomer();
                     break;
                 case 6:
-                    //unBanCustomer();
+                    unBanCustomer();
                     break;
                 case 7:
-                    //addMoney();
+                    addMoney();
                     break;
             }
         } while (adminmenu != 0);
@@ -164,7 +171,7 @@ public class StoreService {
         String productName;
         String description;
         int price;
-         System.out.println("***** Add Product *****");
+         System.out.println("----- Add Product -----");
          System.out.println("Add Product ID : ");
          productCode = sc.next();
          System.out.println("Add Product Name : ");
@@ -174,16 +181,50 @@ public class StoreService {
          System.out.println("Add Price : ");
          price = sc.nextInt();
          gameStore.addProduct(productCode, productName, description, price);
-         System.out.println("Add Product " + productName + "Complete");
+        
     }
     
     public void removeProduct() {
         String productCode;
-        System.out.println(" Remove Product ");
+        System.out.println("----- Remove Product -----");
         System.out.println("Please Enter Removing Product ID : ");
         productCode = sc.next();
         gameStore.removeProduct(productCode);
-        System.out.println("Remove Product Complete" );
+        //System.out.println("Remove Product Complete" );
+        //System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+    
+    public void banCustomer() {
+        String cusId;
+        System.out.println("----- Ban Customer -----");
+        System.out.println("Please Enter Customer ID : ");
+        cusId = sc.next();
+        gameStore.banCustomer(gameStore.codeToAccount(cusId));
+        System.out.println("Ban " + cusId + " Complete");
+        //System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+    
+    public void unBanCustomer() {
+        String cusId;
+        System.out.println("----- Unban Customer -----");
+        System.out.println("Please Enter Customer ID : ");
+        cusId = sc.next();
+        gameStore.unBanCustomer(gameStore.codeToAccount(cusId));
+        System.out.println("Unban " + cusId + " Complete");
+        System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+    
+    public void addMoney() {
+        int money;
+        String cusId;
+        System.out.println("----- Add Money -----");
+        System.out.println("Please Enter Customer ID : ");
+        cusId = sc.next();
+        System.out.println("Please Enter the money : ");
+        money = sc.nextInt();
+        gameStore.addMoney(gameStore.codeToAccount(cusId), money);
+        System.out.println("Add "+ money + " Wallet to" + cusId +" Complete" );
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
     
     public void customerMenu(){
@@ -200,8 +241,10 @@ public class StoreService {
             System.out.println("0. Back ");
             System.out.print("Enter your menu : ");
             menuId = sc.nextInt();
+            System.out.println("---------------------------------------------------------------------------------------------------");
             switch (menuId) {
                 case 0:
+                    System.out.println("");
                     break;
                 case 1:
                     gameStore.viewShop();
@@ -210,19 +253,19 @@ public class StoreService {
                     addProductToCart();
                     break;
                 case 3:
-                    //removeProductFrom();
+                    removeProductFromCart();
                     break;
                 case 4:
                     gameStore.checkCart(customerAccount);
                     break;
                 case 5:
-                    //buyProduct();
+                    buyProduct();
                     break;
                 case 6:
-                    //checkProductInStorage();
+                    gameStore.checkStorage(customerAccount);
                     break;
                 case 7:
-                    //checkMoney();
+                    gameStore.checkMoney(customerAccount);
                     break;
             }
         } while (menuId != 0);
@@ -230,10 +273,29 @@ public class StoreService {
     
     public void addProductToCart(){
         String productCode;
-        System.out.println(" Add Product To Cart ");
+        System.out.println("----- Add Product To Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
         gameStore.addToCart(this.customerAccount, productCode);
-        System.out.println("Add Product To Cart Complete" );
+        System.out.println("---------------------------------------------------------------------------------------------------");
     }
+    
+    public void removeProductFromCart(){
+        String productCode;
+        System.out.println("----- Remove Product From Cart -----");
+        System.out.println("Please Enter Product ID : ");
+        productCode = sc.next();
+        gameStore.removeFromCart(this.customerAccount, productCode);
+        System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+    
+    public void buyProduct(){
+        String productCode;
+        System.out.println("----- Buy Product  -----");
+        System.out.println("Please Enter Product ID : ");
+        productCode = sc.next();
+        gameStore.buy(this.customerAccount, productCode);
+        System.out.println("---------------------------------------------------------------------------------------------------");
+    }
+    
 }
