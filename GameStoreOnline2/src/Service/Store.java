@@ -17,6 +17,7 @@ public class Store implements CustomerService,AdminService{
     private int countCustomer;
     private int countProduct;
     private static final String RED = "\u001B[031m";
+    private static final String BLACK = "\u001B[030m";
     
     public Store(String storeName, AdminAccount admin) {
         this.storeName = storeName;
@@ -185,13 +186,13 @@ public class Store implements CustomerService,AdminService{
             if(haveProductInStore(addingpdc)){
                 customer.addProductToCart(addingpdc);
                 System.out.println("Add Product "+pdc+" To Your Cart Complete." );
-            }else {System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store.");
+            }else {System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }
-        else {System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store.");
+        else {System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }catch(NullPointerException n){
-            System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store.");
+            System.out.println(RED+"Sorry... Not Have "+pdc+" Product In Store."+BLACK);
             System.out.println("---------------------------------------------------------------------------------------------------");
         }
     }
@@ -201,7 +202,7 @@ public class Store implements CustomerService,AdminService{
         if(haveProductInStore(addingProduct)){
             customer.addProductToCart(addingProduct);
             System.out.println("Add Product "+addingProduct.getProductName()+" To Your Cart Complete." );
-        }else {System.out.println(RED+"Sorry... Not Have "+addingProduct.getProductName()+" Product In Store.");
+        }else {System.out.println(RED+"Sorry... Not Have "+addingProduct.getProductName()+" Product In Store."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
     }
 
@@ -211,7 +212,7 @@ public class Store implements CustomerService,AdminService{
             customer.deleteProductInCart(codeToObject(pdc));
             System.out.println("Remove Product "+pdc+" From Your Cart Complete." );
         }catch(NullPointerException n){
-            System.out.println(RED+"Not Have This Product In Your Cart.");
+            System.out.println(RED+"Not Have This Product In Your Cart."+BLACK);
             System.out.println("---------------------------------------------------------------------------------------------------");
         }
     }
@@ -224,14 +225,14 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
-        if(buyingProduct==null){System.out.println(RED+"Buying Product Must Be Not Null.");
+        if(buyingProduct==null){System.out.println(RED+"Buying Product Must Be Not Null."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
         if(haveProductInCart(customer,buyingProduct)){
             customer.buy(buyingProduct);
             System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
             checkMoney(customer);
-        }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
+        }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }
     }
@@ -245,7 +246,7 @@ public class Store implements CustomerService,AdminService{
             customer.buy(buyingProduct);
             System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
             checkMoney(customer);
-        }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First.");
+        }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         }
     }
@@ -272,7 +273,7 @@ public class Store implements CustomerService,AdminService{
     @Override
      public void addProduct(String productCode , String productName , String description , int price) {
         Product pd = new Product(productCode, productName, description, price);
-        if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have "+productName+" Product Already.");
+        if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have "+productName+" Product Already."+BLACK);
          System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
             resize();
@@ -287,7 +288,7 @@ public class Store implements CustomerService,AdminService{
     
     @Override
     public void addProduct(Product pd) {
-        if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have This Product Already");
+        if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have This Product Already"+BLACK);
          System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
             resize();
@@ -309,7 +310,7 @@ public class Store implements CustomerService,AdminService{
                 orderProductInStroe();
             }
             this.countProduct--;}else{
-            {System.out.println(RED+"Sorry... Not Have This Product In Store Yet.");
+            {System.out.println(RED+"Sorry... Not Have This Product In Store Yet."+BLACK);
          System.out.println("---------------------------------------------------------------------------------------------------");}
             }
         }
@@ -323,7 +324,7 @@ public class Store implements CustomerService,AdminService{
                 orderProductInStroe();
             }
             this.countProduct--;}else{
-            {System.out.println(RED+"Sorry... Not Have This Product In Store Yet.");
+            {System.out.println(RED+"Sorry... Not Have This Product In Store Yet."+BLACK);
          System.out.println("---------------------------------------------------------------------------------------------------");}
             }
         }

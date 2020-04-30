@@ -16,6 +16,7 @@ public class StoreService {
     private Store gameStore;
     private static final Scanner sc = new Scanner(System.in);
     private static final String RED = "\u001B[031m";
+    private static final String BLACK = "\u001B[030m";
     
     public StoreService(String storeName, AdminAccount admin){
         this.gameStore = new Store("PokeShop", admin);
@@ -79,10 +80,10 @@ public class StoreService {
             adminMenu();
         }
         else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Ban){
-            System.out.println(RED+"This Account Has Been Ban.");
+            System.out.println(RED+"This Account Has Been Ban."+BLACK);
         }
         else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Fail){
-            System.out.println(RED+"Log-In Failed");
+            System.out.println(RED+"Log-In Failed" + BLACK);
         }
         System.out.println("---------------------------------------------------------------------------------------------------");
     }
@@ -180,8 +181,7 @@ public class StoreService {
          System.out.println("Add Price : ");
          price = sc.nextInt();
          gameStore.addProduct(productCode, productName, description, price);
-         System.out.println("Add Product " + productName + " Complete");
-         System.out.println("---------------------------------------------------------------------------------------------------");
+        
     }
     
     public void removeProduct() {
@@ -190,8 +190,8 @@ public class StoreService {
         System.out.println("Please Enter Removing Product ID : ");
         productCode = sc.next();
         gameStore.removeProduct(productCode);
-        System.out.println("Remove Product Complete" );
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        //System.out.println("Remove Product Complete" );
+        //System.out.println("---------------------------------------------------------------------------------------------------");
     }
     
     public void banCustomer() {
@@ -201,7 +201,7 @@ public class StoreService {
         cusId = sc.next();
         gameStore.banCustomer(gameStore.codeToAccount(cusId));
         System.out.println("Ban " + cusId + " Complete");
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        //System.out.println("---------------------------------------------------------------------------------------------------");
     }
     
     public void unBanCustomer() {
