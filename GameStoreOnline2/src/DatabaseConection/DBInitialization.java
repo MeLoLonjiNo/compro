@@ -26,8 +26,7 @@ public class DBInitialization {
     
     private static void createTables(){
         try (Connection conn = DBConnection.getConnection();
-                Statement stm = conn.createStatement()) {
-            try {stm.executeUpdate("DROP TABLE account");} catch (SQLException ex) {}         
+                Statement stm = conn.createStatement()) {        
             try {stm.executeUpdate("DROP TABLE person");} catch (SQLException ex) {}   
             try {stm.executeUpdate("DROP TABLE customer");} catch (SQLException ex) {}
             try {stm.executeUpdate("DROP TABLE admin");} catch (SQLException ex) {}  
@@ -35,12 +34,10 @@ public class DBInitialization {
             try {stm.executeUpdate("DROP TABLE productincart");} catch (SQLException ex) {}  
             try {stm.executeUpdate("DROP TABLE storage");} catch (SQLException ex) {}  
             try {stm.executeUpdate("DROP TABLE store");} catch (SQLException ex) {}  
-            
-
-            try {stm.executeUpdate("CREATE TABLE account(userid varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , PRIMARY KEY (userid))");} catch (SQLException ex) {}         
+                    
             try {stm.executeUpdate("CREATE TABLE person(userid varchar(20) NOT NULL , name varchar(20) NOT NULL , address varchar(100) NOT NULL, dateOfBirth INT NOT NULL , email varchar(50) NOT NULL , phone INT NOT NULL , PRIMARY KEY (userid))");} catch (SQLException ex) {}   
-            try {stm.executeUpdate("CREATE TABLE customer(cusid varchar(20) NOT NULL , cusname varchar(20) NOT NULL , money INT NOT NULL , countcart INT NOT NULL , countstorage INT NOT NULL , PRIMARY KEY (cusid))");} catch (SQLException ex) {}
-            try {stm.executeUpdate("CREATE TABLE admin(admid varchar(20) NOT NULL , admname varchar(20) NOT NULL , PRIMARY KEY (admid))");} catch (SQLException ex) {}  
+            try {stm.executeUpdate("CREATE TABLE customer(cusid varchar(20) NOT NULL , cusname varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , money INT NOT NULL , countcart INT NOT NULL , countstorage INT NOT NULL , PRIMARY KEY (cusid))");} catch (SQLException ex) {}
+            try {stm.executeUpdate("CREATE TABLE admin(admid varchar(20) NOT NULL , admname varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , PRIMARY KEY (admid))");} catch (SQLException ex) {}  
             try {stm.executeUpdate("CREATE TABLE product(pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , pStatus varchar(10) NOT NULL , PRIMARY KEY (pcode))");} catch (SQLException ex) {}  
             try {stm.executeUpdate("CREATE TABLE productincart(cusid varchar(20) NOT NULL , pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , PRIMARY KEY (cusid , pcode))");} catch (SQLException ex) {}  
             try {stm.executeUpdate("CREATE TABLE storage(cusid varchar(20) NOT NULL , pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , PRIMARY KEY (cusid , pcode))");} catch (SQLException ex) {}  
@@ -61,16 +58,14 @@ public class DBInitialization {
     }
     
     private static void initializeDb(boolean show){
-        String sqlAccount ="INSERT INTO account VALUES(?,?,?)";
         String sqlPerson ="INSERT INTO person VALUES(?,?,?,?,?,?)";
-        String sqlCustomer ="INSERT INTO customer VALUES(?,?,?)";
-        String sqlAdmin ="INSERT INTO admin VALUES(?,?)";
+        String sqlCustomer ="INSERT INTO customer VALUES(?,?,?,?,?)";
+        String sqlAdmin ="INSERT INTO admin VALUES(?,?,?,?)";
         String sqlProduct ="INSERT INTO product VALUES(?,?,?,?,?)";
         String sqlProductInCart ="INSERT INTO productincart VALUES(?,?,?,?,?)";
         String sqlStorage ="INSERT INTO storage VALUES(?,?,?,?,?)";
         String sqlStore ="INSERT INTO store VALUES(?,?,?,?,?)";
             try(Connection conn = DBConnection.getConnection();
-                PreparedStatement stmA = conn.prepareStatement(sqlAccount);
                 PreparedStatement stmP = conn.prepareStatement(sqlPerson);
                 PreparedStatement stmC = conn.prepareStatement(sqlCustomer);
                 PreparedStatement stmAd = conn.prepareStatement(sqlAdmin);
@@ -80,23 +75,7 @@ public class DBInitialization {
                 PreparedStatement stmS = conn.prepareStatement(sqlStore);
                 ) {
             Scanner sc;
-            try {
-                if(show)System.out.println("\n--- Import Account ---");
-                sc=new Scanner(new File("files/account.csv"));
-                String line;
-                try{
-                    while((line=sc.nextLine())!=null){
-                        String[] temp=line.split(",");
-                        stmA.setString(1, temp[0]);
-                        stmA.setString(2, temp[1]);
-                        stmA.setString(3, temp[2]);
-                        stmA.executeUpdate();
-                        if(show)System.out.println("Insert: "+line);
-                    }
-                }catch(NoSuchElementException ex){}
-            } catch (FileNotFoundException ex) {
-                System.out.println(ex.getMessage());
-            }
+
             
             try {
                 if(show)System.out.println("\n--- Import Person ---");
