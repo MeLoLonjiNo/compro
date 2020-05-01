@@ -1,4 +1,7 @@
+package DatabaseConection;
 
+
+import DatabaseConection.DBConnection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -14,13 +17,11 @@ public class DBInitialization {
     public static void main(String[] args) {
         createTables();
     //    initializeDb(true);
-
     }
     
     public static void renew() {
         createTables();
     //    initializeDb(true);
-
     }
     
     private static void createTables(){
