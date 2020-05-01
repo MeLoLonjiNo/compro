@@ -45,7 +45,23 @@ public class Account {
     public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
-
+    
+    public String getUserName(){
+        return person.getName();
+    }
+    
+    public String getUserAddress(){
+        return person.getAddress();
+    }
+    
+    public String getUserEmail(){
+        return person.getEmail();
+    }
+    
+    public String getUserPhone(){
+        return person.getPhone();
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

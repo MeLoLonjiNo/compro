@@ -20,6 +20,28 @@ public class Person {
         this.phone = phone;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Person{" + "name=" + name + ", address=" + address + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phone=" + phone + '}';

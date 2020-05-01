@@ -34,6 +34,16 @@ public class Product {
 //        }
     }
 
+    public Product(String productCode , String productName , String description , int price,String productStatus) {
+         if(productCode!=null && productName!=null && description!=null){
+         this.productCode = productCode;
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        setProductStatusFromString(productStatus);
+         }
+    }
+
     public String getProductCode() {
         return productCode;
     }
@@ -53,9 +63,40 @@ public class Product {
     public ProductStatus getProductStatus() {
         return productStatus;
     }
-    public void paint(Graphics g){
-    g.setColor (Color.blue);
-    g.drawString(productName, 120, 120);
+    
+    public String getProductStatusToString() {
+        if(this.productStatus==ProductStatus.betaTest){return "Beta Test";}
+        else if(this.productStatus==ProductStatus.comingSoon){return "Coming Soon";}
+        else if(this.productStatus==ProductStatus.onSale){return "On Sale";}
+        else if(this.productStatus==ProductStatus.suspendedForSale){return "Suspended";}
+        else{return null;}
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setProductStatus(ProductStatus productStatus) {
+        this.productStatus = productStatus;
+    }
+    
+    public void setProductStatusFromString(String productStatus) {
+        if(productStatus.equalsIgnoreCase("Beta Test")){this.productStatus = ProductStatus.betaTest;}
+        if(productStatus.equalsIgnoreCase("Coming Soon")){this.productStatus = ProductStatus.comingSoon;}
+        if(productStatus.equalsIgnoreCase("On Sale")){this.productStatus = ProductStatus.onSale;}
+        if(productStatus.equalsIgnoreCase("Suspended")){this.productStatus = ProductStatus.suspendedForSale;}
     }
     
     @Override

@@ -2,7 +2,7 @@ package Account;
 import Person.Person;
 import Product.Product;
 
-public class CustomerAccount extends  Account{
+public class CustomerAccount extends Account{
     
     private Product[] productInCart;
     private int countCart;
@@ -12,13 +12,21 @@ public class CustomerAccount extends  Account{
     //private History history[];
     private static final String RED = "\u001B[031m";
     
-    public CustomerAccount(Account account) {
+    public CustomerAccount(Account account)  {
         super(account);
         productInCart = new Product[20];
         storage = new Product[20];
         money = 2000;
         countCart=0;
         countStorage=0;
+    }
+
+    public int getCountCart() {
+        return countCart;
+    }
+
+    public int getCountStorage() {
+        return countStorage;
     }
     
     public CustomerAccount(String id , String password , Person person){
@@ -189,6 +197,8 @@ public class CustomerAccount extends  Account{
         }
         return -1;
     }
+    
+    
 
     public int getMoney() {
         return money;
@@ -196,7 +206,6 @@ public class CustomerAccount extends  Account{
     
     public void getStringMoney() {
         System.out.println("Meney : "+money);
-        
     }
     
     public void setAccountSatus (AccountStatus status){
