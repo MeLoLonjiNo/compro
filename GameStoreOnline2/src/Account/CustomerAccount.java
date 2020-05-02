@@ -11,6 +11,7 @@ public class CustomerAccount extends Account{
     private int money;
     //private History history[];
     private static final String RED = "\u001B[031m";
+    private static final String BLACK = "\u001B[030m";
     
     public CustomerAccount(Account account)  {
         super(account);
@@ -64,7 +65,7 @@ public class CustomerAccount extends Account{
     }
     
     public void addProductToCart(Product addingProduct){
-        if(haveProductInCart(addingProduct)){System.out.println(RED+"Sorry... "+addingProduct.getProductName()+" Has Been In Your Cart Yet.");
+        if(haveProductInCart(addingProduct)){System.out.println(RED+"Sorry... "+addingProduct.getProductName()+" Has Been In Your Cart Yet."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
             resize();
@@ -84,7 +85,7 @@ public class CustomerAccount extends Account{
                 productInCart[i] = null ;
                 orderProductInCart();
             }
-        }else{System.out.println(RED+"Not Have This Product In Your Cart.");
+        }else{System.out.println(RED+"Not Have This Product In Your Cart."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
     }
      
@@ -174,11 +175,11 @@ public class CustomerAccount extends Account{
      }
 
     public void buy(Product buyingProduct){
-        if(haveProductInStorage(buyingProduct)){System.out.println(RED+"Sorry... "+buyingProduct.getProductName()+" Has In Your Store Yet.");
+        if(haveProductInStorage(buyingProduct)){System.out.println(RED+"Sorry... "+buyingProduct.getProductName()+" Has In Your Storage Yet."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
         if(money<buyingProduct.getPrice()){
-            System.out.println(RED+"Your Money Is Not Enough !");
+            System.out.println(RED+"Your Money Is Not Enough !"+BLACK);
         }else{
         addProductToStorage(buyingProduct);
         deleteProductInCart(buyingProduct);
