@@ -1,9 +1,7 @@
 package ModelDatabase;
 import Account.AdminAccount;
 import DatabaseConection.DBConnection;
-import ModelInterface.GeneralInterface;
-import ModelInterface.ProductInterface;
-import Product.Product;
+import Person.Person;
 import Service.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -62,47 +60,35 @@ public class StoreDB{
         GeneralList<Store> str = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM store";
+            String sql = "SELECT * FROM store s, admin a,person p WHERE s.sname=a.sname AND a.admname=p.name";
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
-                str.add(new Store(rs.getString("sname"), rs.getString("admid"), rs.getInt("countcus"),rs.getInt("countp")));
+                Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
+                AdminAccount a = new AdminAccount(rs.getString("admid"), rs.getString("password"), p );
+                str.add(new Store(rs.getString("sname"), a, rs.getInt("countcus"),rs.getInt("countp")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return str;
     }
-    
-//    public Store findById(int id) {
-//        Store str = null;
-//        try (Connection conn = DBConnection.getConnection();
-//                Statement stm = conn.createStatement()) {
-//            String sql = "SELECT * FROM store where sname=" + id;
-//            ResultSet rs = stm.executeQuery(sql);
-//            if (rs.next()) {
-//                str = new Store(rs.getString("sname"), rs.getString("admid"), rs.getInt("countcus"),rs.getInt("countp"));
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        System.out.println(str);
-//        return str;
-//    }
 
-//    public GeneralList<Store> findByName(String name) {
-//        GeneralList<Store> strList = new GeneralList<>();
-//        String sql = "SELECT * FROM store WHERE sname like ?";
-//        try (Connection conn = DBConnection.getConnection();
-//                PreparedStatement stm = conn.prepareStatement(sql)) {
-//            stm.setString(1, "%" + name + "%");
-//            ResultSet rs = stm.executeQuery();
-//            while (rs.next()) {
-//                strList.add(new Store(rs.getString("sname"), rs.getString("admid"), rs.getInt("countcus"),rs.getInt("countp")));
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//
-//        return strList;
-//    }
+    public GeneralList<Store> findByName(String name) {
+        GeneralList<Store> strList = new GeneralList<>();
+        String sql = "SELECT * FROM store s, admin a,person p WHERE s.sname=a.sname AND a.admname=p.name AND sname like ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stm = conn.prepareStatement(sql)) {
+            stm.setString(1, "%" + name + "%");
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
+                AdminAccount a = new AdminAccount(rs.getString("admid"), rs.getString("password"), p );
+                strList.add(new Store(rs.getString("sname"),a, rs.getInt("countcus"),rs.getInt("countp")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return strList;
+    }
 }

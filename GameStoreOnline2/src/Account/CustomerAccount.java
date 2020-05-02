@@ -39,6 +39,15 @@ public class CustomerAccount extends Account{
         countStorage=0;
     }
     
+    public CustomerAccount(String id , String password , Person person , int money,int countC,int countS){
+        super(id, password, person);
+        productInCart = new Product[20];
+        storage = new Product[20];
+        this.money = money;
+        countCart=countC;
+        countStorage=countS;
+    }
+    
     public void resize() {
         if(countCart==productInCart.length){
             Product cart[] = new Product[this.productInCart.length+20];
