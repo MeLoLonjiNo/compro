@@ -43,15 +43,6 @@ public class DBInitialization {
             try {stm.executeUpdate("CREATE TABLE storage(cusid varchar(20) NOT NULL , pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , PRIMARY KEY (cusid , pcode))");} catch (SQLException ex) {}  
             try {stm.executeUpdate("CREATE TABLE store(sname varchar(20) NOT NULL , admid varchar(20) NOT NULL , cusid varchar(20) NOT NULL , countcus INT NOT NULL , countp INT NOT NULL , PRIMARY KEY (admid , cusid))");} catch (SQLException ex) {}
 
-            try {stm.executeUpdate("CREATE TABLE account(userid varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , PRIMARY KEY (userid) , FOREIGN KEY (userid))");} catch (SQLException ex) {}         
-            try {stm.executeUpdate("CREATE TABLE person(userid varchar(20) NOT NULL , name varchar(20) NOT NULL , address varchar(100) NOT NULL, dateOfBirth INT NOT NULL , email varchar(50) NOT NULL , phone int NOT NULL , PRIMARY KEY (userid) , FOREIGN KEY (userid))");} catch (SQLException ex) {}   
-            try {stm.executeUpdate("CREATE TABLE customer(cusid varchar(20) NOT NULL , cusname varchar(20) NOT NULL , money INT NOT NULL , countcart INT NOT NULL , countstorage INT NOT NULL , PRIMARY KEY (cusid) , FOREIGN KEY (cusid))");} catch (SQLException ex) {}
-            try {stm.executeUpdate("CREATE TABLE admin(admid varchar(20) NOT NULL , admname varchar(20) NOT NULL , PRIMARY KEY (admid) , FOREIGN KEY (admid))");} catch (SQLException ex) {}  
-            try {stm.executeUpdate("CREATE TABLE product(pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description(100) NOT NULL , price INT NOT NULL , pStatus varchar(10) NOT NULL , PRIMARY KEY (pcode) , FOREIGN KEY (pcode))");} catch (SQLException ex) {}  
-            try {stm.executeUpdate("CREATE TABLE productincart(cusid varchar(20) NOT NULL , pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , PRIMARY KEY (cusid , pcode) , FOREIGN KEY (cusid))");} catch (SQLException ex) {}  
-            try {stm.executeUpdate("CREATE TABLE storage(cusid varchar(20) NOT NULL , pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description(100) NOT NULL , price INT NOT NULL , PRIMARY KEY (cusid , pcode) , FOREIGN KEY (cusid))");} catch (SQLException ex) {}  
-            try {stm.executeUpdate("CREATE TABLE store(sname varchar(20) NOT NULL , admid varchar(20) NOT NULL , cusid varchar(20) NOT NULL , countcus INT NOT NULL , countp INT NOT NULL , PRIMARY KEY (admid , cusid) , FOREIGN KEY (admid , cusid))");} catch (SQLException ex) {}
-
         }catch (Exception ex) {
             System.out.println(ex.getMessage()+" แก้ไขตามคำแนะนำด้านบน แล้ว Run ใหม่จนกว่าจะผ่าน");
         }
