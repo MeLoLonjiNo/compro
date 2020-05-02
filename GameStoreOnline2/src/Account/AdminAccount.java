@@ -19,7 +19,7 @@ public class AdminAccount extends Account{
     public Account getAccount() {
         return account;
     }
-
+    
     @Override
     public String toString() {
         return "AdminAccount{" + "account=" + account + '}';
