@@ -16,12 +16,12 @@ public class DBInitialization {
     
     public static void main(String[] args) {
         createTables();
-    //    initializeDb(true);
+        initializeDb(true);
     }
     
     public static void renew() {
         createTables();
-    //    initializeDb(true);
+        initializeDb(true);
     }
     
     private static void createTables(){
@@ -35,7 +35,7 @@ public class DBInitialization {
             try {stm.executeUpdate("DROP TABLE storage");} catch (SQLException ex) {}  
             try {stm.executeUpdate("DROP TABLE store");} catch (SQLException ex) {}  
                     
-            try {stm.executeUpdate("CREATE TABLE person(name varchar(20) NOT NULL , address varchar(100) NOT NULL, dateOfBirth INT NOT NULL , monthOfBirth INT NOT NULL , yearOfBirth INT NOT NULL , email varchar(50) NOT NULL , phone INT NOT NULL , PRIMARY KEY (userid))");} catch (SQLException ex) {}   
+            try {stm.executeUpdate("CREATE TABLE person(name varchar(20) NOT NULL , address varchar(100) NOT NULL, dateOfBirth INT NOT NULL , monthOfBirth INT NOT NULL , yearOfBirth INT NOT NULL , email varchar(50) NOT NULL , phone INT NOT NULL , PRIMARY KEY (name))");} catch (SQLException ex) {}   
             try {stm.executeUpdate("CREATE TABLE customer(cusid varchar(20) NOT NULL , cusname varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , money INT NOT NULL , countcart INT NOT NULL , countstorage INT NOT NULL , sname varchar(20) NOT NULL , PRIMARY KEY (cusid))");} catch (SQLException ex) {}
             try {stm.executeUpdate("CREATE TABLE admin(admid varchar(20) NOT NULL , admname varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , sname varchar(20) NOT NULL , PRIMARY KEY (admid))");} catch (SQLException ex) {}  
             try {stm.executeUpdate("CREATE TABLE product(pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , pStatus varchar(10) NOT NULL , sname varchar(20) NOT NULL , PRIMARY KEY (pcode))");} catch (SQLException ex) {}  

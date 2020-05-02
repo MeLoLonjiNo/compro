@@ -1,6 +1,6 @@
 
 import Account.AdminAccount;
-import Service.Store;
+import Store.Store;
 import Product.Product;
 import Account.CustomerAccount;
 import Person.Person;

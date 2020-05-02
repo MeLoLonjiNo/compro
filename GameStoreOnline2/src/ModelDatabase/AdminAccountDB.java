@@ -5,7 +5,7 @@ import Account.Account;
 import Account.AdminAccount;
 import DatabaseConection.DBConnection;
 import Person.Person;
-import Service.Store;
+import Store.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

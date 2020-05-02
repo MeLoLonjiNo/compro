@@ -1,25 +1,25 @@
+
 package Service;
 
-
+import Store.Store;
 import Account.AccountPriority;
 import Account.AdminAccount;
 import Account.CustomerAccount;
 import Person.Person;
 import Product.Product;
-import Store.Store;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class StoreService {
+public class StoreServiceDB {
     private AdminAccount adminAccount;
-    private CustomerAccount customerAccount;
+    private CustomerAccount nowCustomerAccount;
     private static Product[] Store;
     private Store gameStore;
     private static final Scanner sc = new Scanner(System.in);
     private static final String RED = "\u001B[031m";
     private static final String BLACK = "\u001B[030m";
     
-    public StoreService(String storeName, AdminAccount admin){
+    public StoreServiceDB(String storeName, AdminAccount admin){
         this.gameStore = new Store("PokeShop", admin);
         this.adminAccount = admin;
     }
@@ -52,7 +52,7 @@ public class StoreService {
         gameStore.addCustomerAccuont(MeLo);
         gameStore.addCustomerAccuont(Bal4ncez);
         gameStore.addCustomerAccuont(Garnet_);
-        this.customerAccount=MeLo;
+        this.nowCustomerAccount=MeLo;
     }
     
     public void firstMenu(){
@@ -98,7 +98,7 @@ public class StoreService {
         menuLogInPassword=sc.next();
         
         if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Customer){
-            this.customerAccount=gameStore.codeToAccount(menuLogInID);
+            this.nowCustomerAccount=gameStore.codeToAccount(menuLogInID);
             customerMenu();
         }
         else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Admin){
@@ -287,7 +287,7 @@ public class StoreService {
             System.out.println("---------------------------------------------------------------------------------------------------");
             switch (menuId) {
                 case 0:
-                    this.customerAccount = null;
+                    this.nowCustomerAccount = null;
                     System.out.println("Log Out Success.");
                     break;
                 case 1:
@@ -300,16 +300,16 @@ public class StoreService {
                     removeProductFromCart();
                     break;
                 case 4:
-                    gameStore.checkCart(customerAccount);
+                    gameStore.checkCart(nowCustomerAccount);
                     break;
                 case 5:
                     buyProduct();
                     break;
                 case 6:
-                    gameStore.checkStorage(customerAccount);
+                    gameStore.checkStorage(nowCustomerAccount);
                     break;
                 case 7:
-                    gameStore.checkMoney(customerAccount);
+                    gameStore.checkMoney(nowCustomerAccount);
                     break;
             }
         } while (menuId != 0);
@@ -324,7 +324,7 @@ public class StoreService {
         System.out.println("----- Add Product To Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
-        gameStore.addToCart(this.customerAccount, productCode);
+        gameStore.addToCart(this.nowCustomerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
@@ -335,7 +335,7 @@ public class StoreService {
         System.out.println("----- Remove Product From Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
-        gameStore.removeFromCart(this.customerAccount, productCode);
+        gameStore.removeFromCart(this.nowCustomerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
@@ -346,7 +346,7 @@ public class StoreService {
         System.out.println("----- Buy Product  -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
-        gameStore.buy(this.customerAccount, productCode);
+        gameStore.buy(this.nowCustomerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }

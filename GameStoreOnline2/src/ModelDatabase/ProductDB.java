@@ -1,7 +1,7 @@
 package ModelDatabase;
 import DatabaseConection.DBConnection;
 import Product.Product;
-import Service.Store;
+import Store.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

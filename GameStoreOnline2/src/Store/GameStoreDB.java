@@ -1,16 +1,13 @@
-package Service;
-
+package Store;
 
 import Account.AccountPriority;
 import Account.AccountStatus;
-import Service.AdminService;
-import Service.CustomerService;
-import Product.Product;
-import Account.CustomerAccount;
 import Account.AdminAccount;
+import Account.CustomerAccount;
+import Product.Product;
 
-public class Store implements CustomerService,AdminService{
-    private String storeName;
+public class GameStoreDB {
+     private String storeName;
     private Product[] store;
     private AdminAccount admin;
     private CustomerAccount[] customer;
@@ -19,7 +16,7 @@ public class Store implements CustomerService,AdminService{
     private static final String RED = "\u001B[031m";
     private static final String BLACK = "\u001B[030m";
     
-    public Store(String storeName, AdminAccount admin) {
+    public GameStoreDB(String storeName, AdminAccount admin) {
         this.storeName = storeName;
         this.store=new Product[20];
         this.admin = admin;
@@ -27,15 +24,13 @@ public class Store implements CustomerService,AdminService{
         this.countProduct=0;
     }
 
-    public Store(String storeName, AdminAccount admin, int countCustomer, int countProduct) {
+    public GameStoreDB(String storeName, AdminAccount admin, int countCustomer, int countProduct) {
         this.storeName = storeName;
         this.admin = admin;
         this.countCustomer = countCustomer;
         this.countProduct = countProduct;
     }
-    
-    
-
+ 
     public int getCountCustomer() {
         return countCustomer;
     }
@@ -183,7 +178,6 @@ public class Store implements CustomerService,AdminService{
     
     //---------------------------------------------------------------------------------------------------------------------------------------------//
     
-    @Override
     public void viewShop() {
         System.out.println("***** Welcome to "+this.storeName.toString()+" Game Store Shop *****");
         for (int i = 0; i < store.length ; i++) {
@@ -194,7 +188,6 @@ public class Store implements CustomerService,AdminService{
         System.out.println("---------------------------------------------------------------------------------------------------");
     }
 
-    @Override
     public void addToCart(CustomerAccount customer,String pdc) { 
         try{
         Product addingpdc = codeToObject(pdc);
@@ -213,7 +206,6 @@ public class Store implements CustomerService,AdminService{
         }
     }
     
-    @Override
     public void addToCart(CustomerAccount customer,Product addingProduct) { 
         if(haveProductInStore(addingProduct)){
             customer.addProductToCart(addingProduct);
@@ -222,7 +214,6 @@ public class Store implements CustomerService,AdminService{
         System.out.println("---------------------------------------------------------------------------------------------------");}
     }
 
-    @Override
     public void removeFromCart(CustomerAccount customer,String pdc) {
         try{
             customer.deleteProductInCart(codeToObject(pdc));
@@ -233,13 +224,11 @@ public class Store implements CustomerService,AdminService{
         }
     }
     
-    @Override
     public void removeFromCart(CustomerAccount customer,Product deletingProduct) {
         customer.deleteProductInCart(deletingProduct);
         System.out.println("Remove Product "+deletingProduct.getProductName()+" From Your Cart Complete" );
     }
 
-    @Override
     public void buy(CustomerAccount customer,Product buyingProduct) {
         if(buyingProduct==null){System.out.println(RED+"Buying Product Must Be Not Null."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
@@ -266,26 +255,22 @@ public class Store implements CustomerService,AdminService{
         }
     }
 
-    @Override
     public void checkMoney(CustomerAccount customer) {
         System.out.println("***** Your Remaining Money *****");
         System.out.println("Money : " + customer.getMoney());
         System.out.println("---------------------------------------------------------------------------------------------------");
     }
 
-    @Override
     public void checkCart(CustomerAccount customer) {
         customer.getProductInCart();
     }
 
-    @Override
     public void checkStorage(CustomerAccount customer) {
         customer.getProductInStorage();
     }
      
     //---------------------------------------------------------------------------------------------------------------------------------------------// 
     
-    @Override
      public void addProduct(String productCode , String productName , String description , int price) {
         Product pd = new Product(productCode, productName, description, price);
         if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have "+productName+" Product Already."+BLACK);
@@ -301,7 +286,6 @@ public class Store implements CustomerService,AdminService{
         this.countProduct++;}
     }
     
-    @Override
     public void addProduct(Product pd) {
         if(haveProductInStore(pd)){System.out.println(RED+"Sorry... Now Have This Product Already"+BLACK);
          System.out.println("---------------------------------------------------------------------------------------------------");}
@@ -316,7 +300,6 @@ public class Store implements CustomerService,AdminService{
         this.countProduct++;}
     }
 
-    @Override
     public void removeProduct(Product pd){
         if(haveProductInStore(pd)){
         int i = getProductStoreIndex(pd);
@@ -344,7 +327,6 @@ public class Store implements CustomerService,AdminService{
             }
         }
 
-    @Override
     public void banCustomer(CustomerAccount customerAccount) {
         if(customerAccount.getAccountStatus()==AccountStatus.ban){System.out.println("This Account Has Already Ban.");}
         else{
@@ -353,7 +335,6 @@ public class Store implements CustomerService,AdminService{
         }
     }
 
-    @Override
     public void unBanCustomer(CustomerAccount customerAccount) {
         if(customerAccount.getAccountStatus()==AccountStatus.active){System.out.println("This Account Didn't Ban.");}
         else{
@@ -362,12 +343,10 @@ public class Store implements CustomerService,AdminService{
         }
     }
 
-    @Override
     public void addMoney(CustomerAccount customerAccount,int money) {
         customerAccount.addMoney(money);
     }
 //    
-    @Override
     public void listCustomer(){
         System.out.println("***** List of Customer *****");
         for (int i = 0;i < customer.length ; i++ )
@@ -381,5 +360,4 @@ public class Store implements CustomerService,AdminService{
     public String toString() {
         return "Store{" + "store=" + store + '}';
     }
-    
 }
