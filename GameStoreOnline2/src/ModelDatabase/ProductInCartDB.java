@@ -1,9 +1,9 @@
 
 package ModelDatabase;
 
+import Account.CustomerAccount;
 import DatabaseConection.DBConnection;
-import ModelInterface.PersonInterface;
-import Person.Person;
+import ModelInterface.ProductInCartInterface;
 import Product.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,19 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PersonDB implements PersonInterface{
+public class ProductInCartDB {
 
-    @Override
-    public int insert(Person obj) {
-        String sql = "INSERT INTO product VALUES(?,?,?,?,?)";
+    public int insert(CustomerAccount cus , Product obj) {
+        String sql = "INSERT INTO productincart VALUES(?,?)";
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, obj.getProductCode());
-            stm.setString(2, obj.getProductName());
-            stm.setString(3, obj.getDescription());
-            stm.setInt(4, obj.getPrice());
-            stm.setString(5, obj.getProductStatusToString());
+            stm.setString(1, cus.getUserID());
+            stm.setString(2, obj.getProductCode());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Cannot insert in to dabase: " + ex.getMessage());
@@ -31,17 +27,14 @@ public class PersonDB implements PersonInterface{
         return row;
     }
 
-    @Override
-    public int update(Person prod) {
-        String sql = "UPDATE product SET pcode=?,pname=?,description=?, price=?,pStatus=? WHERE pcode=? ";
+    public int update(CustomerAccount cus ,Product obj) {
+        String sql = "UPDATE productincart SET cusid=?,pcode=? WHERE cusid=? ";
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                  PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, prod.getProductCode());
-            stm.setString(2, prod.getProductName());
-            stm.setString(3, prod.getDescription());
-            stm.setInt(4, prod.getPrice());
-            stm.setString(5, prod.getProductStatusToString());
+            stm.setString(1, cus.getUserID());
+            stm.setString(2, obj.getProductCode());
+            stm.setString(3, cus.getUserID());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -49,12 +42,11 @@ public class PersonDB implements PersonInterface{
         return row;
     }
 
-    @Override
-    public int delete(Person prod) {
+    public int delete(CustomerAccount cus ,Product obj) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM product WHERE pcode=" + prod.getProductCode();
+            String sql = "DELETE FROM productincart WHERE cusid=" + cus.getUserID()+"AND pcode="+ obj.getProductCode();
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -62,15 +54,15 @@ public class PersonDB implements PersonInterface{
         return row;
     }
 
-    @Override
-    public GeneralList<Person> getAll() {
-        GeneralList<Person> prods = new GeneralList<>();
+    public GeneralList<Product> getAll(CustomerAccount cus) {
+        GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM product";
+            String sql0 = "SELECT pcode FROM productincart WHERE cusid="+cus.getUserID();
+            String sql = "SELECT * FROM product WHERE "+sql0;
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
-                prods.add(new Person(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
+                prods.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -78,12 +70,12 @@ public class PersonDB implements PersonInterface{
         return prods;
     }
 
-    @Override
-    public Person findById(int id) {
+    public Product findById(CustomerAccount cus,int id) {
         Product prod = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM product where pro_id=" + id;
+            String sql0 = "SELECT pcode FROM productincart WHERE cusid="+cus.getUserID();
+            String sql = "SELECT * FROM product where pro_id=" + sql0;
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 prod = new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus"));
@@ -95,10 +87,10 @@ public class PersonDB implements PersonInterface{
         return prod;
     }
 
-    @Override
-    public GeneralList<Person> findByName(String name) {
+    public GeneralList<Product> findByName(CustomerAccount cus,String name) {
         GeneralList<Product> prodList = new GeneralList<>();
-        String sql = "SELECT * FROM product WHERE pro_name like ?";
+         String sql0 = "SELECT pname FROM productincart WHERE cusid="+cus.getUserID();
+        String sql = "SELECT * FROM product WHERE "+sql0+ "like "+name;
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");
