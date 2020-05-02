@@ -27,6 +27,23 @@ public class Store implements CustomerService,AdminService{
         this.countProduct=0;
     }
 
+    public Store(String storeName, AdminAccount admin, int countCustomer, int countProduct) {
+        this.storeName = storeName;
+        this.admin = admin;
+        this.countCustomer = countCustomer;
+        this.countProduct = countProduct;
+    }
+    
+    
+
+    public int getCountCustomer() {
+        return countCustomer;
+    }
+
+    public int getCountProduct() {
+        return countProduct;
+    }
+
     public void resize() {
         if(countProduct==store.length){
             Product s[] = new Product[this.store.length+20];
