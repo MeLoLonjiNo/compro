@@ -7,7 +7,6 @@ import Product.Product;
 import Service.Store;
 import java.time.LocalDate;
 import java.util.Scanner;
-import static jdk.vm.ci.meta.JavaKind.Int;
 
 public class StoreService {
     private AdminAccount adminAccount;
