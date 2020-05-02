@@ -41,7 +41,11 @@ public class Account {
         return accountStatus;
     }
 
-
+    public String getAccountStatusToString(){
+        if(this.accountStatus==AccountStatus.active){return "Active";}
+        else{return "Ban";}
+    }
+    
     public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }

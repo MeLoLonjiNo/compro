@@ -218,10 +218,11 @@ public class CustomerAccount extends Account{
         this.money=money+addingMoney;
     }
     
-    public  AccountStatus getAccuontStatus (){
-        return super.getAccountStatus();
-    }
+//    public  AccountStatus getAccuontStatus (){
+//        return super.getAccountStatus();
+//    }
 
+    
     @Override
     public String toString() {
         return "Customer Account ID : "+super.getUserID();
