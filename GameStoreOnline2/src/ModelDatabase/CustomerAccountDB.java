@@ -5,13 +5,14 @@ import Account.CustomerAccount;
 import DatabaseConection.DBConnection;
 import ModelInterface.CustomerInterface;
 import ModelDatabase.GeneralList;
+import Person.Person;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CustomerAccountBD implements CustomerInterface{
+public class CustomerAccountDB implements CustomerInterface{
 
    @Override
     public int insert(CustomerAccount obj) {
@@ -70,7 +71,7 @@ public class CustomerAccountBD implements CustomerInterface{
             String sql = "SELECT * FROM customer";
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
-                custs.add(new CustomerAccount(rs.getString("cusid"), rs.getString("cusname")));
+                custs.add(new CustomerAccount(rs.getString("cusid"), rs.getString("password"), rs2.getObject(sql, person)));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -79,14 +80,14 @@ public class CustomerAccountBD implements CustomerInterface{
     }
 
     @Override
-    public Customer findById(int id) {
-        Customer cust = null;
+    public CustomerAccount findById(int id) {
+        CustomerAccount cust = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
             String sql = "SELECT * FROM customer WHERE cus_id=" + id;
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
-                return new Customer(rs.getInt("cus_id"), rs.getString("cus_name"));
+                return new CustomerAccount(rs.getInt("cus_id"), rs.getString("cus_name"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -95,15 +96,15 @@ public class CustomerAccountBD implements CustomerInterface{
     }
 
     @Override
-    public GeneralList<Customer> findByName(String name) {
-        GeneralList<Customer> custList = new GeneralList<>();
+    public GeneralList<CustomerAccount> findByName(String name) {
+        GeneralList<CustomerAccount> custList = new GeneralList<>();
         String sql = "SELECT * FROM customer WHERE cus_name like ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                custList.add(new Customer(rs.getInt("cus_id"), rs.getString("cus_name")));
+                custList.add(new CustomerAccount(rs.getInt("cus_id"), rs.getString("cus_name")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

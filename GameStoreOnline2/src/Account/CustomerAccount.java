@@ -184,6 +184,7 @@ public class CustomerAccount extends Account{
         addProductToStorage(buyingProduct);
         deleteProductInCart(buyingProduct);
         this.money=money-buyingProduct.getPrice();
+        System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
             }
         }
     }
@@ -224,5 +225,9 @@ public class CustomerAccount extends Account{
     @Override
     public String toString() {
         return "Customer Account ID : "+super.getUserID();
+    }
+    
+    public String toString2() {
+        return "Customer Account ID : "+super.getUserID()+"\nCustomer Account Password : "+super.getPassword();
     }
 }

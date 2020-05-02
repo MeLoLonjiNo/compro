@@ -153,11 +153,10 @@ public class Store implements CustomerService,AdminService{
             for (int i = 0; i < customer.length; i++) {
                 if(id.equals(admin.getUserID())&&password.equals(admin.getPassword()))
                 {return AccountPriority.Admin;}
-                else if(id.equals(customer[i].getUserID()) && password.equals(customer[i].getPassword()))
+                if(id.equals(customer[i].getUserID()) && password.equals(customer[i].getPassword()))
                     {   if(customer[i].getAccountStatus()==AccountStatus.ban){return AccountPriority.Ban;}
                         else{return AccountPriority.Customer;}
                     }
-                else{return AccountPriority.Fail;}
                 }   
         }return AccountPriority.Fail; } 
         catch (Exception e){
@@ -244,7 +243,6 @@ public class Store implements CustomerService,AdminService{
         else{
         if(haveProductInCart(customer,buyingProduct)){
             customer.buy(buyingProduct);
-            System.out.println("Buying "+buyingProduct.getProductName()+" Success. Pleace Check In Your Storage.");
             checkMoney(customer);
         }else {System.out.println(RED+"Sorry...Please Add "+buyingProduct.getProductName()+" To Your Cart First."+BLACK);
         System.out.println("---------------------------------------------------------------------------------------------------");}
@@ -331,12 +329,20 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void banCustomer(CustomerAccount customerAccount) {
+        if(customerAccount.getAccountStatus()==AccountStatus.ban){System.out.println("This Account Has Already Ban.");}
+        else{
         customerAccount.setAccountStatus(AccountStatus.ban);
+            System.out.println("Ban User "+customerAccount.getUserID()+" : "+customerAccount.getUserName()+" Complete.");
+        }
     }
 
     @Override
     public void unBanCustomer(CustomerAccount customerAccount) {
+        if(customerAccount.getAccountStatus()==AccountStatus.active){System.out.println("This Account Didn't Ban.");}
+        else{
         customerAccount.setAccountStatus(AccountStatus.active);
+        System.out.println("Unban User "+customerAccount.getUserID()+" : "+customerAccount.getUserName()+" Complete.");
+        }
     }
 
     @Override
@@ -349,7 +355,7 @@ public class Store implements CustomerService,AdminService{
         System.out.println("***** List of Customer *****");
         for (int i = 0;i < customer.length ; i++ )
             if(customer[i] != null){
-                System.out.println("No."+(i+1)+" "+customer[i].toString());
+                System.out.println("No."+(i+1)+" "+customer[i].toString2());
             }
         System.out.println("---------------------------------------------------------------------------------------------------");
     }
