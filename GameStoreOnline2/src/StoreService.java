@@ -86,7 +86,7 @@ public class StoreService {
             System.out.println(RED+"Log-In Failed" + BLACK);
         }
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void register(){
@@ -123,7 +123,7 @@ public class StoreService {
         CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
         gameStore.addCustomerAccuont(c);
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void adminMenu() {
@@ -168,7 +168,7 @@ public class StoreService {
                     break;
             }
         } while (adminmenu != 0);
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void addProduct() {
@@ -187,7 +187,7 @@ public class StoreService {
          System.out.println("Add Price : ");
          price = sc.nextInt();
          gameStore.addProduct(productCode, productName, description, price);
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void removeProduct() {
@@ -199,7 +199,7 @@ public class StoreService {
         gameStore.removeProduct(productCode);
         //System.out.println("Remove Product Complete" );
         //System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void banCustomer() {
@@ -211,7 +211,7 @@ public class StoreService {
         gameStore.banCustomer(gameStore.codeToAccount(cusId));
         System.out.println("Ban " + cusId + " Complete");
         //System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void unBanCustomer() {
@@ -223,7 +223,7 @@ public class StoreService {
         gameStore.unBanCustomer(gameStore.codeToAccount(cusId));
         System.out.println("Unban " + cusId + " Complete");
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void addMoney() {
@@ -236,9 +236,9 @@ public class StoreService {
         System.out.println("Please Enter the money : ");
         money = sc.nextInt();
         gameStore.addMoney(gameStore.codeToAccount(cusId), money);
-        System.out.println("Add "+ money + " Wallet to" + cusId +" Complete" );
+        System.out.println("Add "+ money + " Wallet to " + cusId +" Complete" );
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void customerMenu(){
@@ -285,7 +285,7 @@ public class StoreService {
                     break;
             }
         } while (menuId != 0);
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void addProductToCart(){
@@ -296,7 +296,7 @@ public class StoreService {
         productCode = sc.next();
         gameStore.addToCart(this.customerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void removeProductFromCart(){
@@ -307,7 +307,7 @@ public class StoreService {
         productCode = sc.next();
         gameStore.removeFromCart(this.customerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
     public void buyProduct(){
@@ -318,7 +318,7 @@ public class StoreService {
         productCode = sc.next();
         gameStore.buy(this.customerAccount, productCode);
         System.out.println("---------------------------------------------------------------------------------------------------");
-        }catch (Exception e){ System.out.println(" Sorry Some Thing Worng");}
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong");}
     }
     
 }

@@ -62,7 +62,7 @@ public class Store implements CustomerService,AdminService{
     }
     
     public void addCustomerAccuont(CustomerAccount customer){
-        if(haveCustomer(customer)){System.out.println(RED+"Sorry... Now Have This Account Already.");
+        if(haveCustomer(customer)){System.out.println(RED+"Sorry... Now Have This Account Already."+BLACK);
          System.out.println("---------------------------------------------------------------------------------------------------");}
         else{
             resize();
@@ -253,7 +253,7 @@ public class Store implements CustomerService,AdminService{
 
     @Override
     public void checkMoney(CustomerAccount customer) {
-        System.out.println("***** Your Maintaining Money *****");
+        System.out.println("***** Your Remaining Money *****");
         System.out.println("Money : " + customer.getMoney());
         System.out.println("---------------------------------------------------------------------------------------------------");
     }
