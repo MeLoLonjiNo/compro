@@ -1,19 +1,17 @@
 package ModelDatabase;
 import DatabaseConection.DBConnection;
-import ModelInterface.GeneralInterface;
-import ModelInterface.ProductInterface;
 import Product.Product;
+import Service.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProductDB implements ProductInterface{
+public class ProductDB {
 
-    @Override
-    public int insert(Product obj) {
-        String sql = "INSERT INTO product VALUES(?,?,?,?,?)";
+    public int insert(Store store,Product obj) {
+        String sql = "INSERT INTO product VALUES(?,?,?,?,?,?)";
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -22,6 +20,7 @@ public class ProductDB implements ProductInterface{
             stm.setString(3, obj.getDescription());
             stm.setInt(4, obj.getPrice());
             stm.setString(5, obj.getProductStatusToString());
+            stm.setString(6,store.getStoreName());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Cannot insert in to dabase: " + ex.getMessage());
@@ -29,7 +28,6 @@ public class ProductDB implements ProductInterface{
         return row;
     }
 
-    @Override
     public int update(Product prod) {
         String sql = "UPDATE product SET pcode=?,pname=?,description=?, price=?,pStatus=? WHERE pcode=? ";
         int row = 0;
@@ -47,7 +45,6 @@ public class ProductDB implements ProductInterface{
         return row;
     }
 
-    @Override
     public int delete(Product prod) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -60,7 +57,6 @@ public class ProductDB implements ProductInterface{
         return row;
     }
 
-    @Override
     public GeneralList<Product> getAll() {
         GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -76,12 +72,11 @@ public class ProductDB implements ProductInterface{
         return prods;
     }
 
-    @Override
     public Product findById(int id) {
         Product prod = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM product where pro_id=" + id;
+            String sql = "SELECT * FROM product where pcode=" + id;
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 prod = new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus"));
@@ -93,10 +88,9 @@ public class ProductDB implements ProductInterface{
         return prod;
     }
 
-    @Override
     public GeneralList<Product> findByName(String name) {
         GeneralList<Product> prodList = new GeneralList<>();
-        String sql = "SELECT * FROM product WHERE pro_name like ?";
+        String sql = "SELECT * FROM product WHERE pcode like ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");

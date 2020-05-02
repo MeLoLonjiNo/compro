@@ -1,4 +1,3 @@
-
 package ModelDatabase;
 
 import Account.CustomerAccount;
