@@ -35,7 +35,7 @@ public class DBInitialization {
             try {stm.executeUpdate("DROP TABLE storage");} catch (SQLException ex) {}  
             try {stm.executeUpdate("DROP TABLE store");} catch (SQLException ex) {}  
                     
-            try {stm.executeUpdate("CREATE TABLE person(userid varchar(20) NOT NULL , name varchar(20) NOT NULL , address varchar(100) NOT NULL, dateOfBirth INT NOT NULL , email varchar(50) NOT NULL , phone INT NOT NULL , PRIMARY KEY (userid))");} catch (SQLException ex) {}   
+            try {stm.executeUpdate("CREATE TABLE person(userid varchar(20) NOT NULL , name varchar(20) NOT NULL , address varchar(100) NOT NULL, dateOfBirth INT NOT NULL , monthOfBirth INT NOT NULL , yearOfBirth INT NOT NULL , email varchar(50) NOT NULL , phone INT NOT NULL , PRIMARY KEY (userid))");} catch (SQLException ex) {}   
             try {stm.executeUpdate("CREATE TABLE customer(cusid varchar(20) NOT NULL , cusname varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , money INT NOT NULL , countcart INT NOT NULL , countstorage INT NOT NULL , PRIMARY KEY (cusid))");} catch (SQLException ex) {}
             try {stm.executeUpdate("CREATE TABLE admin(admid varchar(20) NOT NULL , admname varchar(20) NOT NULL , password varchar(30) NOT NULL , accountStatus varchar(10) NOT NULL , PRIMARY KEY (admid))");} catch (SQLException ex) {}  
             try {stm.executeUpdate("CREATE TABLE product(pcode varchar(20) NOT NULL , pname varchar(20) NOT NULL , description varchar(100) NOT NULL , price INT NOT NULL , pStatus varchar(10) NOT NULL , PRIMARY KEY (pcode))");} catch (SQLException ex) {}  
@@ -49,7 +49,7 @@ public class DBInitialization {
     }
     
     private static void initializeDb(boolean show){
-        String sqlPerson ="INSERT INTO person VALUES(?,?,?,?,?,?)";
+        String sqlPerson ="INSERT INTO person VALUES(?,?,?,?,?,?,?,?)";
         String sqlCustomer ="INSERT INTO customer VALUES(?,?,?,?,?)";
         String sqlAdmin ="INSERT INTO admin VALUES(?,?,?,?)";
         String sqlProduct ="INSERT INTO product VALUES(?,?,?,?,?)";
@@ -80,7 +80,9 @@ public class DBInitialization {
                         stmP.setString(3, temp[2]);
                         stmP.setString(4, temp[3]);
                         stmP.setInt(5, Integer.parseInt(temp[4]));
-                        stmP.setString(6, temp[5]);
+                        stmP.setInt(6, Integer.parseInt(temp[5]));
+                        stmP.setInt(7, Integer.parseInt(temp[6]));
+                        stmP.setString(8, temp[7]);
                         stmP.executeUpdate();
                         if(show)System.out.println("Insert: "+line);
                     }
