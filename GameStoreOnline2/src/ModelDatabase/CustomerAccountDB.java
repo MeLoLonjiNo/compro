@@ -3,6 +3,7 @@ package ModelDatabase;
 
 import Account.CustomerAccount;
 import DatabaseConection.DBConnection;
+import ModelInterface.CustomerInterface;
 import Person.Person;
 import Store.Store;
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CustomerAccountDB {
+public class CustomerAccountDB implements CustomerInterface{
 
     public int insert(Store str,CustomerAccount obj) {
         int nRow = 0;
@@ -113,6 +114,16 @@ public class CustomerAccountDB {
         }
 
         return custList;
+    }
+
+    @Override
+    public int insert(CustomerAccount obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int update(CustomerAccount obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
