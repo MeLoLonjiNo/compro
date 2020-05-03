@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 public class StoreDB implements StoreInterface{
 
+    @Override
     public int insert(Store obj , AdminAccount obj2) {
         String sql = "INSERT INTO store VALUES(?,?,?,?)";
         int row = 0;
@@ -28,6 +29,7 @@ public class StoreDB implements StoreInterface{
         return row;
     }
 
+    @Override
     public int update(Store str , AdminAccount adm) {
         String sql = "UPDATE product SET sname=?, admid=?, countcus=? , countp=? WHERE sname=? ";
         int row = 0;
@@ -77,9 +79,8 @@ public class StoreDB implements StoreInterface{
     }
 
     @Override
-    public GeneralList<Store> findByName(String name) {
-        GeneralList<Store> strList = new GeneralList<>();
-        String sql = "SELECT * FROM store s, admin a,person p WHERE s.sname=a.sname AND a.admname=p.name AND sname like ?";
+    public Store findByName(String name) {
+        String sql = "SELECT * FROM store WHERE sname like ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");
@@ -87,13 +88,12 @@ public class StoreDB implements StoreInterface{
             while (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
                 AdminAccount a = new AdminAccount(rs.getString("admid"), rs.getString("password"), p );
-                strList.add(new Store(rs.getString("sname"),a, rs.getInt("countcus"),rs.getInt("countp")));
+                return new Store(rs.getString("sname"),a, rs.getInt("countcus"),rs.getInt("countp"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-        return strList;
+        return null;
     }
 }
     

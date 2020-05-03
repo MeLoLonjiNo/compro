@@ -12,5 +12,5 @@ public interface StoreInterface{
     int delete(Store str);
     GeneralList<Store> getAll();
     //Store findById(, int id);
-    GeneralList<Store> findByName(String name);
+    Store findByName(String name);
 }
