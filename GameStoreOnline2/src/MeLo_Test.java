@@ -7,35 +7,45 @@ import ModelDatabase.GeneralList;
 import ModelDatabase.ProductDB;
 import ModelDatabase.ProductInCartDB;
 import ModelDatabase.StorageDB;
+import ModelDatabase.StoreDB;
 import ModelInterface.ProductInCartInterface;
 import ModelInterface.ProductInterface;
 import ModelInterface.StorageInterface;
+import ModelInterface.StoreInterface;
 import Person.Person;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 
 public class MeLo_Test {
-        Person p0= new Person("Azeus", "The Land of God", LocalDate.of(1, 1, 1), "Azeus@mail.pokedex", "0123456789");
-        AdminAccount a1 = new AdminAccount("Azeus","10130" , p0);
-        Store store = new Store("PokeShop", a1);
-        static Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
-        static CustomerAccount MeLo=new CustomerAccount("c1","12345",p1);
-        static Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
-        static CustomerAccount Bal4ncez=new CustomerAccount("c2","12345",p2);
-        static Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
-        static CustomerAccount Garnet_=new CustomerAccount("c3","12345",p3);
-        
+        static  Product pd01 = new Product("PD01","Final Fantasy VII Remake","Game Form Square Enix",1000);
+        static    Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
+        static    Product pd03 = new Product("PD03","Dota2","GG game",0);
+        static    Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
+        static    Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
+        static    Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
+        static    Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
+         static   Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
+        static    AdminAccount admin01 = new AdminAccount("Admin01","12345",p0);
+         static   CustomerAccount MeLo=new CustomerAccount("c1","12345",p1);
+        static    CustomerAccount Bal4ncez=new CustomerAccount("c2","67890",p2);
+        static    CustomerAccount Garnet_=new CustomerAccount("c3","54321",p3);
+        static    Store store = new Store("PokeShop", admin01);
+            
         static Scanner input = new Scanner(System.in);
         static ProductInterface pdb = new ProductDB();
         static ProductInCartInterface picd = new ProductInCartDB();
         static StorageInterface pisd = new StorageDB();
+        static StoreInterface sd =new StoreDB();
     
          public static void main(String[] args) {
+             
              //getProduct();
              //getProductInCart(Bal4ncez);
              //getProductInStore(MeLo);
-             findProductByID();
+             //findProductByID();
+             
+             insertProduct(store);
         }
 
         public static void getProduct(){
@@ -72,7 +82,23 @@ public class MeLo_Test {
             Product p = pdb.findById(productID);
         }
         
+        public static void insertProduct(Store s){
+            System.out.println("\nInsert Product");
+            System.out.print("Add Product ID : ");
+            String productCode = input.nextLine();
+            System.out.print("Add Product Name : ");
+            String productName = input.nextLine();
+            System.out.print("Add Description : ");
+            String productDes = input.nextLine();
+            System.out.print("Add Price : ");
+            int productPrice = input.nextInt();
+            Product p = new Product(productCode, productName,productDes, productPrice );
+            pdb.insert(s,p);
+        }
         
+        public static void deleteProduct(Store s){
+            
+        }
         
     }
         
