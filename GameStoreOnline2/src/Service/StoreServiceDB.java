@@ -5,6 +5,9 @@ import Store.Store;
 import Account.AccountPriority;
 import Account.AdminAccount;
 import Account.CustomerAccount;
+import ModelDatabase.GeneralList;
+import ModelDatabase.ProductDB;
+import ModelDatabase.StoreDB;
 import Person.Person;
 import Product.Product;
 import java.time.LocalDate;
@@ -15,6 +18,8 @@ public class StoreServiceDB {
     private CustomerAccount nowCustomerAccount;
     private static Product[] Store;
     private Store gameStore;
+    private static StoreDB storeDB;
+    private static ProductDB productDB;
     private static final Scanner sc = new Scanner(System.in);
     private static final String RED = "\u001B[031m";
     private static final String BLACK = "\u001B[030m";
@@ -28,7 +33,7 @@ public class StoreServiceDB {
         Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
         AdminAccount admin01 = new AdminAccount("Admin01","12345",p0);
         StoreService StoreService1 = new StoreService("Poke Shop", admin01);
-        StoreService1.insertTest();
+        //StoreService1.insertTest();
         StoreService1.firstMenu();
     }
     
@@ -173,7 +178,7 @@ public class StoreServiceDB {
                     System.out.println("Log Out Success.");
                     break;
                 case 1:
-                    gameStore.viewShop();
+                    viewShop();
                     break;
                 case 2:
                     addProduct();
@@ -291,7 +296,7 @@ public class StoreServiceDB {
                     System.out.println("Log Out Success.");
                     break;
                 case 1:
-                    gameStore.viewShop();
+                    viewShop();
                     break;
                 case 2:
                     addProductToCart();
@@ -315,6 +320,15 @@ public class StoreServiceDB {
         } while (menuId != 0);
         }catch (Exception e){
             System.out.println("Please Enter Only 0-7");
+        }
+    }
+    
+    public void viewShop(){
+        System.out.println("\nList all product");
+        GeneralList<Product> prods = productDB.getAll();
+        int i = 0;
+        for (Product temp : prods) {
+            System.out.println(i++ + ". " + temp);
         }
     }
     

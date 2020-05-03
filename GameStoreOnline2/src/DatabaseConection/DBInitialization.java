@@ -1,6 +1,9 @@
 package DatabaseConection;
 
 
+import ModelDatabase.GeneralList;
+import ModelDatabase.ProductDB;
+import Product.Product;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -16,7 +19,9 @@ public class DBInitialization {
     public static void main(String[] args) {
         createTables();
         initializeDb(true);
+        
     }
+    
     
     public static void renew() {
         createTables();
@@ -65,7 +70,6 @@ public class DBInitialization {
                 PreparedStatement stmS = conn.prepareStatement(sqlStore);
                 ) {
             Scanner sc;
-
             
             try {
                 if(show)System.out.println("\n--- Import Person ---");
