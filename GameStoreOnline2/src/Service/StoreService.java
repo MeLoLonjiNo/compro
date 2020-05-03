@@ -1,6 +1,5 @@
 package Service;
 
-
 import Account.AccountPriority;
 import Account.AdminAccount;
 import Account.CustomerAccount;
