@@ -1,5 +1,6 @@
 package ModelDatabase;
 import DatabaseConection.DBConnection;
+import ModelInterface.ProductInterface;
 import Product.Product;
 import Store.Store;
 import java.sql.Connection;
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProductDB {
+public class ProductDB implements ProductInterface{
 
     public int insert(Store store,Product obj) {
         String sql = "INSERT INTO product VALUES(?,?,?,?,?,?)";
@@ -46,6 +47,7 @@ public class ProductDB {
         return row;
     }
 
+    @Override
     public int delete(Product prod) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -58,6 +60,7 @@ public class ProductDB {
         return row;
     }
 
+    @Override
     public GeneralList<Product> getAll() {
         GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -73,6 +76,7 @@ public class ProductDB {
         return prods;
     }
 
+    @Override
     public Product findById(int id) {
         Product prod = null;
         try (Connection conn = DBConnection.getConnection();
@@ -89,6 +93,7 @@ public class ProductDB {
         return prod;
     }
 
+    @Override
     public GeneralList<Product> findByName(String name) {
         GeneralList<Product> prodList = new GeneralList<>();
         String sql = "SELECT * FROM product WHERE pcode like ?";
@@ -104,6 +109,16 @@ public class ProductDB {
         }
 
         return prodList;
+    }
+
+    @Override
+    public int insert(Product obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int update(Product obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

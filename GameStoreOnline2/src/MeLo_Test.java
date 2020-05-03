@@ -5,23 +5,23 @@ import Product.Product;
 import Account.CustomerAccount;
 import ModelDatabase.GeneralList;
 import ModelDatabase.ProductDB;
+import ModelInterface.ProductInterface;
 import Person.Person;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
 public class MeLo_Test {
-    public static ProductDB pdb;
+    static ProductInterface pdb = new ProductDB();
     
-        
     public static void main(String[] args) {
         getAll2();
     }
         public static void getAll2(){
-        System.out.println("\nList all customer");
-        GeneralList<Product> custs = pdb.getAll();
-        int i = 0;
-        for (Product temp : custs) {
+        System.out.println("\nList all Product");
+        GeneralList<Product> prod = pdb.getAll();
+        int i = 1;
+        for (Product temp : prod) {
             System.out.println(i++ + ". " + temp);
         }
     }
