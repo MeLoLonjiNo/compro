@@ -5,6 +5,8 @@ import Product.Product;
 import Account.CustomerAccount;
 import ModelDatabase.GeneralList;
 import ModelDatabase.ProductDB;
+import ModelDatabase.ProductInCartDB;
+import ModelInterface.ProductInCartInterface;
 import ModelInterface.ProductInterface;
 import Person.Person;
 import java.time.LocalDate;
@@ -12,29 +14,43 @@ import java.time.LocalDateTime;
 
 
 public class MeLo_Test {
-    static ProductInterface pdb = new ProductDB();
+        Person p0= new Person("Azeus", "The Land of God", LocalDate.of(1, 1, 1), "Azeus@mail.pokedex", "0123456789");
+        AdminAccount a1 = new AdminAccount("Azeus","10130" , p0);
+        Store store = new Store("PokeShop", a1);
+        static Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
+        static CustomerAccount MeLo=new CustomerAccount("c1","12345",p1);
+         Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
+        CustomerAccount Bal4ncez=new CustomerAccount("Bal4ncez","12345",p2);
+         Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
+        CustomerAccount Garnet_=new CustomerAccount("Garnet_","12345",p3);
+        static ProductInterface pdb = new ProductDB();
+        static ProductInCartInterface picd = new ProductInCartDB();
     
-    public static void main(String[] args) {
-        getAll2();
-    }
-        public static void getAll2(){
+         public static void main(String[] args) {
+             //getProduct();
+             getProductInCart(MeLo);
+        }
+
+        public static void getProduct(){
         System.out.println("\nList all Product");
         GeneralList<Product> prod = pdb.getAll();
         int i = 1;
         for (Product temp : prod) {
             System.out.println(i++ + ". " + temp);
+         }
         }
+        
+       public static void getProductInCart(CustomerAccount c){
+        System.out.println("\nList all ProductInCart");
+        GeneralList<Product> prod = picd.getAll(c);
+        int i = 1;
+        for (Product temp : prod) {
+            System.out.println(i++ + ". " + temp);
+        }
+        
     }
         
-//        Person p0= new Person("Azeus", "The Land of God", LocalDate.of(1, 1, 1), "Azeus@mail.pokedex", "0123456789");
-//        AdminAccount a1 = new AdminAccount("Azeus","10130" , p0);
-//        Store store = new Store("PokeShop", a1);
-//        Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
-//        CustomerAccount MeLo=new CustomerAccount("MeLoLonJiNo","12345",p1);
-//         Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
-//        CustomerAccount Bal4ncez=new CustomerAccount("Bal4ncez","12345",p2);
-//         Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
-//        CustomerAccount Garnet_=new CustomerAccount("Garnet_","12345",p3);
+        
 //        Product pd01 = new Product("PD01","Final Fantasy VII Remake","Action role-playing game developed and published by Square Enix",1890);
 //        Product pd02 = new Product("PD02","Final Fantasy XV ","Action role-playing game developed and published by Square Enix",845);
 //        Product pd03 = new Product("PD03","Dota2","Multiplayer online battle arena (MOBA) video game developed and published by Valve.",0);

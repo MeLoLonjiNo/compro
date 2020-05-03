@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 public class ProductInCartDB implements ProductInCartInterface{
 
+    @Override
     public int insert(CustomerAccount cus , Product obj) {
         String sql = "INSERT INTO productincart VALUES(?,?)";
         int row = 0;
@@ -26,6 +27,7 @@ public class ProductInCartDB implements ProductInCartInterface{
         return row;
     }
 
+    @Override
     public int update(CustomerAccount cus ,Product obj) {
         String sql = "UPDATE productincart SET cusid=?,pcode=? WHERE cusid=? ";
         int row = 0;
@@ -41,6 +43,7 @@ public class ProductInCartDB implements ProductInCartInterface{
         return row;
     }
 
+    @Override
     public int delete(CustomerAccount cus ,Product obj) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -53,12 +56,13 @@ public class ProductInCartDB implements ProductInCartInterface{
         return row;
     }
 
+    @Override
     public GeneralList<Product> getAll(CustomerAccount cus) {
         GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
             String sql0 = "SELECT pcode FROM productincart WHERE cusid="+cus.getUserID();
-            String sql = "SELECT * FROM product WHERE "+sql0;
+            String sql = "SELECT * FROM product WHERE pcode="+sql0;
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
                 prods.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
@@ -69,6 +73,7 @@ public class ProductInCartDB implements ProductInCartInterface{
         return prods;
     }
 
+    @Override
     public Product findById(CustomerAccount cus,int id) {
         Product prod = null;
         try (Connection conn = DBConnection.getConnection();
@@ -86,6 +91,7 @@ public class ProductInCartDB implements ProductInCartInterface{
         return prod;
     }
 
+    @Override
     public GeneralList<Product> findByName(CustomerAccount cus,String name) {
         GeneralList<Product> prodList = new GeneralList<>();
          String sql0 = "SELECT pname FROM productincart WHERE cusid="+cus.getUserID();
@@ -102,36 +108,6 @@ public class ProductInCartDB implements ProductInCartInterface{
         }
 
         return prodList;
-    }
-
-    @Override
-    public int insert(Object cus, Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int update(Object cus, Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int delete(Object cus, Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public GeneralList getAll(Object cus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object findById(Object cus, int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public GeneralList findByName(Object cus, String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
