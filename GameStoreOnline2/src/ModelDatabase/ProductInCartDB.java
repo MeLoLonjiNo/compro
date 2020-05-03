@@ -61,8 +61,7 @@ public class ProductInCartDB implements ProductInCartInterface{
         GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql0 = "SELECT pcode FROM productincart WHERE cusid="+cus.getUserID();
-            String sql = "SELECT * FROM product WHERE pcode="+sql0;
+            String sql = "SELECT p.* FROM product p JOIN productincart pi ON p.pcode = pi.pcode where cusid=" +cus.getUserID();
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
                 prods.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
