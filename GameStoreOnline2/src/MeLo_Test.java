@@ -6,11 +6,12 @@ import Account.CustomerAccount;
 import ModelDatabase.GeneralList;
 import ModelDatabase.ProductDB;
 import ModelDatabase.ProductInCartDB;
+import ModelDatabase.StorageDB;
 import ModelInterface.ProductInCartInterface;
 import ModelInterface.ProductInterface;
+import ModelInterface.StorageInterface;
 import Person.Person;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 public class MeLo_Test {
@@ -23,12 +24,15 @@ public class MeLo_Test {
         static CustomerAccount Bal4ncez=new CustomerAccount("c2","12345",p2);
         static Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
         static CustomerAccount Garnet_=new CustomerAccount("c3","12345",p3);
+        
         static ProductInterface pdb = new ProductDB();
         static ProductInCartInterface picd = new ProductInCartDB();
+        static StorageInterface pisd = new StorageDB();
     
          public static void main(String[] args) {
              //getProduct();
-             getProductInCart(Bal4ncez);
+             //getProductInCart(Bal4ncez);
+             //getProductInStore(MeLo);
         }
 
         public static void getProduct(){
@@ -47,6 +51,20 @@ public class MeLo_Test {
         for (Product temp : prod) {
             System.out.println(i++ + ". " + temp);
         }
+       }
+        
+        public static void getProductInStore(CustomerAccount c){
+        System.out.println("\nList all ProductInCart");
+        GeneralList<Product> prod = pisd.getAll(c);
+        int i = 1;
+        for (Product temp : prod) {
+            System.out.println(i++ + ". " + temp);
+        }
+        }
+        
+//        public static void findProductByID(String){
+//            System.out.println("");
+//        }
         
     }
         
@@ -116,6 +134,4 @@ public class MeLo_Test {
 //        store.addCustomerAccuont(Garnet_);
 //        store.addCustomerAccuont(MeLo);
 //        store.listCustomer();
-        
-    
-}
+

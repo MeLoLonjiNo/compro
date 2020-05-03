@@ -63,8 +63,7 @@ public class StorageDB implements StorageInterface{
         GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql2 = "SELECT pcode FROM storage WHERE cusid=" + cus.getUserID();
-            String sql = "SELECT * FROM product WHERE " + sql2;
+            String sql = "SELECT P.* FROM PRODUCT P , STORAGE PS WHERE P.PCODE=PS.PCODE AND PS.CUSID = '" + cus.getUserID() + "'";
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
                 prods.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));

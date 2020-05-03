@@ -38,7 +38,10 @@ public class Product {
         this.productName = productName;
         this.description = description;
         this.price = price;
-        setProductStatusFromString(productStatus);
+        if(productStatus.equalsIgnoreCase("Beta Test")){this.productStatus = ProductStatus.betaTest;}
+        if(productStatus.equalsIgnoreCase("Coming Soon")){this.productStatus = ProductStatus.comingSoon;}
+        if(productStatus.equalsIgnoreCase("onSale")){this.productStatus = ProductStatus.onSale;}
+        if(productStatus.equalsIgnoreCase("Suspended")){this.productStatus = ProductStatus.suspendedForSale;}
          }
     }
 
