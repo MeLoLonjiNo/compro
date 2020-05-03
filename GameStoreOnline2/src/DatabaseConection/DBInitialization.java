@@ -1,9 +1,6 @@
 package DatabaseConection;
 
 
-import ModelDatabase.GeneralList;
-import ModelDatabase.ProductDB;
-import Product.Product;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;

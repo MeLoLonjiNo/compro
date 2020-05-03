@@ -4,6 +4,7 @@ package ModelDatabase;
 import Account.Account;
 import Account.AdminAccount;
 import DatabaseConection.DBConnection;
+import ModelInterface.AdminInterface;
 import Person.Person;
 import Store.Store;
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AdminAccountDB{
+public class AdminAccountDB implements AdminInterface{
    
     public int insert(AdminAccount obj , Account obj2 ,Store obj3) {
         int nRow = 0;
@@ -48,6 +49,7 @@ public class AdminAccountDB{
         return row;
     }
 
+    @Override
     public int delete(AdminAccount adm) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -60,6 +62,7 @@ public class AdminAccountDB{
         return row;
     }
 
+    @Override
     public GeneralList<AdminAccount> getAll() {
         GeneralList<AdminAccount> adm = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -76,6 +79,7 @@ public class AdminAccountDB{
         return adm;
     }
 
+    @Override
     public AdminAccount findById(int id) {
         AdminAccount adm = null;
         try (Connection conn = DBConnection.getConnection();
@@ -92,6 +96,7 @@ public class AdminAccountDB{
         return adm;
     }
 
+    @Override
     public GeneralList<AdminAccount> findByName(String name) {
         GeneralList<AdminAccount> admList = new GeneralList<>();
         String sql = "SELECT * FROM admin WHERE admname like ?";
@@ -108,5 +113,15 @@ public class AdminAccountDB{
         }
 
         return admList;
+    }
+
+    @Override
+    public int insert(AdminAccount obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int update(AdminAccount obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

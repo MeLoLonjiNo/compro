@@ -11,8 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PersonDB {
-
+public class PersonDB implements PersonInterface{
     
     public int insert(Person obj) {
         String sql = "INSERT INTO person VALUES(?,?,?,?,?,?,?)";
@@ -115,6 +114,11 @@ public class PersonDB {
         }
 
         return prodList;
+    }
+
+    @Override
+    public Person findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
