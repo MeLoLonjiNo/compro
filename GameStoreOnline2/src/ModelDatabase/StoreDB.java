@@ -1,7 +1,9 @@
 package ModelDatabase;
 import Account.AdminAccount;
 import DatabaseConection.DBConnection;
+import ModelInterface.StoreInterface;
 import Person.Person;
+import Product.Product;
 import Store.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class StoreDB{
+public class StoreDB implements StoreInterface{
 
     public int insert(Store obj , AdminAccount obj2) {
         String sql = "INSERT INTO store VALUES(?,?,?,?)";
@@ -44,6 +46,7 @@ public class StoreDB{
         return row;
     }
 
+    @Override
     public int delete(Store str) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -56,6 +59,7 @@ public class StoreDB{
         return row;
     }
 
+    @Override
     public GeneralList<Store> getAll() {
         GeneralList<Store> str = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -73,6 +77,7 @@ public class StoreDB{
         return str;
     }
 
+    @Override
     public GeneralList<Store> findByName(String name) {
         GeneralList<Store> strList = new GeneralList<>();
         String sql = "SELECT * FROM store s, admin a,person p WHERE s.sname=a.sname AND a.admname=p.name AND sname like ?";
@@ -90,5 +95,20 @@ public class StoreDB{
         }
 
         return strList;
+    }
+
+    @Override
+    public int insert(Store obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int update(Store obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Store findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
