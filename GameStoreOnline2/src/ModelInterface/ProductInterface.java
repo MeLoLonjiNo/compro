@@ -10,6 +10,6 @@ public interface ProductInterface{
     int update(Store store,Product prod);
     int delete(Product prod);
     GeneralList<Product> getAll();
-    Product findById(int id);
+    Product findById(String id);
     GeneralList<Product> findByName(String name);
 }

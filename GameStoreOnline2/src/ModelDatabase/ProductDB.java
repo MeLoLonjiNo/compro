@@ -11,6 +11,7 @@ import java.sql.Statement;
 
 public class ProductDB implements ProductInterface{
 
+    @Override
     public int insert(Store store,Product obj) {
         String sql = "INSERT INTO product VALUES(?,?,?,?,?,?)";
         int row = 0;
@@ -29,6 +30,7 @@ public class ProductDB implements ProductInterface{
         return row;
     }
 
+    @Override
     public int update(Store store,Product prod) {
         String sql = "UPDATE product SET pcode=?,pname=?,description=?, price=?,pStatus=?,sname=? WHERE pcode=? ";
         int row = 0;
@@ -77,11 +79,11 @@ public class ProductDB implements ProductInterface{
     }
 
     @Override
-    public Product findById(int id) {
+    public Product findById(String id) {
         Product prod = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM product where pcode=" + id;
+            String sql = "SELECT * FROM product where pcode= '" + id + "'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 prod = new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus"));

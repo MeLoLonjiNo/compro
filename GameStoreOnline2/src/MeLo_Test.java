@@ -12,6 +12,7 @@ import ModelInterface.ProductInterface;
 import ModelInterface.StorageInterface;
 import Person.Person;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 
 public class MeLo_Test {
@@ -25,6 +26,7 @@ public class MeLo_Test {
         static Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
         static CustomerAccount Garnet_=new CustomerAccount("c3","12345",p3);
         
+        static Scanner input = new Scanner(System.in);
         static ProductInterface pdb = new ProductDB();
         static ProductInCartInterface picd = new ProductInCartDB();
         static StorageInterface pisd = new StorageDB();
@@ -33,6 +35,7 @@ public class MeLo_Test {
              //getProduct();
              //getProductInCart(Bal4ncez);
              //getProductInStore(MeLo);
+             findProductByID();
         }
 
         public static void getProduct(){
@@ -45,26 +48,31 @@ public class MeLo_Test {
         }
         
        public static void getProductInCart(CustomerAccount c){
-        System.out.println("\nList all ProductInCart");
+        System.out.println("\nList all Product In Cart");
         GeneralList<Product> prod = picd.getAll(c);
         int i = 1;
         for (Product temp : prod) {
             System.out.println(i++ + ". " + temp);
-        }
+            }
        }
         
         public static void getProductInStore(CustomerAccount c){
-        System.out.println("\nList all ProductInCart");
+        System.out.println("\nList all Product In Storage");
         GeneralList<Product> prod = pisd.getAll(c);
         int i = 1;
         for (Product temp : prod) {
             System.out.println(i++ + ". " + temp);
-        }
+            }
         }
         
-//        public static void findProductByID(String){
-//            System.out.println("");
-//        }
+        public static void findProductByID(){
+            System.out.println("\nFinding Product");
+            System.out.print("Please Enter Product ID : ");
+            String productID = input.nextLine();
+            Product p = pdb.findById(productID);
+        }
+        
+        
         
     }
         
