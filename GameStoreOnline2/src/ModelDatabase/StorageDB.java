@@ -13,6 +13,7 @@ import java.sql.Statement;
 public class StorageDB implements StorageInterface{
 
     
+    @Override
     public int insert(CustomerAccount cus,Product obj) {
         String sql = "INSERT INTO storage VALUES(?,?)";
         int row = 0;
@@ -28,7 +29,7 @@ public class StorageDB implements StorageInterface{
         return row;
     }
 
-    
+    @Override
     public int update(CustomerAccount cus,Product obj) {
         String sql = "UPDATE storage SET cusid=?,pcode=? WHERE cusid=? ";
         int row = 0;
@@ -44,6 +45,7 @@ public class StorageDB implements StorageInterface{
     }
 
     
+    @Override
     public int delete(CustomerAccount cus,Product obj) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -56,7 +58,7 @@ public class StorageDB implements StorageInterface{
         return row;
     }
 
-    
+    @Override
     public GeneralList<Product> getAll(CustomerAccount cus) {
         GeneralList<Product> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -73,7 +75,7 @@ public class StorageDB implements StorageInterface{
         return prods;
     }
 
-    
+    @Override
     public Product findById(CustomerAccount cus, int id) {
          Product prod = null;
         try (Connection conn = DBConnection.getConnection();
@@ -91,7 +93,7 @@ public class StorageDB implements StorageInterface{
         return prod;
     }
 
-    
+    @Override
     public GeneralList<Product> findByName(CustomerAccount cus, String name) {
         GeneralList<Product> prodList = new GeneralList<>();
         String sql2 = "SELECT pname FROM storage WHERE cusid=" + cus.getUserID();
@@ -110,34 +112,5 @@ public class StorageDB implements StorageInterface{
         return prodList;
     }
 
-    @Override
-    public int insert(Product obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int update(Product obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int delete(Product obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public GeneralList<Product> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Product findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public GeneralList<Product> findByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

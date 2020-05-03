@@ -3,7 +3,6 @@ import Account.AdminAccount;
 import DatabaseConection.DBConnection;
 import ModelInterface.StoreInterface;
 import Person.Person;
-import Product.Product;
 import Store.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -96,19 +95,5 @@ public class StoreDB implements StoreInterface{
 
         return strList;
     }
-
-    @Override
-    public int insert(Store obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int update(Store obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Store findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
+    

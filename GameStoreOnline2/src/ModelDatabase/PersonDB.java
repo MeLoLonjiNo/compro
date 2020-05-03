@@ -4,7 +4,6 @@ package ModelDatabase;
 import DatabaseConection.DBConnection;
 import ModelInterface.PersonInterface;
 import Person.Person;
-import Product.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ import java.sql.Statement;
 
 public class PersonDB implements PersonInterface{
     
+    @Override
     public int insert(Person obj) {
         String sql = "INSERT INTO person VALUES(?,?,?,?,?,?,?)";
         int row = 0;
@@ -33,6 +33,7 @@ public class PersonDB implements PersonInterface{
     }
 
     
+    @Override
     public int update(Person obj) {
         String sql = "UPDATE person SET name=?,address=?,dateOfBirth=?, monthOfBirth=?,yearOfBirth=?,email=?,phone=? WHERE name=? ";
         int row = 0;
@@ -53,6 +54,7 @@ public class PersonDB implements PersonInterface{
     }
 
     
+    @Override
     public int delete(Person prod) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -66,6 +68,7 @@ public class PersonDB implements PersonInterface{
     }
 
     
+    @Override
     public GeneralList<Person> getAll() {
         GeneralList<Person> prods = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -99,6 +102,7 @@ public class PersonDB implements PersonInterface{
 //    }
 
     
+    @Override
     public GeneralList<Person> findByName(String name) {
         GeneralList<Person> prodList = new GeneralList<>();
         String sql = "SELECT * FROM person WHERE name like " + name;
@@ -116,9 +120,5 @@ public class PersonDB implements PersonInterface{
         return prodList;
     }
 
-    @Override
-    public Person findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

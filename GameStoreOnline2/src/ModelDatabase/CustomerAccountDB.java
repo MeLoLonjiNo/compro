@@ -14,6 +14,7 @@ import java.sql.Statement;
 
 public class CustomerAccountDB implements CustomerInterface{
 
+    @Override
     public int insert(Store str,CustomerAccount obj) {
         int nRow = 0;
         String sql = "INSERT INTO customer VALUES(?,?,?,?,?,?,?,?)";
@@ -34,6 +35,7 @@ public class CustomerAccountDB implements CustomerInterface{
         return nRow;
     }
 
+    @Override
     public int update(Store str,CustomerAccount obj) {
         int row = 0;
         String sql = "UPDATE wishlist SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=? WHERE cusid=?";
@@ -54,6 +56,7 @@ public class CustomerAccountDB implements CustomerInterface{
         return row;
     }
 
+    @Override
     public int delete(CustomerAccount cust) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -66,6 +69,7 @@ public class CustomerAccountDB implements CustomerInterface{
         return row;
     }
 
+    @Override
     public GeneralList<CustomerAccount> getAll() {
         GeneralList<CustomerAccount> custs = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -82,6 +86,7 @@ public class CustomerAccountDB implements CustomerInterface{
         return custs;
     }
 
+    @Override
     public CustomerAccount findById(int id) {
         CustomerAccount cust = null;
         try (Connection conn = DBConnection.getConnection();
@@ -98,6 +103,7 @@ public class CustomerAccountDB implements CustomerInterface{
         return cust;
     }
 
+    @Override
     public GeneralList<CustomerAccount> findByName(String name) {
         GeneralList<CustomerAccount> custList = new GeneralList<>();
         String sql = "ELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid like ?";
@@ -116,14 +122,5 @@ public class CustomerAccountDB implements CustomerInterface{
         return custList;
     }
 
-    @Override
-    public int insert(CustomerAccount obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int update(CustomerAccount obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

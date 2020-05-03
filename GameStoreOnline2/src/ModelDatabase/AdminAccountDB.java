@@ -15,6 +15,7 @@ import java.sql.Statement;
 
 public class AdminAccountDB implements AdminInterface{
    
+    @Override
     public int insert(AdminAccount obj , Account obj2 ,Store obj3) {
         int nRow = 0;
         String sql = "INSERT INTO admin VALUES(?,?,?,?,?)";
@@ -32,6 +33,7 @@ public class AdminAccountDB implements AdminInterface{
         return nRow;
     }
 
+    @Override
     public int update(AdminAccount adm , Account act , Store str) {
         int row = 0;
         String sql = "UPDATE admin SET admid=?,admname=?,password=?,accountStatus=?,sname=? WHERE admid=?";
@@ -115,13 +117,5 @@ public class AdminAccountDB implements AdminInterface{
         return admList;
     }
 
-    @Override
-    public int insert(AdminAccount obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int update(AdminAccount obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
