@@ -42,6 +42,7 @@ public class ProductDB implements ProductInterface{
             stm.setInt(4, prod.getPrice());
             stm.setString(5, prod.getProductStatusToString());
             stm.setString(6, store.getStoreName());
+            stm.setString(7, prod.getProductCode());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -54,7 +55,7 @@ public class ProductDB implements ProductInterface{
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM product WHERE pcode=" + prod.getProductCode();
+            String sql = "DELETE FROM product WHERE pcode= '" + prod.getProductCode()+"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -98,7 +99,7 @@ public class ProductDB implements ProductInterface{
     @Override
     public GeneralList<Product> findByName(String name) {
         GeneralList<Product> prodList = new GeneralList<>();
-        String sql = "SELECT * FROM product WHERE pcode like ?";
+        String sql = "SELECT * FROM product WHERE pname like ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");

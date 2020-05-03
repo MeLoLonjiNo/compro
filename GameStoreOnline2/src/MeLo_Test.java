@@ -13,6 +13,7 @@ import ModelInterface.ProductInterface;
 import ModelInterface.StorageInterface;
 import ModelInterface.StoreInterface;
 import Person.Person;
+import Product.ProductStatus;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -22,6 +23,7 @@ public class MeLo_Test {
         static    Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
         static    Product pd03 = new Product("PD03","Dota2","GG game",0);
         static    Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
+        static    Product pd21 = new Product("PD21","Dead By Daylight","Game price 300 Bug 3Million",300);
         static    Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
         static    Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
         static    Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
@@ -44,8 +46,11 @@ public class MeLo_Test {
              //getProductInCart(Bal4ncez);
              //getProductInStore(MeLo);
              //findProductByID();
-             
-             insertProduct(store);
+             //insertProduct(store);
+             //deleteProduct();
+             //pdb.update(store, pd21);
+             //updateProduct(store);
+             //findProductByName();
         }
 
         public static void getProduct(){
@@ -82,6 +87,17 @@ public class MeLo_Test {
             Product p = pdb.findById(productID);
         }
         
+        public static void findProductByName(){
+            System.out.println("\nFinding Product");
+            System.out.print("Please Enter Product Name : ");
+            String productID = input.nextLine();
+            GeneralList<Product> prod = pdb.findByName(productID);
+            int i = 1;
+            for (Product temp : prod) {
+            System.out.println(i++ + ". " + temp);
+            }
+        }
+        
         public static void insertProduct(Store s){
             System.out.println("\nInsert Product");
             System.out.print("Add Product ID : ");
@@ -96,10 +112,32 @@ public class MeLo_Test {
             pdb.insert(s,p);
         }
         
-        public static void deleteProduct(Store s){
-            
+        public static void deleteProduct(){
+            System.out.println("\nDelete Product");
+            System.out.print("Delete Product ID : ");
+            String productCode = input.nextLine();
+            Product p = pdb.findById(productCode);
+            pdb.delete(p);
         }
         
+        public static void updateProduct(Store s){
+            System.out.println("\nUpdate Product");
+            System.out.print("Update Product ID : ");
+            String productCode = input.nextLine();
+            System.out.print("Update Product Name : ");
+            String productName = input.nextLine();
+            System.out.print("Update Description : ");
+            String productDes = input.nextLine();
+            System.out.print("Update Price : ");
+            int productPrice = input.nextInt();
+            Product p = new Product(productCode, productName,productDes, productPrice );
+            //p.setProductStatus(ProductStatus.onSale);
+            pdb.update(s, p);
+        }
+        
+        
+        
+                
     }
         
         
