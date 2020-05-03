@@ -19,16 +19,16 @@ public class MeLo_Test {
         Store store = new Store("PokeShop", a1);
         static Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
         static CustomerAccount MeLo=new CustomerAccount("c1","12345",p1);
-         Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
-        CustomerAccount Bal4ncez=new CustomerAccount("Bal4ncez","12345",p2);
-         Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
-        CustomerAccount Garnet_=new CustomerAccount("Garnet_","12345",p3);
+        static Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
+        static CustomerAccount Bal4ncez=new CustomerAccount("c2","12345",p2);
+        static Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
+        static CustomerAccount Garnet_=new CustomerAccount("c3","12345",p3);
         static ProductInterface pdb = new ProductDB();
         static ProductInCartInterface picd = new ProductInCartDB();
     
          public static void main(String[] args) {
              //getProduct();
-             getProductInCart(MeLo);
+             getProductInCart(Bal4ncez);
         }
 
         public static void getProduct(){
@@ -37,7 +37,7 @@ public class MeLo_Test {
         int i = 1;
         for (Product temp : prod) {
             System.out.println(i++ + ". " + temp);
-         }
+            }
         }
         
        public static void getProductInCart(CustomerAccount c){

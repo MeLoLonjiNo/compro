@@ -1,4 +1,3 @@
-
 package ModelInterface;
 
 import Account.CustomerAccount;
