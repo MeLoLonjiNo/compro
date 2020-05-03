@@ -20,7 +20,7 @@ public class ProductDB {
             stm.setString(3, obj.getDescription());
             stm.setInt(4, obj.getPrice());
             stm.setString(5, obj.getProductStatusToString());
-            stm.setString(6,store.getStoreName());
+            stm.setString(6, store.getStoreName());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Cannot insert in to dabase: " + ex.getMessage());
@@ -28,8 +28,8 @@ public class ProductDB {
         return row;
     }
 
-    public int update(Product prod) {
-        String sql = "UPDATE product SET pcode=?,pname=?,description=?, price=?,pStatus=? WHERE pcode=? ";
+    public int update(Store store,Product prod) {
+        String sql = "UPDATE product SET pcode=?,pname=?,description=?, price=?,pStatus=?,sname=? WHERE pcode=? ";
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                  PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -38,6 +38,7 @@ public class ProductDB {
             stm.setString(3, prod.getDescription());
             stm.setInt(4, prod.getPrice());
             stm.setString(5, prod.getProductStatusToString());
+            stm.setString(6, store.getStoreName());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
