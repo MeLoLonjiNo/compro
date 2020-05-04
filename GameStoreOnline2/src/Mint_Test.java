@@ -6,9 +6,11 @@ import ModelDatabase.CustomerAccountDB;
 import ModelDatabase.GeneralList;
 import ModelDatabase.PersonDB;
 import ModelDatabase.ProductDB;
+import ModelDatabase.ProductInCartDB;
 import ModelDatabase.StorageDB;
 import ModelInterface.CustomerInterface;
 import ModelInterface.PersonInterface;
+import ModelInterface.ProductInCartInterface;
 import ModelInterface.ProductInterface;
 import ModelInterface.StorageInterface;
 import Person.Person;
@@ -38,6 +40,7 @@ public class Mint_Test {
         static ProductInterface pd = new ProductDB();
         static StorageInterface srd = new StorageDB();
         static PersonInterface ped = new PersonDB();
+        static ProductInCartInterface picd = new ProductInCartDB();
         
         public static void main(String[] args) {
             //insertStorage();
@@ -49,8 +52,10 @@ public class Mint_Test {
             //getCustomerByName();
             //deleteStorage();
             //findByIdStorage(MeLo);
+            //insertProductInCart();
+            //deleteProductInCart();
         }
-        
+        //---------------- Customer --------------
         public static void getCustomerById(){
             System.out.println("\nFinding Customer");
             System.out.print("Please Enter Customer ID : ");
@@ -111,6 +116,7 @@ public class Mint_Test {
             }
         }
         
+        //---------------- Storage --------------
         public static void insertStorage(){
             System.out.println("\nInsert Storage");
             System.out.print("Enter customer id : ");
@@ -142,4 +148,53 @@ public class Mint_Test {
            srd.findById(cus, proid);
             
        }
+       public static void getProductInStorage(CustomerAccount c){
+        System.out.println("\nList all Product In Storage");
+        GeneralList<Product> prod = srd.getAll(c);
+        int i = 1;
+        for (Product temp : prod) {
+            System.out.println(i++ + ". " + temp);
+            }
+        }
+       //----------------ProductInCart --------------
+       public static void insertProductInCart() {
+           System.out.println("\nInsert Product In Cart");
+           System.out.print("Enter Customer Id : ");
+           String cusid = input.next();
+           System.out.print("Enter product id : ");
+           String proid = input.next();
+           CustomerAccount c = cad.findById(cusid);
+           Product p = pd.findById(proid);
+           picd.insert(c, p);
+           
+       }
+       
+       public static void deleteProductInCart() {
+            System.out.println("\nDelete Product In Cart");
+            System.out.print("Delete Customer ID : ");
+            String cusid = input.nextLine();
+            CustomerAccount c = cad.findById(cusid);
+            System.out.print("Delete product ID : ");
+            String proid = input.nextLine();
+            Product p = pd.findById(proid);
+            picd.delete(c, p);
+        }
+       
+       public static void findProductInCartByID(CustomerAccount c){
+            System.out.println("\nList all Product In Cart");
+            System.out.print("Enter Finding Product Code : ");
+            String pcode = input.next();
+            Product p = picd.findById(c,pcode);
+            //System.out.println(p.toString());
+        }
+         
+       public static void getAllProductInCart(CustomerAccount c){
+        System.out.println("\nList all Product In Cart");
+        GeneralList<Product> prod = picd.getAll(c);
+        int i = 1;
+        for (Product temp : prod) {
+            System.out.println(i++ + ". " + temp);
+        }
+       }
+       
 }

@@ -27,28 +27,28 @@ public class ProductInCartDB implements ProductInCartInterface{
         return row;
     }
 
-    @Override
-    public int update(CustomerAccount cus ,Product obj) {
-        String sql = "UPDATE productincart SET cusid=?,pcode=? WHERE cusid=? ";
-        int row = 0;
-        try (Connection conn = DBConnection.getConnection();
-                 PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, cus.getUserID());
-            stm.setString(2, obj.getProductCode());
-            stm.setString(3, cus.getUserID());
-            row = stm.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return row;
-    }
+//    @Override
+//    public int update(CustomerAccount cus ,Product obj) {
+//        String sql = "UPDATE productincart SET cusid=?,pcode=? WHERE cusid=? ";
+//        int row = 0;
+//        try (Connection conn = DBConnection.getConnection();
+//                 PreparedStatement stm = conn.prepareStatement(sql)) {
+//            stm.setString(1, cus.getUserID());
+//            stm.setString(2, obj.getProductCode());
+//            stm.setString(3, cus.getUserID());
+//            row = stm.executeUpdate();
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        return row;
+//    }
 
     @Override
     public int delete(CustomerAccount cus ,Product obj) {
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM productincart WHERE cusid=" + cus.getUserID()+"AND pcode="+ obj.getProductCode();
+            String sql = "DELETE FROM productincart WHERE cusid='" + cus.getUserID()+"' AND pcode='"+ obj.getProductCode()+"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -89,23 +89,23 @@ public class ProductInCartDB implements ProductInCartInterface{
         return prod;
     }
 
-    @Override
-    public GeneralList<Product> findByName(CustomerAccount cus,String name) {
-        GeneralList<Product> prodList = new GeneralList<>();
-         String sql0 = "SELECT pname FROM productincart WHERE cusid="+cus.getUserID();
-        String sql = "SELECT * FROM product WHERE "+sql0+ "like "+name;
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, "%" + name + "%");
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                prodList.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return prodList;
-    }
+//    @Override
+//    public GeneralList<Product> findByName(CustomerAccount cus,String name) {
+//        GeneralList<Product> prodList = new GeneralList<>();
+//         String sql0 = "SELECT pname FROM productincart WHERE cusid="+cus.getUserID();
+//        String sql = "SELECT * FROM product WHERE "+sql0+ "like "+name;
+//        try (Connection conn = DBConnection.getConnection();
+//                PreparedStatement stm = conn.prepareStatement(sql)) {
+//            stm.setString(1, "%" + name + "%");
+//            ResultSet rs = stm.executeQuery();
+//            while (rs.next()) {
+//                prodList.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//
+//        return prodList;
+//    }
 
 }

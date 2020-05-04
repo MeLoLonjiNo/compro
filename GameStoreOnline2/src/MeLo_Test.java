@@ -52,33 +52,10 @@ public class MeLo_Test {
         
          
          
-        public static void findProductInCartByID(CustomerAccount c){
-            System.out.println("\nList all Product In Cart");
-            System.out.print("Enter Finding Product Code : ");
-            String pcode = input.next();
-            Product p = picd.findById(c,pcode);
-            //System.out.println(p.toString());
-        }
-         
-       public static void getProductInCart(CustomerAccount c){
-        System.out.println("\nList all Product In Cart");
-        GeneralList<Product> prod = picd.getAll(c);
-        int i = 1;
-        for (Product temp : prod) {
-            System.out.println(i++ + ". " + temp);
-            }
-       }
-       
-       //--------------------------------------------------ProductInStore----------------------------------------------------//
         
-        public static void getProductInStorage(CustomerAccount c){
-        System.out.println("\nList all Product In Storage");
-        GeneralList<Product> prod = pisd.getAll(c);
-        int i = 1;
-        for (Product temp : prod) {
-            System.out.println(i++ + ". " + temp);
-            }
-        }
+       
+        
+        
         //----------------------------------------------------Product------------------------------------------------------//
         public static void getProduct(){
         System.out.println("\nList all Product");
