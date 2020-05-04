@@ -16,16 +16,16 @@ import java.sql.Statement;
 public class AdminAccountDB implements AdminInterface{
    
     @Override
-    public int insert(AdminAccount obj , Account obj2 ,Store obj3) {
+    public int insert(AdminAccount adm ,Store str) {
         int nRow = 0;
         String sql = "INSERT INTO admin VALUES(?,?,?,?,?)";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, obj.getUserID());
-            stm.setString(2, obj.getUserName());
-            stm.setString(3, obj.getPassword());
-            stm.setString(4, obj2.getAccountStatusToString());
-            stm.setString(5, obj3.getStoreName());
+            stm.setString(1, adm.getUserID());
+            stm.setString(2, adm.getUserName());
+            stm.setString(3, adm.getPassword());
+            stm.setString(4, adm.getAccountStatusToString());
+            stm.setString(5, str.getStoreName());
             stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -34,7 +34,7 @@ public class AdminAccountDB implements AdminInterface{
     }
 
     @Override
-    public int update(AdminAccount adm , Account act , Store str) {
+    public int update(AdminAccount adm ,Store str) {
         int row = 0;
         String sql = "UPDATE admin SET admid=?,admname=?,password=?,accountStatus=?,sname=? WHERE admid=?";
         try (Connection conn = DBConnection.getConnection();
@@ -42,7 +42,7 @@ public class AdminAccountDB implements AdminInterface{
             stm.setString(1, adm.getUserID());
             stm.setString(2, adm.getUserName());
             stm.setString(3, adm.getPassword());
-            stm.setString(4, act.getAccountStatusToString());
+            stm.setString(4, adm.getAccountStatusToString());
             stm.setString(5, str.getStoreName());
             row = stm.executeUpdate();
         } catch (SQLException ex) {

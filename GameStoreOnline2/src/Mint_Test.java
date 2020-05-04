@@ -1,11 +1,14 @@
 
+import static Account.AccountPriority.Customer;
 import Account.AdminAccount;
 import Account.CustomerAccount;
 import ModelDatabase.CustomerAccountDB;
 import ModelDatabase.GeneralList;
+import ModelDatabase.PersonDB;
 import ModelDatabase.ProductDB;
 import ModelDatabase.StorageDB;
 import ModelInterface.CustomerInterface;
+import ModelInterface.PersonInterface;
 import ModelInterface.ProductInterface;
 import ModelInterface.StorageInterface;
 import Person.Person;
@@ -34,22 +37,87 @@ public class Mint_Test {
         static CustomerInterface cad = new CustomerAccountDB();
         static ProductInterface pd = new ProductDB();
         static StorageInterface srd = new StorageDB();
+        static PersonInterface ped = new PersonDB();
         
         public static void main(String[] args) {
-            insertStorage();
-        
-        
+            //insertStorage();
+            //getCustomerById();
+            //insertCustomer();
+            //updateCustomer();
+            //deleteCustomer();
+            //getAllCustomer();
+            //getCustomerByName();
         }
         
         public static void insertStorage(){
             System.out.println("\nInsert Storage");
             System.out.print("Enter customer id : ");
-            int cusid = input.nextInt();
+            String cusid = input.next();
             System.out.print("Enter product id : ");
             String proid = input.next();
             CustomerAccount c = cad.findById(cusid);
             Product p = pd.findById(proid);
             srd.insert(c, p);
             
+        }
+        
+        public static void getCustomerById(){
+            System.out.println("\nFinding Customer");
+            System.out.print("Please Enter Customer ID : ");
+            String cusid = input.nextLine();
+            CustomerAccount a = cad.findById(cusid);
+            System.out.println(a.toString());
+        }
+        
+        public static void insertCustomer() {
+            System.out.println("\nInsert Customer");
+            System.out.print("Enter customer id : ");
+            String cusid = input.next();
+            System.out.print("Enter customer name : ");
+            String cusname = input.next();
+            System.out.print("Enter customer password : ");
+            String password = input.next();
+            Person p = ped.findByName(cusname);
+            CustomerAccount ca = new CustomerAccount(cusid,password,p);
+            cad.insert(store, ca);
+        }
+        
+        public static void updateCustomer() {
+            System.out.println("\nUpdate Customer");
+            System.out.print("Enter customer id : ");
+            String cusid = input.next();
+            CustomerAccount ac = cad.findById(cusid);
+            System.out.print("Update customer password : ");
+            String password = input.next();
+            ac.setPassword(password);
+            cad.update(store, ac);
+        }
+        
+        public static void deleteCustomer() {
+            System.out.println("\nDelete Customer");
+            System.out.print("Delete Customer ID : ");
+            String cusid = input.nextLine();
+            CustomerAccount p = cad.findById(cusid);
+            cad.delete(p);
+        }
+        
+        public static void getAllCustomer() {
+            System.out.println("\nList all Customer");
+            GeneralList<CustomerAccount> perd = cad.getAll();
+        int i = 1;
+        for (CustomerAccount temp : perd) {
+            System.out.println(i++ + ". " + temp);
+            }
+        }
+        
+        public static void getCustomerByName() {
+            System.out.println("\nFinding Customer");
+            System.out.print("Please Enter Customer Name : ");
+            String cusname = input.nextLine();
+            GeneralList<CustomerAccount> prod = cad.findByName(cusname);
+            int i = 1;
+            for (CustomerAccount temp : prod) {
+            System.out.println(i++ + ". " + temp);
+            }
         }
 }

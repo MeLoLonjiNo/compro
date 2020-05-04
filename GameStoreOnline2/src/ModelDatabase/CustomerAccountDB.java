@@ -38,7 +38,11 @@ public class CustomerAccountDB implements CustomerInterface{
     @Override
     public int update(Store str,CustomerAccount obj) {
         int row = 0;
+<<<<<<< HEAD
         String sql = "UPDATE customer SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=? WHERE cusid=?";
+=======
+        String sql = "UPDATE customer SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=?,sname=? WHERE cusid=?";
+>>>>>>> master
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, obj.getUserID());
@@ -49,6 +53,7 @@ public class CustomerAccountDB implements CustomerInterface{
             stm.setInt(6, obj.getCountCart());
             stm.setInt(7, obj.getCountStorage());
             stm.setString(8,str.getStoreName() );
+            stm.setString(9, obj.getUserID());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -61,7 +66,7 @@ public class CustomerAccountDB implements CustomerInterface{
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM customer WHERE cusid=" + cust.getUserID();
+            String sql = "DELETE FROM customer WHERE cusid= '" + cust.getUserID()+"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -87,11 +92,11 @@ public class CustomerAccountDB implements CustomerInterface{
     }
 
     @Override
-    public CustomerAccount findById(int id) {
+    public CustomerAccount findById(String id) {
         CustomerAccount cust = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid=" + id;
+            String sql = "SELECT * FROM person p,customer c WHERE c.cusname = p.name AND c.cusid = '" + id +"'" ;
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
@@ -106,7 +111,7 @@ public class CustomerAccountDB implements CustomerInterface{
     @Override
     public GeneralList<CustomerAccount> findByName(String name) {
         GeneralList<CustomerAccount> custList = new GeneralList<>();
-        String sql = "ELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid like ?";
+        String sql = "SELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid like ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");

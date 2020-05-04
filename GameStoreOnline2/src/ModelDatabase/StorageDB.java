@@ -21,10 +21,9 @@ public class StorageDB implements StorageInterface{
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, cus.getUserID());
             stm.setString(2, obj.getProductCode());
-            stm.setString(3, cus.getUserID());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Cannot insert in to dabase: " + ex.getMessage());
+            System.out.println("Cannot insert in to database: " + ex.getMessage());
         }
         return row;
     }

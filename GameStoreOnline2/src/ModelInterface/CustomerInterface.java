@@ -10,6 +10,6 @@ public interface CustomerInterface{
     int update(Store str,CustomerAccount obj);
     int delete(CustomerAccount cust);
     GeneralList<CustomerAccount> getAll();
-    CustomerAccount findById(int id);
+    CustomerAccount findById(String id);
     GeneralList<CustomerAccount> findByName(String name);
 }

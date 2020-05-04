@@ -1,7 +1,6 @@
 package Account;
 
 import Person.Person;
-import Product.Product;
 
 
 public class AdminAccount extends Account{

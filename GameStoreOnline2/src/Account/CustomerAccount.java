@@ -219,7 +219,7 @@ public class CustomerAccount extends Account{
         System.out.println("Meney : "+money);
     }
     
-    public void setAccountSatus (AccountStatus status){
+    public void setAccountStatus (AccountStatus status){
         super.setAccountStatus(status);
     }
     
