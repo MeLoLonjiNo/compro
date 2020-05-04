@@ -33,29 +33,38 @@ public class Gn_Test {
 //        static StorageInterface pisd = new StorageDB();
         
         public static void main(String[] args) {
-            
 //            insertAdmin();
-            updateAdmin();
+            findAdminById();
+            
+//            updateAdmin();
     }
         
+        public static void findAdminById(){
+            System.out.println("\nFinding Admin");
+            System.out.print("Please Enter Adminid : ");
+            String ai = input.nextLine();
+            AdminAccount a = ad.findById(ai);
+            System.out.println(a.toString());
+    }
         
         public static void insertAdmin() {
             System.out.println("\nInsert Admin");
-            System.out.print("Press Enter Adminid :");
-            String admid = input.nextLine();
-            System.out.print("Press Enter Password :");
-            String admpass = input.nextLine();
+            System.out.print("Press Enter Adminid : ");
+            String admid = input.next();
+            System.out.print("Press Enter Password : ");
+            String admpass = input.next();
             AdminAccount adm = new AdminAccount(admid ,admpass ,p0);
             ad.insert(adm ,store);       
     }
         
         public static void updateAdmin() {
-            System.out.println("\nInsert Admin");
-            System.out.print("Press Enter Adminid :");
-            String admid = input.nextLine();
-            System.out.print("Press Enter Password :");
-            String admpass = input.nextLine();
-            AdminAccount adm = new AdminAccount(admid ,admpass ,p0);
-            ad.insert(adm ,store);
+            System.out.println("\nUpdate Admin");
+            System.out.print("Enter your Adminid : ");
+            String admid = input.next();
+            AdminAccount aa = ad.findById(admid);
+            System.out.print("Update Password : ");
+            String pass = input.next();
+            aa.setPassword(pass);
+            ad.update(aa ,store);
     }
 }
