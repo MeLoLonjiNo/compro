@@ -71,7 +71,7 @@ public class MeLo_Test {
        
        //--------------------------------------------------ProductInStore----------------------------------------------------//
         
-        public static void getProductInStore(CustomerAccount c){
+        public static void getProductInStorage(CustomerAccount c){
         System.out.println("\nList all Product In Storage");
         GeneralList<Product> prod = pisd.getAll(c);
         int i = 1;

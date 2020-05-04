@@ -234,7 +234,7 @@ public class CustomerAccount extends Account{
     
     @Override
     public String toString() {
-        return "Customer Account ID : "+super.getUserID();
+        return "Customer Account ID : "+super.getUserID()+"\nCustomer Name "+super.getUserName();
     }
     
     public String toString2() {
