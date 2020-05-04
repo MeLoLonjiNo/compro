@@ -73,12 +73,11 @@ public class ProductInCartDB implements ProductInCartInterface{
     }
 
     @Override
-    public Product findById(CustomerAccount cus,int id) {
+    public Product findById(CustomerAccount cus,String id) {
         Product prod = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql0 = "SELECT pcode FROM productincart WHERE cusid="+cus.getUserID();
-            String sql = "SELECT * FROM product where pro_id=" + sql0;
+            String sql = "SELECT * from productincart pic , customer c,product p where p.pcode = pic.pcode and pic.cusid = c.cusid and pic.pcode = '"+id+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 prod = new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus"));
