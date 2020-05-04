@@ -82,11 +82,11 @@ public class AdminAccountDB implements AdminInterface{
     }
 
     @Override
-    public AdminAccount findById(int id) {
+    public AdminAccount findById(String id) {
         AdminAccount adm = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM person p,admin a WHERE a.admname = p.name AND admid=" + id;
+            String sql = "SELECT * FROM person p,admin a WHERE a.admname = p.name AND admid= '" + id+"'";
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));

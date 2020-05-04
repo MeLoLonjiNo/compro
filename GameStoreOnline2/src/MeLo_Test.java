@@ -3,11 +3,15 @@ import Account.AdminAccount;
 import Store.Store;
 import Product.Product;
 import Account.CustomerAccount;
+import ModelDatabase.AdminAccountDB;
 import ModelDatabase.GeneralList;
+import ModelDatabase.PersonDB;
 import ModelDatabase.ProductDB;
 import ModelDatabase.ProductInCartDB;
 import ModelDatabase.StorageDB;
 import ModelDatabase.StoreDB;
+import ModelInterface.AdminInterface;
+import ModelInterface.PersonInterface;
 import ModelInterface.ProductInCartInterface;
 import ModelInterface.ProductInterface;
 import ModelInterface.StorageInterface;
@@ -20,28 +24,29 @@ import java.util.Scanner;
 
 public class MeLo_Test {
         static  Product pd01 = new Product("PD01","Final Fantasy VII Remake","Game Form Square Enix",1000);
-        static    Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
-        static    Product pd03 = new Product("PD03","Dota2","GG game",0);
-        static    Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
-        static    Product pd21 = new Product("PD21","Dead By Daylight","Game price 300 Bug 3Million",300);
-        static    Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
-        static    Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
-        static    Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
-         static   Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
-        static    AdminAccount admin01 = new AdminAccount("Admin01","12345",p0);
-         static   CustomerAccount MeLo=new CustomerAccount("c1","12345",p1);
-        static    CustomerAccount Bal4ncez=new CustomerAccount("c2","67890",p2);
-        static    CustomerAccount Garnet_=new CustomerAccount("c3","54321",p3);
-        static    Store store = new Store("PokeShop", admin01);
+        static  Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
+        static  Product pd03 = new Product("PD03","Dota2","GG game",0);
+        static  Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
+        static  Product pd21 = new Product("PD21","Dead By Daylight","Game price 300 Bug 3Million",300);
+        static  Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
+        static  Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
+        static  Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
+        static  Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
+        static  AdminAccount admin01 = new AdminAccount("a1","12345",p0);
+        static  CustomerAccount MeLo=new CustomerAccount("c1","12345",p1);
+        static  CustomerAccount Bal4ncez=new CustomerAccount("c2","67890",p2);
+        static  CustomerAccount Garnet_=new CustomerAccount("c3","54321",p3);
+        static  Store store = new Store("PokeShop", admin01);
             
         static Scanner input = new Scanner(System.in);
         static ProductInterface pdb = new ProductDB();
         static ProductInCartInterface picd = new ProductInCartDB();
         static StorageInterface pisd = new StorageDB();
         static StoreInterface sd =new StoreDB();
+        static AdminInterface ad = new AdminAccountDB();
+        static PersonInterface pd = new PersonDB();
     
          public static void main(String[] args) {
-             
              //getProduct();
              //getProductInCart(Bal4ncez);
              //getProductInStore(MeLo);
@@ -51,6 +56,10 @@ public class MeLo_Test {
              //pdb.update(store, pd21);
              //updateProduct(store);
              //findProductByName();
+             //findStoreByName();
+             //insertStore();
+             //deleteStore();
+             //updateStore(store);
         }
 
         public static void getProduct(){
@@ -135,9 +144,61 @@ public class MeLo_Test {
             pdb.update(s, p);
         }
         
+        public static void getStore(){
+        System.out.println("\nList all Store");
+        GeneralList<Store> s = sd.getAll();
+        int i = 1;
+        for (Store temp : s) {
+            System.out.println(i++ + ". " + temp);
+            }
+        }
         
+        public static void findStoreByName(){
+            System.out.println("\nFinding Store");
+            System.out.print("Please Enter Store Name : ");
+            String StoreName = input.nextLine();
+            Store s = sd.findByName(StoreName);
+            System.out.println(s);
+            }
+    
+        public static void insertStore(){
+            System.out.println("\nInsert Product");
+            System.out.print("Add Store Name : ");
+            String storeName = input.nextLine();
+//            Person p = Person();
+//            pd.insert(p);
+//            AdminAccount a = AdminAccount();
+//            ad.insert(a, p, s);
+            Store s = new Store(storeName,admin01);
+            //sd.insert(s, a);
+            sd.insert(s, admin01);
+        }
         
+        public static void deleteStore(){
+            System.out.println("\nDelete Product");
+            System.out.print("Delete Store Name : ");
+            String storeCode = input.nextLine();
+            Store p = sd.findByName(storeCode);
+            sd.delete(p);
+        }
+        
+        public static void updateStore(Store s){
+            System.out.println("\nUpdate Store");
+            System.out.print("Update Store Name : ");
+            String StoreName = input.nextLine();
+            System.out.print("Update Store Admin ID : ");
+            String adminID = input.nextLine();
+            AdminAccount a = ad.findById(adminID);
+            System.out.print("Update Nunber of Customer : ");
+            int numCus = input.nextInt();
+            System.out.print("Update Nunber of Product : ");
+            int numPro = input.nextInt();
+            Store ns = new Store(StoreName,a ,numCus, numPro);
+            sd.update(ns,a);
+        }
                 
+        
+        
     }
         
         

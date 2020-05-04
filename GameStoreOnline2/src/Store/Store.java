@@ -376,9 +376,9 @@ public class Store implements CustomerService,AdminService{
         System.out.println("---------------------------------------------------------------------------------------------------");
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------//
+
     @Override
     public String toString() {
-        return "Store{" + "store=" + store + '}';
+        return "Store Name : " + storeName + "\nAdmin : " + admin.getUserName() + "\nCount Customer : " + countCustomer + "\nCount Product : " + countProduct ;
     }
-    
 }

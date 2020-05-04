@@ -31,15 +31,15 @@ public class StoreDB implements StoreInterface{
 
     @Override
     public int update(Store str , AdminAccount adm) {
-        String sql = "UPDATE product SET sname=?, admid=?, countcus=? , countp=? WHERE sname=? ";
+        String sql = "UPDATE store SET admid=?, countcus=? , countp=? WHERE sname=? ";
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                  PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, str.getStoreName());
-            stm.setString(2, adm.getUserID());
-            stm.setInt(3, str.getCountCustomer());
-            stm.setInt(4, str.getCountProduct());
-            stm.setString(5, str.getStoreName());
+            //stm.setString(1, str.getStoreName());
+            stm.setString(1, adm.getUserID());
+            stm.setInt(2, str.getCountCustomer());
+            stm.setInt(3, str.getCountProduct());
+            stm.setString(4, str.getStoreName());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -52,7 +52,7 @@ public class StoreDB implements StoreInterface{
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM store WHERE sname=" + str.getStoreName();
+            String sql = "DELETE FROM store WHERE sname = '"+ str.getStoreName()+"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -80,7 +80,7 @@ public class StoreDB implements StoreInterface{
 
     @Override
     public Store findByName(String name) {
-        String sql = "SELECT * FROM store WHERE sname like ?";
+        String sql = "SELECT * FROM store s,person p,admin a WHERE s.admid=a.admid AND a.admname=p.name  AND s.sname like ? ";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");

@@ -11,6 +11,6 @@ public interface AdminInterface{
     int update(AdminAccount adm , Account act , Store str);
     int delete(AdminAccount adm);
     GeneralList<AdminAccount> getAll();
-    AdminAccount findById(int id);
+    AdminAccount findById(String id);
     GeneralList<AdminAccount> findByName(String name);
 }
