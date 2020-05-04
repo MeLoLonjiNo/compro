@@ -38,7 +38,7 @@ public class CustomerAccountDB implements CustomerInterface{
     @Override
     public int update(Store str,CustomerAccount obj) {
         int row = 0;
-        String sql = "UPDATE wishlist SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=? WHERE cusid=?";
+        String sql = "UPDATE customer SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=?,sname=? WHERE cusid=?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, obj.getUserID());
@@ -49,6 +49,7 @@ public class CustomerAccountDB implements CustomerInterface{
             stm.setInt(6, obj.getCountCart());
             stm.setInt(7, obj.getCountStorage());
             stm.setString(8,str.getStoreName() );
+            stm.setString(9, obj.getUserID());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -61,7 +62,7 @@ public class CustomerAccountDB implements CustomerInterface{
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM customer WHERE cusid=" + cust.getUserID();
+            String sql = "DELETE FROM customer WHERE cusid= '" + cust.getUserID()+"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
