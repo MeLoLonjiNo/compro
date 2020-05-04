@@ -47,36 +47,15 @@ public class MeLo_Test {
         static PersonInterface pd = new PersonDB();
     
          public static void main(String[] args) {
-             //getProduct();
-             //getProductInCart(Bal4ncez);
-             //getProductInStore(MeLo);
-             //findProductByID();
-             //insertProduct(store);
-             //deleteProduct();
-             //pdb.update(store, pd21);
-             //updateProduct(store);
-             //findProductByName();
-             //findStoreByName();
-             //insertStore();
-             //deleteStore();
-             //updateStore(store);
-             //getStore();
-             //getPerson();
-             //findPersonByName();
-             //insertPerson();
-             //deletePerson();
-             //updatePerson();
-        }
-
-        public static void getProduct(){
-        System.out.println("\nList all Product");
-        GeneralList<Product> prod = pdb.getAll();
-        int i = 1;
-        for (Product temp : prod) {
-            System.out.println(i++ + ". " + temp);
-            }
+             
         }
         
+        public static void findProductInCartByID(CustomerAccount c){
+            System.out.println("\nList all Product In Cart");
+            System.out.println("Enter Finding Product Code : ");
+            //String 
+        }
+         
        public static void getProductInCart(CustomerAccount c){
         System.out.println("\nList all Product In Cart");
         GeneralList<Product> prod = picd.getAll(c);
@@ -94,7 +73,15 @@ public class MeLo_Test {
             System.out.println(i++ + ". " + temp);
             }
         }
-        
+        //----------------------------------------------------------------------------------------------------------//
+        public static void getProduct(){
+        System.out.println("\nList all Product");
+        GeneralList<Product> prod = pdb.getAll();
+        int i = 1;
+        for (Product temp : prod) {
+            System.out.println(i++ + ". " + temp);
+            }
+        }
         public static void findProductByID(){
             System.out.println("\nFinding Product");
             System.out.print("Please Enter Product ID : ");
@@ -149,7 +136,7 @@ public class MeLo_Test {
             //p.setProductStatus(ProductStatus.onSale);
             pdb.update(s, p);
         }
-        
+        //-----------------------------------------------------------------------------------------------------------//
         public static void getStore(){
         System.out.println("\nList all Store");
         GeneralList<Store> s = sd.getAll();
