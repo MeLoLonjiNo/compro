@@ -60,6 +60,7 @@ public class MeLo_Test {
              //insertStore();
              //deleteStore();
              //updateStore(store);
+             //getStore();
         }
 
         public static void getProduct(){
@@ -165,13 +166,12 @@ public class MeLo_Test {
             System.out.println("\nInsert Product");
             System.out.print("Add Store Name : ");
             String storeName = input.nextLine();
-//            Person p = Person();
-//            pd.insert(p);
-//            AdminAccount a = AdminAccount();
-//            ad.insert(a, p, s);
-            Store s = new Store(storeName,admin01);
-            //sd.insert(s, a);
-            sd.insert(s, admin01);
+            System.out.print("Add Admin ID : ");
+            String aid = input.next();
+            AdminAccount a = ad.findById(aid);
+            Store s = new Store(storeName,a);
+            sd.insert(s, a);
+            //sd.insert(s, admin01);
         }
         
         public static void deleteStore(){

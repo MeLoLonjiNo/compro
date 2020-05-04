@@ -65,7 +65,7 @@ public class StoreDB implements StoreInterface{
         GeneralList<Store> str = new GeneralList<>();
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM store s, admin a,person p WHERE s.sname=a.sname AND a.admname=p.name";
+            String sql = "SELECT * FROM store s, admin a,person p WHERE s.admid=a.admid AND a.admname=p.name";
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
