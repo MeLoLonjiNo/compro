@@ -47,18 +47,8 @@ public class Mint_Test {
             //deleteCustomer();
             //getAllCustomer();
             //getCustomerByName();
-        }
-        
-        public static void insertStorage(){
-            System.out.println("\nInsert Storage");
-            System.out.print("Enter customer id : ");
-            String cusid = input.next();
-            System.out.print("Enter product id : ");
-            String proid = input.next();
-            CustomerAccount c = cad.findById(cusid);
-            Product p = pd.findById(proid);
-            srd.insert(c, p);
-            
+            //deleteStorage();
+            //findByIdStorage(MeLo);
         }
         
         public static void getCustomerById(){
@@ -120,4 +110,36 @@ public class Mint_Test {
             System.out.println(i++ + ". " + temp);
             }
         }
+        
+        public static void insertStorage(){
+            System.out.println("\nInsert Storage");
+            System.out.print("Enter customer id : ");
+            String cusid = input.next();
+            System.out.print("Enter product id : ");
+            String proid = input.next();
+            CustomerAccount c = cad.findById(cusid);
+            Product p = pd.findById(proid);
+            srd.insert(c, p);
+            
+        }
+        
+       public static void deleteStorage() {
+           System.out.println("\nDelete Storage");
+           System.out.print("Delete Customer ID : ");
+            String cusid = input.nextLine();
+            CustomerAccount c = cad.findById(cusid);
+            System.out.print("Delete product ID : ");
+            String proid = input.nextLine();
+            Product p = pd.findById(proid);
+            srd.delete(c, p);
+       }
+       
+       public static void findByIdStorage(CustomerAccount cus) {
+           System.out.println("\nFinding Storage");
+           System.out.print("Please Enter Product ID : ");
+           String proid = input.next();
+           Product p = pd.findById(proid);
+           srd.findById(cus, proid);
+            
+       }
 }

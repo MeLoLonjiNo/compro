@@ -9,6 +9,6 @@ public interface ProductInCartInterface{
     int update(CustomerAccount cus ,Product obj);
     int delete(CustomerAccount cus ,Product obj);
     GeneralList<Product> getAll(CustomerAccount cus);
-    Product findById(CustomerAccount cus, int id);
+    Product findById(CustomerAccount cus, String id);
     GeneralList<Product> findByName(CustomerAccount cus,String name);
 }

@@ -47,13 +47,17 @@ public class MeLo_Test {
         static PersonInterface pd = new PersonDB();
     
          public static void main(String[] args) {
-             
+             //findProductInCartByID(MeLo);
         }
         
+         
+         
         public static void findProductInCartByID(CustomerAccount c){
             System.out.println("\nList all Product In Cart");
-            System.out.println("Enter Finding Product Code : ");
-            //String 
+            System.out.print("Enter Finding Product Code : ");
+            String pcode = input.next();
+            Product p = picd.findById(c,pcode);
+            //System.out.println(p.toString());
         }
          
        public static void getProductInCart(CustomerAccount c){
@@ -64,8 +68,10 @@ public class MeLo_Test {
             System.out.println(i++ + ". " + temp);
             }
        }
+       
+       //--------------------------------------------------ProductInStore----------------------------------------------------//
         
-        public static void getProductInStore(CustomerAccount c){
+        public static void getProductInStorage(CustomerAccount c){
         System.out.println("\nList all Product In Storage");
         GeneralList<Product> prod = pisd.getAll(c);
         int i = 1;
@@ -73,7 +79,7 @@ public class MeLo_Test {
             System.out.println(i++ + ". " + temp);
             }
         }
-        //----------------------------------------------------------------------------------------------------------//
+        //----------------------------------------------------Product------------------------------------------------------//
         public static void getProduct(){
         System.out.println("\nList all Product");
         GeneralList<Product> prod = pdb.getAll();
@@ -136,7 +142,7 @@ public class MeLo_Test {
             //p.setProductStatus(ProductStatus.onSale);
             pdb.update(s, p);
         }
-        //-----------------------------------------------------------------------------------------------------------//
+        //---------------------------------------------------Store--------------------------------------------------------//
         public static void getStore(){
         System.out.println("\nList all Store");
         GeneralList<Store> s = sd.getAll();
@@ -188,7 +194,7 @@ public class MeLo_Test {
             Store ns = new Store(StoreName,a ,numCus, numPro);
             sd.update(ns,a);
         }
-        //-------------------------------------------------------------------------------------------------------------------------------//
+        //-------------------------------------------------------------------Person------------------------------------------------------------//
         
         public static void getPerson(){
         System.out.println("\nList all Person");

@@ -21,7 +21,7 @@ public class AdminAccount extends Account{
     
     @Override
     public String toString() {
-        return "AdminAccount{" + "account=" + account + '}';
+        return "Admin Account ID : "+super.getUserID()+"\nAdmin Name "+super.getUserName();
     }
     
 }
