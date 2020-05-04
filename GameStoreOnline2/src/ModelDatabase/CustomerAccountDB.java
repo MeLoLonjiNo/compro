@@ -38,7 +38,11 @@ public class CustomerAccountDB implements CustomerInterface{
     @Override
     public int update(Store str,CustomerAccount obj) {
         int row = 0;
+<<<<<<< HEAD
+        String sql = "UPDATE customer SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=? WHERE cusid=?";
+=======
         String sql = "UPDATE customer SET cusid=?,cusname=?,password=?,accountStatus=?,money=?,countcart=?,countstorage=?,sname=? WHERE cusid=?";
+>>>>>>> master
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, obj.getUserID());
