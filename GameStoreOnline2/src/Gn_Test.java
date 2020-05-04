@@ -2,6 +2,7 @@
 import Account.AdminAccount;
 import Account.CustomerAccount;
 import ModelDatabase.AdminAccountDB;
+import ModelDatabase.GeneralList;
 import ModelDatabase.PersonDB;
 import ModelDatabase.StoreDB;
 import ModelInterface.AdminInterface;
@@ -33,29 +34,68 @@ public class Gn_Test {
 //        static StorageInterface pisd = new StorageDB();
         
         public static void main(String[] args) {
-            
 //            insertAdmin();
-            updateAdmin();
+//            findAdminById();
+//            updateAdmin();
+//            deleteAdmin();
+//            getAllAdmin();
+//            findAdminByName();
     }
         
+        public static void findAdminById(){
+            System.out.println("\n Finding Admin");
+            System.out.print("Please Enter Adminid : ");
+            String ai = input.nextLine();
+            AdminAccount a = ad.findById(ai);
+            System.out.println(a.toString());
+    }
         
         public static void insertAdmin() {
-            System.out.println("\nInsert Admin");
-            System.out.print("Press Enter Adminid :");
-            String admid = input.nextLine();
-            System.out.print("Press Enter Password :");
-            String admpass = input.nextLine();
+            System.out.println("\n Insert Admin");
+            System.out.print("Press Enter Adminid : ");
+            String admid = input.next();
+            System.out.print("Press Enter Password : ");
+            String admpass = input.next();
             AdminAccount adm = new AdminAccount(admid ,admpass ,p0);
             ad.insert(adm ,store);       
     }
         
         public static void updateAdmin() {
-            System.out.println("\nInsert Admin");
-            System.out.print("Press Enter Adminid :");
-            String admid = input.nextLine();
-            System.out.print("Press Enter Password :");
-            String admpass = input.nextLine();
-            AdminAccount adm = new AdminAccount(admid ,admpass ,p0);
-            ad.insert(adm ,store);
+            System.out.println("\n Update Admin");
+            System.out.print("Enter Adminid : ");
+            String admid = input.next();
+            AdminAccount aa = ad.findById(admid);
+            System.out.print("Update Password : ");
+            String pass = input.next();
+            aa.setPassword(pass);
+            ad.update(aa ,store);
     }
+        
+        public static void deleteAdmin(){
+            System.out.println("\n Delete Admin");
+            System.out.print("Enter Adminid : ");
+            String id = input.next();
+            AdminAccount a = ad.findById(id);
+            ad.delete(a);
+        }
+        
+        public static void getAllAdmin(){
+            System.out.println("\n List all Admin");
+            GeneralList<AdminAccount> aal = ad.getAll();
+            int i = 1;
+            for (AdminAccount temp : aal) {
+                System.out.println(i++ + ". " + temp);
+            }
+        }
+        
+        public static void findAdminByName(){
+            System.out.println("\n Finding Admin");
+            System.out.print("Enter Adminname : ");
+            String n = input.next();
+            GeneralList<AdminAccount> aln = ad.getAll();
+            int i = 1;
+            for (AdminAccount temp : aln) {
+                System.out.println(i++ + ". " + temp);
+            }
+        }
 }
