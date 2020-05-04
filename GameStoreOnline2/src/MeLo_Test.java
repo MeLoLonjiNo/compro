@@ -61,6 +61,11 @@ public class MeLo_Test {
              //deleteStore();
              //updateStore(store);
              //getStore();
+             //getPerson();
+             //findPersonByName();
+             //insertPerson();
+             //deletePerson();
+             //updatePerson();
         }
 
         public static void getProduct(){
@@ -195,6 +200,74 @@ public class MeLo_Test {
             int numPro = input.nextInt();
             Store ns = new Store(StoreName,a ,numCus, numPro);
             sd.update(ns,a);
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------//
+        
+        public static void getPerson(){
+        System.out.println("\nList all Person");
+        GeneralList<Person> perd = pd.getAll();
+        int i = 1;
+        for (Person temp : perd) {
+            System.out.println(i++ + ". " + temp);
+            }
+        }
+        
+        public static void findPersonByName(){
+            System.out.println("\nFinding Person");
+            System.out.print("Please Enter Person Name : ");
+            String personName = input.nextLine();
+            Person prod = pd.findByName(personName);
+        }
+        
+        public static void insertPerson(){
+            System.out.println("\nInsert Person");
+            System.out.print("Add Name : ");
+            String personName = input.next();
+            System.out.print("Add Address : ");
+            String personAddress = input.next();
+            System.out.print("Add Birth Date (1-31) : ");
+            int date = input.nextInt();
+            System.out.print("Add Birth Month (1-12) : ");
+            int month = input.nextInt();
+            System.out.print("Add Birth Year : ");
+            int year = input.nextInt();
+            System.out.print("Add Email : ");
+            String personEmail = input.next();
+            System.out.print("Add Phone : ");
+            String personPhone = input.next();
+            Person p = new Person(personName,personAddress,date,month ,year,personEmail, personPhone);
+            pd.insert(p);
+        }
+        
+        public static void deletePerson(){
+            System.out.println("\nDelete Person");
+            System.out.print("Delete Person Name : ");
+            String personName = input.next();
+            Person p = pd.findByName(personName);
+            pd.delete(p);
+        }
+        
+        public static void updatePerson(){
+            System.out.println("\nUpdate Person");
+            System.out.print("Update Person Name : ");
+            String oldName = input.next();
+            Person op = pd.findByName(oldName);
+            System.out.print("Add Name : ");
+            String personName = input.next();
+            System.out.print("Add Address : ");
+            String personAddress = input.next();
+            System.out.print("Add Birth Date (1-31) : ");
+            int date = input.nextInt();
+            System.out.print("Add Birth Month (1-12) : ");
+            int month = input.nextInt();
+            System.out.print("Add Birth Year : ");
+            int year = input.nextInt();
+            System.out.print("Add Email : ");
+            String personEmail = input.next();
+            System.out.print("Add Phone : ");
+            String personPhone = input.next();
+            Person p = new Person(personName,personAddress,date,month ,year,personEmail, personPhone);
+            pd.update(op,p);
         }
                 
         

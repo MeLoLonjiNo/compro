@@ -1,9 +1,6 @@
 package Person;
-
-
 import java.time.LocalDate;
 import java.util.Date;
-
 
 public class Person {
     private String name;
@@ -64,7 +61,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", address=" + address + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phone=" + phone + '}';
+        return "Name : " + name + "\nAddress : " + address + "\nDateOfBirth : " + dateOfBirth + "\nEmail : " + email + "\nPhone : " + phone;
     }
     
     

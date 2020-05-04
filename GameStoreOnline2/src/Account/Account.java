@@ -5,7 +5,7 @@ import Person.Person;
 import java.util.Date;
 import java.util.Objects;
 
-public class Account {
+public abstract class Account {
     private String userID;
     private String password;
     private AccountStatus accountStatus;

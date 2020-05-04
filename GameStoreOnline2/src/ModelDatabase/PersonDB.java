@@ -33,7 +33,7 @@ public class PersonDB implements PersonInterface{
 
     
     @Override
-    public int update(Person obj) {
+    public int update(Person oldObj,Person obj) {
         String sql = "UPDATE person SET name=?,address=?,dateOfBirth=?, monthOfBirth=?,yearOfBirth=?,email=?,phone=? WHERE name=? ";
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
@@ -45,6 +45,7 @@ public class PersonDB implements PersonInterface{
             stm.setInt(5, obj.getYear());
             stm.setString(6, obj.getEmail());
             stm.setString(7, obj.getPhone());
+            stm.setString(8, oldObj.getName());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -58,7 +59,7 @@ public class PersonDB implements PersonInterface{
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM person WHERE name=" + prod.getName();
+            String sql = "DELETE FROM person WHERE name= '" + prod.getName()+"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -102,21 +103,20 @@ public class PersonDB implements PersonInterface{
 
     
     @Override
-    public GeneralList<Person> findByName(String name) {
-        GeneralList<Person> prodList = new GeneralList<>();
-        String sql = "SELECT * FROM person WHERE name like " + name;
+    public Person findByName(String name) {
+        Person per = null;
         try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, "%" + name + "%");
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                prodList.add(new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone")));
+                Statement stm = conn.createStatement()) {
+            String sql = "SELECT * FROM person WHERE name like '%" + name+"%'";
+            ResultSet rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                per = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-        return prodList;
+        System.out.println(per);
+        return per;
     }
 
     
