@@ -53,9 +53,6 @@ public class MeLo_Test {
          
          
         
-       
-        
-        
         //----------------------------------------------------Product------------------------------------------------------//
         public static void getProduct(){
         System.out.println("\nList all Product");
