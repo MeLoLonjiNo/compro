@@ -44,6 +44,7 @@ public class AdminAccountDB implements AdminInterface{
             stm.setString(3, adm.getPassword());
             stm.setString(4, adm.getAccountStatusToString());
             stm.setString(5, str.getStoreName());
+            stm.setString(6, adm.getUserID());
             row = stm.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -56,7 +57,7 @@ public class AdminAccountDB implements AdminInterface{
         int row = 0;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "DELETE FROM admin WHERE admid=" + adm.getUserID();
+            String sql = "DELETE FROM admin WHERE admid='" + adm.getUserID() +"'";
             row = stm.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
