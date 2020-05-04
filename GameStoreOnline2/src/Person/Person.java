@@ -57,8 +57,8 @@ public class Person {
         return phone;
     }
     
-    
-
+  
+   
     @Override
     public String toString() {
         return "Name : " + name + "\nAddress : " + address + "\nDateOfBirth : " + dateOfBirth + "\nEmail : " + email + "\nPhone : " + phone;

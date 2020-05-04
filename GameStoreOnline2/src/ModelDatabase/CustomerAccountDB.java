@@ -87,11 +87,11 @@ public class CustomerAccountDB implements CustomerInterface{
     }
 
     @Override
-    public CustomerAccount findById(int id) {
+    public CustomerAccount findById(String id) {
         CustomerAccount cust = null;
         try (Connection conn = DBConnection.getConnection();
                 Statement stm = conn.createStatement()) {
-            String sql = "SELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid=" + id;
+            String sql = "SELECT * FROM person p,customer c WHERE c.cusname = p.name AND c.cusid = '" + id +"'" ;
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
@@ -106,7 +106,7 @@ public class CustomerAccountDB implements CustomerInterface{
     @Override
     public GeneralList<CustomerAccount> findByName(String name) {
         GeneralList<CustomerAccount> custList = new GeneralList<>();
-        String sql = "ELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid like ?";
+        String sql = "SELECT * FROM person p,customer c WHERE c.cusname = p.name AND cusid like ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + name + "%");
