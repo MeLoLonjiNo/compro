@@ -24,6 +24,15 @@ public abstract class Account {
         this.accountStatus = AccountStatus.active;
     }
     
+     public  Account(String id , String password , Person person,String status){
+        this.userID = id;
+        this.password = password;
+        this.person = person;
+        if(status.equals("Active")){this.accountStatus=AccountStatus.active;}
+        if(status.equals("Ban")){this.accountStatus=AccountStatus.ban;}
+        if(status.equals("Closed")){this.accountStatus=AccountStatus.closed;}
+     }
+    
     public String getUserID() {
         return userID;
     }
@@ -43,7 +52,8 @@ public abstract class Account {
 
     public String getAccountStatusToString(){
         if(this.accountStatus==AccountStatus.active){return "Active";}
-        else{return "Ban";}
+        else if(this.accountStatus==AccountStatus.ban){return "Ban";}
+        else {return "Closed";}
     }
     
     public void setAccountStatus(AccountStatus accountStatus) {

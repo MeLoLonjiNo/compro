@@ -39,10 +39,8 @@ public class CustomerAccount extends Account{
         countStorage=0;
     }
     
-    public CustomerAccount(String id , String password , Person person , int money,int countC,int countS){
-        super(id, password, person);
-        productInCart = new Product[20];
-        storage = new Product[20];
+    public CustomerAccount(String id , String password , Person person , int money,int countC,int countS,String status){
+        super(id, password, person,status);
         this.money = money;
         countCart=countC;
         countStorage=countS;

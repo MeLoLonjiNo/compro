@@ -79,7 +79,7 @@ public class CustomerAccountDB implements CustomerInterface{
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
-                custs.add(new CustomerAccount(rs.getString("cusid"), rs.getString("password"), p ,rs.getInt("money"), rs.getInt("countcart"), rs.getInt("countstorage")));
+                custs.add(new CustomerAccount(rs.getString("cusid"), rs.getString("password"), p ,rs.getInt("money"), rs.getInt("countcart"), rs.getInt("countstorage"),rs.getString("accountstatus")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -96,7 +96,7 @@ public class CustomerAccountDB implements CustomerInterface{
             ResultSet rs = stm.executeQuery(sql);
             if (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
-                return new CustomerAccount(rs.getString("cusid"), rs.getString("password"), p ,rs.getInt("money"), rs.getInt("countcart"), rs.getInt("countstorage"));
+                return new CustomerAccount(rs.getString("cusid"), rs.getString("password"), p ,rs.getInt("money"), rs.getInt("countcart"), rs.getInt("countstorage"),rs.getString("accountstatus"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -114,7 +114,7 @@ public class CustomerAccountDB implements CustomerInterface{
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Person p = new Person(rs.getString("name"), rs.getString("address"), rs.getInt("dateOfBirth"),rs.getInt("monthOfBirth"),rs.getInt("yearOfBirth"),rs.getString("email"),rs.getString("phone"));
-                custList.add(new CustomerAccount(rs.getString("cusid"), rs.getString("password"), p ,rs.getInt("money"), rs.getInt("countcart"), rs.getInt("countstorage")));
+                custList.add(new CustomerAccount(rs.getString("cusid"), rs.getString("password"), p ,rs.getInt("money"), rs.getInt("countcart"), rs.getInt("countstorage"),rs.getString("accountstatus")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

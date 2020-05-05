@@ -329,21 +329,39 @@ public class StoreServiceDB {
                     removeProductFromCart();
                     break;
                 case 4:
-                    picd.getAll(nowCustomerAccount);
+                    checkCart();
                     break;
                 case 5:
                     buyProduct();
                     break;
                 case 6:
-                    pisd.getAll(nowCustomerAccount);
+                    checkStorage();
                     break;
                 case 7:
-                    cad.findById(nowCustomerAccount.getUserID()).getMoney();
+                    System.out.println("Your Money : "+cad.findById(nowCustomerAccount.getUserID()).getMoney());
                     break;
             }
         } while (menuId != 0);
         }catch (Exception e){
             System.out.println("Please Enter Only 0-7");
+        }
+    }
+    
+    public static void checkCart(){
+        System.out.println("\nList all product");
+        GeneralList<Product> prods = picd.getAll(nowCustomerAccount);
+        int i = 1;
+        for (Product temp : prods) {
+            System.out.println(i++ + ". " + temp);
+        }
+    }
+    
+    public static void checkStorage(){
+        System.out.println("\nList all product");
+        GeneralList<Product> prods = pisd.getAll(nowCustomerAccount);
+        int i = 1;
+        for (Product temp : prods) {
+            System.out.println(i++ + ". " + temp);
         }
     }
     
@@ -364,9 +382,8 @@ public class StoreServiceDB {
         productCode = sc.next();
         Product ap = pdb.findById(productCode);
         picd.insert(nowCustomerAccount, ap);
-        CustomerAccount nc = cad.findById(nowCustomerAccount.getUserID());
-        nc.addCountCart();
-        cad.update(gameStore, nc);
+        nowCustomerAccount.addCountCart();
+        cad.update(gameStore, nowCustomerAccount);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
