@@ -1,5 +1,6 @@
 package Service;
 
+import Account.AccountStatus;
 import Store.Store;
 import Account.AdminAccount;
 import Account.CustomerAccount;
@@ -20,6 +21,7 @@ import ModelInterface.StorageInterface;
 import ModelInterface.StoreInterface;
 import Person.Person;
 import Product.Product;
+import Product.ProductStatus;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -143,23 +145,23 @@ public class StoreServiceDB {
         String email; 
         String phone;
         System.out.println("***** Register Menu *****");
-        System.out.println("Please Enter Your Name : ");
+        System.out.print("Please Enter Your Name : ");
         name = sc.next();
-        System.out.println("Please Enter Your Address : ");
+        System.out.print("Please Enter Your Address : ");
         address=sc.next();
-        System.out.println("Please Enter Your Birth Date (1-31) : ");
+        System.out.print("Please Enter Your Birth Date (1-31) : ");
         dateOfBirth = sc.nextInt();
-        System.out.println("Please Enter Your Birth Month (1-12) : ");
+        System.out.print("Please Enter Your Birth Month (1-12) : ");
         monthOfBirth = sc.nextInt();
-        System.out.println("Please Enter Your Birth Year : ");
+        System.out.print("Please Enter Your Birth Year : ");
         yearOfBirth = sc.nextInt();
-        System.out.println("Please Enter Your Email : ");
+        System.out.print("Please Enter Your Email : ");
         email=sc.next();
-        System.out.println("Please Enter Your Phone Number : ");
+        System.out.print("Please Enter Your Phone Number : ");
         phone=sc.next();
-        System.out.println("Please Enter Your UserID : ");
+        System.out.print("Please Enter Your UserID : ");
         registerID = sc.next();
-        System.out.println("Please Enter Your Password : ");
+        System.out.print("Please Enter Your Password : ");
         registerPassword=sc.next();
         Person p = new Person(name, address, LocalDate.of(yearOfBirth, monthOfBirth, dateOfBirth), email, phone);
         CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
@@ -230,15 +232,16 @@ public class StoreServiceDB {
         try{
         int price;
          System.out.println("----- Add Product -----");
-         System.out.println("Add Product ID : ");
+         System.out.print("Add Product ID : ");
          String productCode = sc.next();
-         System.out.println("Add Product Name : ");
+         System.out.print("Add Product Name : ");
          String productName = sc.next();
-         System.out.println("Add Description : ");
+         System.out.print("Add Description : ");
          String description = sc.next();
-         System.out.println("Add Price : ");
+         System.out.print("Add Price : ");
          price = sc.nextInt();
          Product np = new Product(productCode, productName, description, price);
+         np.setProductStatus(ProductStatus.onSale);
          pdb.insert(gameStore, np);
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
@@ -247,7 +250,7 @@ public class StoreServiceDB {
         try{
         String productCode;
         System.out.println("----- Remove Product -----");
-        System.out.println("Please Enter Removing Product ID : ");
+        System.out.print("Please Enter Removing Product ID : ");
         productCode = sc.next();
         pdb.delete(pdb.findById(productCode));
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
@@ -257,10 +260,10 @@ public class StoreServiceDB {
         try{
         String cusId;
         System.out.println("----- Ban Customer -----");
-        System.out.println("Please Enter Customer ID : ");
+        System.out.print("Please Enter Customer ID : ");
         cusId = sc.next();
         CustomerAccount c1 = cad.findById(cusId);
-        gameStore.banCustomer(c1);
+        c1.setAccountStatus(AccountStatus.ban);
         cad.update(gameStore, c1);
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
@@ -269,10 +272,10 @@ public class StoreServiceDB {
         try{
         String cusId;
         System.out.println("----- Unban Customer -----");
-        System.out.println("Please Enter Customer ID : ");
+        System.out.print("Please Enter Customer ID : ");
         cusId = sc.next();
         CustomerAccount c1 = cad.findById(cusId);
-        gameStore.unBanCustomer(c1);
+        c1.setAccountStatus(AccountStatus.active);
         cad.update(gameStore, c1);
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
@@ -282,9 +285,9 @@ public class StoreServiceDB {
         int money;
         String cusId;
         System.out.println("----- Add Money -----");
-        System.out.println("Please Enter Customer ID : ");
+        System.out.print("Please Enter Customer ID : ");
         cusId = sc.next();
-        System.out.println("Please Enter the money : ");
+        System.out.print("Please Enter the money : ");
         money = sc.nextInt();
         CustomerAccount c1 = cad.findById(cusId);
         gameStore.addMoney(c1, money);
@@ -347,7 +350,7 @@ public class StoreServiceDB {
     public static void viewShop(){
         System.out.println("\nList all product");
         GeneralList<Product> prods = pdb.getAll();
-        int i = 0;
+        int i = 1;
         for (Product temp : prods) {
             System.out.println(i++ + ". " + temp);
         }
@@ -357,7 +360,7 @@ public class StoreServiceDB {
         try{
         String productCode;
         System.out.println("----- Add Product To Cart -----");
-        System.out.println("Please Enter Product ID : ");
+        System.out.print("Please Enter Product ID : ");
         productCode = sc.next();
         Product ap = pdb.findById(productCode);
         picd.insert(nowCustomerAccount, ap);
@@ -372,7 +375,7 @@ public class StoreServiceDB {
         try{
         String productCode;
         System.out.println("----- Remove Product From Cart -----");
-        System.out.println("Please Enter Product ID : ");
+        System.out.print("Please Enter Product ID : ");
         productCode = sc.next();
         Product ap = pdb.findById(productCode);
         picd.delete(nowCustomerAccount, ap);
@@ -387,7 +390,7 @@ public class StoreServiceDB {
         try{
         String productCode;
         System.out.println("----- Buy Product  -----");
-        System.out.println("Please Enter Product ID : ");
+        System.out.print("Please Enter Product ID : ");
         productCode = sc.next();
         Product ap = picd.findById(nowCustomerAccount,productCode);
         CustomerAccount nc = cad.findById(nowCustomerAccount.getUserID());

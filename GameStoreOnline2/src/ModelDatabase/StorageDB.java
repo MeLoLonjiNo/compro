@@ -86,7 +86,7 @@ public class StorageDB implements StorageInterface{
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        System.out.println(prod);
+        //System.out.println(prod);
         return prod;
     }
 
