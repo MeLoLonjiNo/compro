@@ -35,7 +35,7 @@ public class Gn_Test {
         
         public static void main(String[] args) {
 //            insertAdmin();
-//            findAdminById();
+            findAdminById();
 //            updateAdmin();
 //            deleteAdmin();
 //            getAllAdmin();
@@ -46,7 +46,7 @@ public class Gn_Test {
             System.out.println("\n Finding Admin");
             System.out.print("Please Enter Adminid : ");
             String ai = input.nextLine();
-            AdminAccount a = ad.findById(ai);
+            AdminAccount a = ad.findById("a1");
             System.out.println(a.toString());
     }
         

@@ -48,6 +48,33 @@ public class CustomerAccount extends Account{
         countStorage=countS;
     }
     
+    public void addCountCart(){
+        this.countCart++;
+    }
+    
+    public void deCountCart(){
+        this.countCart--;
+    }
+    
+    public void addCountStorage(){
+        this.countStorage++;
+    }
+    
+    public void deCountStorage(){
+        this.countStorage--;
+    }
+    
+    public boolean prePay(int productPrice){
+        if(this.money>=productPrice){
+            return true;
+    }
+        else{return false;}
+    }
+    
+    public void pay(int productPrice){
+        this.money = money-productPrice;
+    }
+    
     public void resize() {
         if(countCart==productInCart.length){
             Product cart[] = new Product[this.productInCart.length+20];

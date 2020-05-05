@@ -1,72 +1,63 @@
-
 package Service;
 
 import Store.Store;
-import Account.AccountPriority;
 import Account.AdminAccount;
 import Account.CustomerAccount;
+import ModelDatabase.AdminAccountDB;
+import ModelDatabase.CustomerAccountDB;
 import ModelDatabase.GeneralList;
+import ModelDatabase.PersonDB;
 import ModelDatabase.ProductDB;
+import ModelDatabase.ProductInCartDB;
+import ModelDatabase.StorageDB;
 import ModelDatabase.StoreDB;
+import ModelInterface.AdminInterface;
+import ModelInterface.CustomerInterface;
+import ModelInterface.PersonInterface;
+import ModelInterface.ProductInCartInterface;
+import ModelInterface.ProductInterface;
+import ModelInterface.StorageInterface;
+import ModelInterface.StoreInterface;
 import Person.Person;
 import Product.Product;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class StoreServiceDB {
-    private AdminAccount adminAccount;
-    private CustomerAccount nowCustomerAccount;
-    private static Product[] Store;
-    private Store gameStore;
-    private static StoreDB storeDB;
-    private static ProductDB productDB;
+    private static AdminAccount nowAdminAccount;
+    private static CustomerAccount nowCustomerAccount;
+    private static Store gameStore;
+    private static ProductInterface pdb = new ProductDB();
+    private static ProductInCartInterface picd = new ProductInCartDB();
+    private static StorageInterface pisd = new StorageDB();
+    private static StoreInterface sd =new StoreDB();
+    private static AdminInterface ad = new AdminAccountDB();
+    private static PersonInterface pd = new PersonDB();
+    static CustomerInterface cad = new CustomerAccountDB();
     private static final Scanner sc = new Scanner(System.in);
     private static final String RED = "\u001B[031m";
     private static final String BLACK = "\u001B[030m";
     
-    public StoreServiceDB(String storeName, AdminAccount admin){
-        this.gameStore = new Store("PokeShop", admin);
-        this.adminAccount = admin;
-    }
 
     public static void main(String[] args) {
-        Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
-        AdminAccount admin01 = new AdminAccount("Admin01","12345",p0);
-        StoreService StoreService1 = new StoreService("Poke Shop", admin01);
-        //StoreService1.insertTest();
-        StoreService1.firstMenu();
+        //System.out.println(ad.findById("a1").getPassword());
+        setUpStore();
+        firstMenu();
     }
     
-    public void insertTest(){
-        Product pd01 = new Product("PD01","Final Fantasy VII Remake","Game Form Square Enix",1000);
-        Product pd02 = new Product("PD02","Final Fantasy XV ","Game Form Square Enix",1500);
-        Product pd03 = new Product("PD03","Dota2","GG game",0);
-        Product pd04 = new Product("PD04","Dead By Daylight","Game price 300 Bug 3Million",300);
-        Person p0 = new Person("Arzeus", "Pokemon Universe", LocalDate.of(1, 1, 1), "Azeus@mail.com", "0000000000");
-        Person p1= new Person("Kritsanapon", "Bangkok", LocalDate.of(2000, 9, 11), "kritsanapon.melo@mail.kmutt.ac.th", "0800000000");
-        Person p2= new Person("Jirayut", "Bangkok", LocalDate.of(2001, 1, 18), "jirayut.bal4ncez@mail.kmutt.ac.th", "0900000000");
-        Person p3= new Person("Nippit", "Bangkok", LocalDate.of(2001, 2, 6), "nippit.c@mail.kmutt.ac.th", "0800000000");
-        AdminAccount admin01 = new AdminAccount("Admin01","12345",p0);
-        CustomerAccount MeLo=new CustomerAccount("MeLo","12345",p1);
-        CustomerAccount Bal4ncez=new CustomerAccount("Bal4ncez","67890",p2);
-        CustomerAccount Garnet_=new CustomerAccount("Garnet_","54321",p3);
-        gameStore.addProduct(pd01);
-        gameStore.addProduct(pd02);
-        gameStore.addProduct(pd03);
-        gameStore.addProduct(pd04);
-        gameStore.addCustomerAccuont(MeLo);
-        gameStore.addCustomerAccuont(Bal4ncez);
-        gameStore.addCustomerAccuont(Garnet_);
-        this.nowCustomerAccount=MeLo;
+    public static void setUpStore(){
+        nowAdminAccount = ad.findById("a1");
+        gameStore = sd.findByName("PokeShop");
     }
     
-    public void firstMenu(){
+    public static void firstMenu(){
         try{
         int menuId;
         do {
             System.out.println("<<Welcome To "+gameStore.getStoreName()+ " >>");
-            System.out.println("1. Log-In ");
-            System.out.println("2. Register ");
+            System.out.println("1. Log-In Customer ");
+            System.out.println("2. Log-In Admin ");
+            System.out.println("3. Register ");
             System.out.println("0. Exit ");
             System.out.print("Enter your menu : ");
             menuId = sc.nextInt();
@@ -75,14 +66,16 @@ public class StoreServiceDB {
                 case 0:
                     break;
                 case 1:
-                    logIn();
+                    logInCustomer();
                     break;
-
                 case 2:
-                    register();
+                    logInAdmin();
                     break;
                 case 3:
-                    gameStore.listCustomer();
+                    register();
+                    break;
+                case 4:
+                    viewCustomer();
                     break;
             }
         } while (menuId != 0);
@@ -92,34 +85,53 @@ public class StoreServiceDB {
         }
     }
     
-    public void  logIn(){
+    public static void  logInCustomer(){
         try{
         String menuLogInID;
         String menuLogInPassword;
         System.out.println("***** Log-In Menu *****");
-        System.out.println("Please Enter Your UserID : ");
+        System.out.print("Please Enter Your UserID : ");
         menuLogInID = sc.next();
-        System.out.println("Please Enter Your Password : ");
+        System.out.print("Please Enter Your Password : ");
         menuLogInPassword=sc.next();
-        
-        if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Customer){
-            this.nowCustomerAccount=gameStore.codeToAccount(menuLogInID);
-            customerMenu();
+        if((menuLogInID == null ? cad.findById(menuLogInID).getUserID() == null : menuLogInID.equals(cad.findById(menuLogInID).getUserID()))&&(menuLogInPassword == null ? cad.findById(menuLogInID).getPassword() == null : menuLogInPassword.equals(cad.findById(menuLogInID).getPassword()))){
+            if(null!=cad.findById(menuLogInID).getAccountStatus())switch (cad.findById(menuLogInID).getAccountStatus()) {
+                case active:
+                    nowCustomerAccount = cad.findById(menuLogInID);
+                    customerMenu();
+                    break;
+                case closed:
+                    System.out.println("This Account Has Been Closed.");
+                    break;
+                case ban:
+                    System.out.println("This Account Has Been Ban.");
+                    break;
+                default:
+                    break;
+            }
         }
-        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Admin){
-            adminMenu();
-        }
-        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Ban){
-            System.out.println(RED+"This Account Has Been Ban."+BLACK);
-        }
-        else if(gameStore.logInVer2(menuLogInID, menuLogInPassword)==AccountPriority.Fail){
-            System.out.println(RED+"Log-In Failed" + BLACK);
-        }
+        else {System.out.println("Log-In Fail. Please Try Again.");}
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void register(){
+    public static void  logInAdmin(){
+        try{
+        String menuLogInID;
+        String menuLogInPassword;
+        System.out.println("***** Log-In Menu *****");
+        System.out.print("Please Enter Your UserID : ");
+        menuLogInID = sc.next();
+        System.out.print("Please Enter Your Password : ");
+        menuLogInPassword=sc.next();
+        if((menuLogInID == null ? ad.findById(menuLogInID).getUserID() == null : menuLogInID.equals(ad.findById(menuLogInID).getUserID()))&&(menuLogInPassword == null ? ad.findById(menuLogInID).getPassword() == null : menuLogInPassword.equals(ad.findById(menuLogInID).getPassword()))){
+                    adminMenu();
+        }else {System.out.println("Log-In Fail. Please Try Again.");}
+        System.out.println("---------------------------------------------------------------------------------------------------");
+        }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
+    }
+    
+    public static void register(){
         try{
         String registerID;
         String registerPassword;
@@ -151,12 +163,13 @@ public class StoreServiceDB {
         registerPassword=sc.next();
         Person p = new Person(name, address, LocalDate.of(yearOfBirth, monthOfBirth, dateOfBirth), email, phone);
         CustomerAccount c = new CustomerAccount(registerID, registerPassword, p);
-        gameStore.addCustomerAccuont(c);
+        pd.insert(p);
+        cad.insert(gameStore, c);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println("\nSorry Some Thing Wrong.");}
     }
     
-    public void adminMenu() {
+    public static void adminMenu() {
         try{
         int adminmenu;
         do {
@@ -187,7 +200,7 @@ public class StoreServiceDB {
                     removeProduct();
                     break;
                 case 4:
-                    gameStore.listCustomer();
+                    viewCustomer();
                     break;
                 case 5:
                     banCustomer();
@@ -204,61 +217,67 @@ public class StoreServiceDB {
             System.out.println("Please Enter Only 0-7");
         }
     }
+    public static void viewCustomer(){
+        System.out.println("\nList all Customer");
+                    GeneralList<CustomerAccount> perd = cad.getAll();
+                    int i = 1;
+                    for (CustomerAccount temp : perd) {
+                    System.out.println(i++ + ". " + temp);
+                    }
+    }
     
-    public void addProduct() {
+    public static void addProduct() {
         try{
-        String productCode;
-        String productName;
-        String description;
         int price;
          System.out.println("----- Add Product -----");
          System.out.println("Add Product ID : ");
-         productCode = sc.next();
+         String productCode = sc.next();
          System.out.println("Add Product Name : ");
-         productName = sc.next();
+         String productName = sc.next();
          System.out.println("Add Description : ");
-         description = sc.next();
+         String description = sc.next();
          System.out.println("Add Price : ");
          price = sc.nextInt();
-         gameStore.addProduct(productCode, productName, description, price);
+         Product np = new Product(productCode, productName, description, price);
+         pdb.insert(gameStore, np);
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void removeProduct() {
+    public static void removeProduct() {
         try{
         String productCode;
         System.out.println("----- Remove Product -----");
         System.out.println("Please Enter Removing Product ID : ");
         productCode = sc.next();
-        gameStore.removeProduct(productCode);
+        pdb.delete(pdb.findById(productCode));
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void banCustomer() {
+    public static void banCustomer() {
         try{
         String cusId;
         System.out.println("----- Ban Customer -----");
         System.out.println("Please Enter Customer ID : ");
         cusId = sc.next();
-        gameStore.banCustomer(gameStore.codeToAccount(cusId));
-        System.out.println("Ban " + cusId + " Complete");
-        //System.out.println("---------------------------------------------------------------------------------------------------");
+        CustomerAccount c1 = cad.findById(cusId);
+        gameStore.banCustomer(c1);
+        cad.update(gameStore, c1);
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void unBanCustomer() {
+    public static void unBanCustomer() {
         try{
         String cusId;
         System.out.println("----- Unban Customer -----");
         System.out.println("Please Enter Customer ID : ");
         cusId = sc.next();
-        gameStore.unBanCustomer(gameStore.codeToAccount(cusId));
-        System.out.println("Unban " + cusId + " Complete");
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        CustomerAccount c1 = cad.findById(cusId);
+        gameStore.unBanCustomer(c1);
+        cad.update(gameStore, c1);
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void addMoney() {
+    public static void addMoney() {
         try{
         int money;
         String cusId;
@@ -267,13 +286,15 @@ public class StoreServiceDB {
         cusId = sc.next();
         System.out.println("Please Enter the money : ");
         money = sc.nextInt();
-        gameStore.addMoney(gameStore.codeToAccount(cusId), money);
+        CustomerAccount c1 = cad.findById(cusId);
+        gameStore.addMoney(c1, money);
+        cad.update(gameStore, c1);
         System.out.println("Add "+ money + " Wallet to " + cusId +" Complete" );
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void customerMenu(){
+    public static void customerMenu(){
         try{
         int menuId;
         do {
@@ -292,7 +313,7 @@ public class StoreServiceDB {
             System.out.println("---------------------------------------------------------------------------------------------------");
             switch (menuId) {
                 case 0:
-                    this.nowCustomerAccount = null;
+                    nowCustomerAccount = null;
                     System.out.println("Log Out Success.");
                     break;
                 case 1:
@@ -305,16 +326,16 @@ public class StoreServiceDB {
                     removeProductFromCart();
                     break;
                 case 4:
-                    gameStore.checkCart(nowCustomerAccount);
+                    picd.getAll(nowCustomerAccount);
                     break;
                 case 5:
                     buyProduct();
                     break;
                 case 6:
-                    gameStore.checkStorage(nowCustomerAccount);
+                    pisd.getAll(nowCustomerAccount);
                     break;
                 case 7:
-                    gameStore.checkMoney(nowCustomerAccount);
+                    cad.findById(nowCustomerAccount.getUserID()).getMoney();
                     break;
             }
         } while (menuId != 0);
@@ -323,44 +344,61 @@ public class StoreServiceDB {
         }
     }
     
-    public void viewShop(){
+    public static void viewShop(){
         System.out.println("\nList all product");
-        GeneralList<Product> prods = productDB.getAll();
+        GeneralList<Product> prods = pdb.getAll();
         int i = 0;
         for (Product temp : prods) {
             System.out.println(i++ + ". " + temp);
         }
     }
     
-    public void addProductToCart(){
+    public static void addProductToCart(){
         try{
         String productCode;
         System.out.println("----- Add Product To Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
-        gameStore.addToCart(this.nowCustomerAccount, productCode);
+        Product ap = pdb.findById(productCode);
+        picd.insert(nowCustomerAccount, ap);
+        CustomerAccount nc = cad.findById(nowCustomerAccount.getUserID());
+        nc.addCountCart();
+        cad.update(gameStore, nc);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void removeProductFromCart(){
+    public static void removeProductFromCart(){
         try{
         String productCode;
         System.out.println("----- Remove Product From Cart -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
-        gameStore.removeFromCart(this.nowCustomerAccount, productCode);
+        Product ap = pdb.findById(productCode);
+        picd.delete(nowCustomerAccount, ap);
+        CustomerAccount nc = cad.findById(nowCustomerAccount.getUserID());
+        nc.deCountCart();
+        cad.update(gameStore, nc);
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
-    public void buyProduct(){
+    public static void buyProduct(){
         try{
         String productCode;
         System.out.println("----- Buy Product  -----");
         System.out.println("Please Enter Product ID : ");
         productCode = sc.next();
-        gameStore.buy(this.nowCustomerAccount, productCode);
+        Product ap = picd.findById(nowCustomerAccount,productCode);
+        CustomerAccount nc = cad.findById(nowCustomerAccount.getUserID());
+        picd.delete(nc, ap);
+        nc.deCountCart();
+        if(nc.prePay(ap.getPrice())){
+        nc.pay(ap.getPrice());
+        pisd.insert(nc, ap);
+        nc.addCountStorage();
+        cad.update(gameStore, nc);
+        }else{System.out.println("Your Money Is Not Enough.");}
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
