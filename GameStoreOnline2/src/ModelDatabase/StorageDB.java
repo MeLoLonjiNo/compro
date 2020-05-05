@@ -1,3 +1,4 @@
+//109 จิรายุส เจษฎาการุณ
 package ModelDatabase;
 
 import Account.CustomerAccount;
@@ -27,22 +28,6 @@ public class StorageDB implements StorageInterface{
         }
         return row;
     }
-
-//    @Override
-//    public int update(CustomerAccount cus,Product obj) {
-//        String sql = "UPDATE storage SET cusid=?,pcode=? WHERE cusid=? ";
-//        int row = 0;
-//        try (Connection conn = DBConnection.getConnection();
-//                 PreparedStatement stm = conn.prepareStatement(sql)) {
-//            stm.setString(1, cus.getUserID());
-//            stm.setString(2, obj.getProductCode());
-//            row = stm.executeUpdate();
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        return row;
-//    }
-
     
     @Override
     public int delete(CustomerAccount cus,Product obj) {
@@ -89,25 +74,5 @@ public class StorageDB implements StorageInterface{
         //System.out.println(prod);
         return prod;
     }
-
-//    @Override
-//    public GeneralList<Product> findByName(CustomerAccount cus, String name) {
-//        GeneralList<Product> prodList = new GeneralList<>();
-//        String sql2 = "SELECT pname FROM storage WHERE cusid=" + cus.getUserID();
-//        String sql = "SELECT * FROM product WHERE "+ sql2 +" like " + name;
-//        try (Connection conn = DBConnection.getConnection();
-//                PreparedStatement stm = conn.prepareStatement(sql)) {
-//            stm.setString(1, "%" + name + "%");
-//            ResultSet rs = stm.executeQuery();
-//            while (rs.next()) {
-//                prodList.add(new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus")));
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//
-//        return prodList;
-//    }
-
     
 }

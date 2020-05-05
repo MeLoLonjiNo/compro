@@ -1,3 +1,4 @@
+//008 กฤษณพนธ์ รักเกียรติงาม
 package Service;
 
 import Account.AccountStatus;
@@ -311,7 +312,6 @@ public class StoreServiceDB {
             System.out.println("0. Back ");
             System.out.print("Enter your menu : ");
             menuId = sc.nextInt();
-            
             System.out.println("---------------------------------------------------------------------------------------------------");
             switch (menuId) {
                 case 0:
@@ -384,6 +384,7 @@ public class StoreServiceDB {
         nowCustomerAccount.addCountCart();
         cad.update(gameStore, nowCustomerAccount);
         System.out.println("---------------------------------------------------------------------------------------------------");
+        checkCart();
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
@@ -399,6 +400,7 @@ public class StoreServiceDB {
         nc.deCountCart();
         cad.update(gameStore, nc);
         System.out.println("---------------------------------------------------------------------------------------------------");
+        checkCart();
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}
     }
     
@@ -417,6 +419,7 @@ public class StoreServiceDB {
         pisd.insert(nc, ap);
         nc.addCountStorage();
         cad.update(gameStore, nc);
+            System.out.println("Buying "+ap.getProductName()+" Success.");
         }else{System.out.println("Your Money Is Not Enough.");}
         System.out.println("---------------------------------------------------------------------------------------------------");
         }catch (Exception e){ System.out.println(" Sorry Some Thing Wrong.");}

@@ -1,3 +1,4 @@
+//008 กฤษณพนธ์ รักเกียรติงาม
 package ModelDatabase;
 
 import DatabaseConection.DBConnection;
@@ -84,24 +85,6 @@ public class PersonDB implements PersonInterface{
         return prods;
     }
 
-//    @Override
-//    public Person findById(int id) {
-//        Product prod = null;
-//        try (Connection conn = DBConnection.getConnection();
-//                Statement stm = conn.createStatement()) {
-//            String sql = "SELECT * FROM person where pro_id=" + id;
-//            ResultSet rs = stm.executeQuery(sql);
-//            if (rs.next()) {
-//                prod = new Product(rs.getString("pcode"), rs.getString("pname"), rs.getString("description"),rs.getInt("price"),rs.getString("pStatus"));
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        System.out.println(prod);
-//        return prod;
-//    }
-
-    
     @Override
     public Person findByName(String name) {
         Person per = null;

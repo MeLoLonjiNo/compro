@@ -1,7 +1,6 @@
-
+//044 นิพพิชฌ์ โชติโก
 package ModelDatabase;
 
-import Account.Account;
 import Account.AdminAccount;
 import DatabaseConection.DBConnection;
 import ModelInterface.AdminInterface;

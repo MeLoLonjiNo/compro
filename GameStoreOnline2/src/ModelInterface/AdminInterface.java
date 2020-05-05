@@ -1,10 +1,8 @@
-
+//044 นิพพิชฌ์ โชติโก
 package ModelInterface;
 
-import Account.Account;
 import Account.AdminAccount;
 import ModelDatabase.GeneralList;
-import Person.Person;
 import Store.Store;
 
 public interface AdminInterface{

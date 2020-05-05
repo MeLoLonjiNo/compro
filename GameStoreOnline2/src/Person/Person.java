@@ -1,6 +1,6 @@
+//008 กฤษณพนธ์ รักเกียรติงาม
 package Person;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Person {
     private String name;
