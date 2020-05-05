@@ -42,7 +42,6 @@ public class StoreServiceDB {
     
 
     public static void main(String[] args) {
-        //System.out.println(ad.findById("a1").getPassword());
         setUpStore();
         firstMenu();
     }

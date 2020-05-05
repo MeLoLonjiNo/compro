@@ -93,13 +93,6 @@ public class Product {
         this.productStatus = productStatus;
     }
     
-    public void setProductStatusFromString(String productStatus) {
-        if(productStatus.equalsIgnoreCase("Beta Test")){this.productStatus = ProductStatus.betaTest;}
-        if(productStatus.equalsIgnoreCase("Coming Soon")){this.productStatus = ProductStatus.comingSoon;}
-        if(productStatus.equalsIgnoreCase("On Sale")){this.productStatus = ProductStatus.onSale;}
-        if(productStatus.equalsIgnoreCase("Suspended")){this.productStatus = ProductStatus.suspendedForSale;}
-    }
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
